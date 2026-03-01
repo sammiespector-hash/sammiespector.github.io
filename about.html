@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Sammie Spector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED;
+      --cream-dark: #EAE7E0;
+      --ink: #1A1A18;
+      --ink-light: #4A4A46;
+      --navy: #1B2F6E;
+      --accent: #B386EF;
+      --accent-light: #D9C2F5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s ease, background 0.4s ease;
+    }
+    nav.scrolled {
+      border-bottom-color: var(--cream-dark);
+      background: rgba(244, 242, 237, 0.96);
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .nav-brand:hover .logo-mark { opacity: 1; }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: color 0.3s;
+    }
+    .nav-brand:hover .nav-name { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul li a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-light);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.35s ease;
+    }
+    nav ul li a:hover { color: var(--accent); }
+    nav ul li a:hover::after { width: 100%; }
+
+    /* PAGE CONTENT */
+    .about-content {
+      padding: 140px 60px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-content .section-tag {
+      font-size: 15px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .about-content .prose {
+      max-width: 680px;
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    .about-content .prose p {
+      margin-bottom: 1.4em;
+    }
+    .about-content .prose p:last-child {
+      margin-bottom: 0;
+    }
+    .about-content .prose em { font-style: italic; color: var(--accent); }
+
+    .section-divider {
+      width: 1px; height: 48px;
+      background: var(--cream-dark);
+      margin: 0 auto;
+    }
+
+    /* SECTION BASE (for Say Hello) */
+    section {
+      padding: 60px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    section .section-tag {
+      font-size: 15px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .industry-list {
+      margin-top: 20px;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .industry-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      text-decoration: none;
+      color: var(--ink);
+      transition: color 0.3s;
+    }
+    .industry-title { font-size: 22px; font-weight: 400; transition: color 0.3s; }
+    .industry-type {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      transition: color 0.3s;
+      flex-shrink: 0;
+      margin-left: 32px;
+    }
+    .industry-item:hover .industry-title { color: var(--accent); }
+    .industry-item:hover .industry-type { color: var(--accent-light); }
+    #say-hello .industry-list { border-top: none; }
+    #say-hello .industry-item { border-bottom: none; padding: 8px 0; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--cream-dark);
+      padding: 32px 60px;
+    }
+    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 24px 32px; }
+      .about-content { padding: 120px 32px 60px; }
+      .about-content .prose { font-size: 18px; }
+      section { padding: 48px 32px; }
+      footer { padding: 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="index.html" class="nav-brand">
+      <img class="logo-mark" src="assets/logo.png" alt="Sammie Spector" width="40" height="40" />
+      <span class="nav-name">Sammie Spector</span>
+    </a>
+    <ul>
+      <li><a href="index.html#experience">Work</a></li>
+      <li><a href="index.html#industry">Industry</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="about-content">
+    <p class="section-tag">About</p>
+    <div class="prose">
+      <p>Hello, I'm Sammie. I currently head up UX Content Design at <em>Angi</em>, a home services marketplace that connects tradespeople to homeowners, with both B2C and B2B experiences.</p>
+      <p>I'm now based in London, after city-hopping from Miami &gt; Chicago &gt; NYC.</p>
+      <p>As a UX thinker, my primary interests are in behavioral design and the concept of nudges. As a numbers person, I strive to base design decisions in data and user insights, balancing user-centric advocacy and business needs.</p>
+      <p>I'm a thoughtful manager who has found developing career and craft growth rewarding. I like organizational strategy, and look for ways to improve or elevate team processes.</p>
+      <p>Since 2019, I've worked and partnered with the UX Content Collective. I've developed course and workshop materials, and have enjoyed writing about some of my favorite UX topics, published on their blog.</p>
+    </div>
+  </main>
+
+  <div class="section-divider"></div>
+
+  <section id="say-hello">
+    <p class="section-tag">Say Hello</p>
+    <div class="industry-list">
+      <a href="mailto:hello@sammiespector.com" class="industry-item">
+        <span class="industry-title">hello@sammiespector.com</span>
+        <span class="industry-type">Email ↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/sammiespector" class="industry-item" target="_blank" rel="noopener">
+        <span class="industry-title">LinkedIn</span>
+        <span class="industry-type">Profile ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Sammie Spector</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+
+</body>
+</html>

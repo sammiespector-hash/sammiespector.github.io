@@ -206,6 +206,23 @@
 
 
 
+    /* SAY HELLO */
+    .say-hello h1 {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .say-hello p {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .say-hello a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .say-hello a:hover { color: var(--accent); }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--cream-dark);
@@ -335,7 +352,14 @@ Sammie currently leads content design at Angi. Previous hats include heading up 
     </div>
   </section>
 
+  <div class="section-divider"></div>
 
+  <!-- SAY HELLO -->
+  <section id="say-hello" class="say-hello">
+    <h1>Say Hello</h1>
+    <p><a href="mailto:hello@sammiespector.com">hello@sammiespector.com</a> ↗</p>
+    <p><a href="https://linkedin.com/in/sammiespector" target="_blank" rel="noopener">LinkedIn</a> ↗</p>
+  </section>
 
   <footer>
     <p>© 2025 Sammie Spector &nbsp;·&nbsp; <a href="mailto:hello@sammiespector.com" style="color:var(--ink-light);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-light)'">hello@sammiespector.com</a></p>

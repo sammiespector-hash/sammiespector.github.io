@@ -182,7 +182,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 28px 0;
+      padding: 16px 0;
       border-bottom: 1px solid var(--cream-dark);
       text-decoration: none;
       color: var(--ink);
@@ -204,35 +204,7 @@
     .industry-item:hover .industry-title { color: var(--accent); }
     .industry-item:hover .industry-type { color: var(--accent-light); }
 
-    /* CONTACT */
-    .contact-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      padding: 100px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-      border-top: 1px solid var(--cream-dark);
-    }
-    .contact-left h2 {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 300;
-      line-height: 1.15;
-    }
-    .contact-left h2 em { font-style: italic; color: var(--accent); }
-    .contact-links { display: flex; flex-direction: column; gap: 20px; margin-top: 16px; }
-    .contact-link {
-      font-size: 20px;
-      font-weight: 300;
-      text-decoration: none;
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: color 0.3s;
-    }
-    .contact-link::before { content: '—'; color: var(--accent); font-size: 14px; }
-    .contact-link:hover { color: var(--accent); }
+
 
     /* FOOTER */
     footer {
@@ -278,7 +250,6 @@
       <li><a href="#experience">Work</a></li>
       <li><a href="#industry">Industry</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -373,19 +344,10 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <div id="contact" class="contact-section">
-    <div class="contact-left">
-      <h2>Let's build something <em>together.</em></h2>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:hello@sammiespector.com" class="contact-link">hello@sammiespector.com</a>
-      <a href="https://www.linkedin.com/in/sammiespector" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </div>
+
 
   <footer>
-    <p>© 2025 Sammie Spector</p>
+    <p>© 2025 Sammie Spector &nbsp;·&nbsp; <a href="mailto:hello@sammiespector.com" style="color:var(--ink-light);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-light)'">hello@sammiespector.com</a></p>
   </footer>
 
   <script>

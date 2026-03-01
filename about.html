@@ -172,13 +172,43 @@
     }
     footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE — Tablet */
     @media (max-width: 900px) {
       nav { padding: 24px 32px; }
+      nav ul { gap: 28px; }
+      nav ul li a { font-size: 14px; letter-spacing: 0.08em; }
       .about-content { padding: 120px 32px 60px; }
       .about-content .prose { font-size: 18px; }
-      section { padding: 48px 32px; }
+      section { padding: 48px 32px; scroll-margin-top: 80px; }
+      .industry-item { padding: 14px 0; }
+      .industry-title { font-size: 20px; }
+      .industry-type { font-size: 12px; margin-left: 24px; }
       footer { padding: 24px 32px; }
+    }
+
+    /* RESPONSIVE — Mobile */
+    @media (max-width: 600px) {
+      nav { padding: 20px 20px; }
+      nav ul { gap: 20px; }
+      nav ul li a { font-size: 13px; letter-spacing: 0.06em; }
+      .nav-name { font-size: 13px; letter-spacing: 0.12em; }
+      .logo-mark { width: 32px; }
+      .about-content { padding: 100px 20px 48px; }
+      .about-content .section-tag { font-size: 15px; letter-spacing: 0.18em; margin-bottom: 24px; }
+      .about-content .prose { font-size: 17px; line-height: 1.65; }
+      .about-content .prose p { margin-bottom: 1.2em; }
+      section { padding: 36px 20px; scroll-margin-top: 72px; }
+      .industry-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 16px 0;
+      }
+      .industry-title { font-size: 18px; }
+      .industry-type { margin-left: 0; font-size: 11px; letter-spacing: 0.08em; }
+      #say-hello .industry-item { padding: 12px 0; }
+      footer { padding: 20px; }
+      footer p { font-size: 12px; }
     }
   </style>
 </head>

@@ -117,10 +117,11 @@
       opacity: 0;
       animation: fadeUp 0.9s ease 0.4s forwards;
     }
+    .hero h1 .accent { color: var(--accent); font-style: normal; }
     .hero h1 em { font-style: italic; color: var(--accent); }
     .hero-sub {
       margin-top: 32px;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 300;
       color: var(--ink-light);
       max-width: 560px;
@@ -152,6 +153,18 @@
     }
 
     /* EXPERIENCE */
+    .experience-intro {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.65;
+      max-width: 800px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .experience-intro.visible { opacity: 1; transform: translateY(0); }
     .experience-list {
       margin-top: 20px;
       border-top: 1px solid var(--cream-dark);
@@ -245,8 +258,9 @@
       section { padding: 48px 32px; scroll-margin-top: 80px; }
       .hero { padding: 120px 32px 80px; }
       .hero h1 { font-size: clamp(26px, 4vw, 38px); }
-      .hero-sub { font-size: 17px; margin-top: 24px; }
+      .hero-sub { font-size: 18px; margin-top: 24px; }
       .section-tag { font-size: 16px; }
+      .experience-intro { font-size: 16px; }
       .experience-item { grid-template-columns: 1fr; gap: 4px 0; padding: 24px 0; }
       .exp-role, .exp-company, .exp-date { justify-self: start; }
       .exp-role { font-size: 20px; }
@@ -268,9 +282,10 @@
       section { padding: 36px 20px; scroll-margin-top: 72px; }
       .hero { padding: 100px 20px 60px; }
       .hero h1 { font-size: clamp(22px, 5.5vw, 28px); line-height: 1.35; }
-      .hero-sub { font-size: 16px; margin-top: 20px; max-width: 100%; }
+      .hero-sub { font-size: 17px; margin-top: 20px; max-width: 100%; }
       .section-divider { height: 32px; }
       .section-tag { font-size: 15px; letter-spacing: 0.18em; margin-bottom: 16px; }
+      .experience-intro { font-size: 15px; }
       .experience-item { padding: 20px 0; }
       .exp-role { font-size: 18px; }
       .exp-company { font-size: 16px; }
@@ -305,7 +320,7 @@
 
   <!-- HERO -->
   <div class="hero">
-    <h1>Sammie currently leads Content Design at <em>Angi</em>. Previous hats include heading up Content Design at <em>Condé Nast</em> and leading a UX Design team at <em>Vogue</em>.</h1>
+    <h1>Sammie currently leads UX Content Design at <span class="accent">Angi</span>. Previous hats include heading up the Content Design team at <span class="accent">Condé Nast</span> and a UX Design team at <em>Vogue</em>.</h1>
     <p class="hero-sub">
       She directs content design practices that shape how products speak, while building the craft, the culture, and the systems underneath.
     </p>
@@ -316,6 +331,7 @@
   <!-- EXPERIENCE -->
   <section id="experience">
     <p class="section-tag">Experience</p>
+    <h3 class="experience-intro">My UX career grew hand-in-hand with the industry; I was the very first content design intern at Intuit in Silicon Valley. From there, I worked in FinTech at Intuit and Morningstar, Inc. then jumped to Publishing and Interactive Media. Now, I'm working on digital marketplaces for the broadest range of users yet, homeowners and tradespeople across the globe.</h3>
     <div class="experience-list">
 
       <div class="experience-item">
@@ -423,8 +439,13 @@
       });
     }, { threshold: 0.1 });
 
+    const experienceIntro = document.querySelector('.experience-intro');
+    if (experienceIntro) {
+      experienceIntro.dataset.delay = 0;
+      observer.observe(experienceIntro);
+    }
     document.querySelectorAll('.experience-item').forEach((el, i) => {
-      el.dataset.delay = i * 80;
+      el.dataset.delay = (i + 1) * 80;
       observer.observe(el);
     });
 

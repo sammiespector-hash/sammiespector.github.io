@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Sammie Spector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED;
+      --cream-dark: #EAE7E0;
+      --ink: #1A1A18;
+      --ink-light: #4A4A46;
+      --navy: #1B2F6E;
+      --accent: #B386EF;
+      --accent-light: #D9C2F5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s ease, background 0.4s ease;
+    }
+    nav.scrolled {
+      border-bottom-color: var(--cream-dark);
+      background: rgba(244, 242, 237, 0.96);
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .nav-brand:hover .logo-mark { opacity: 1; }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); transition: color 0.3s;
+    }
+    .nav-brand:hover .nav-name { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul li a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; color: var(--ink-light);
+      position: relative; transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0; width: 0; height: 1px;
+      background: var(--accent); transition: width 0.35s ease;
+    }
+    nav ul li a:hover { color: var(--accent); }
+    nav ul li a:hover::after { width: 100%; }
+
+    /* PAGE */
+    .page-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 140px 60px 100px;
+    }
+
+    .page-tag {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+
+    .page-intro {
+      font-size: 19px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.6;
+      max-width: 800px;
+      margin-bottom: 72px;
+    }
+
+    /* WORK LIST */
+    .work-list {
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      position: relative;
+    }
+
+    .work-item.visible { opacity: 1; transform: translateY(0); }
+
+    .work-item::after {
+      content: '→';
+      position: absolute;
+      right: 0;
+      font-size: 20px;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .work-item:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .work-item-left { display: flex; flex-direction: column; gap: 10px; }
+
+    .work-number {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+    }
+
+    .work-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 400;
+      line-height: 1.2;
+      transition: color 0.3s;
+    }
+
+    .work-item:hover .work-title { color: var(--accent); }
+
+    .work-desc {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.5;
+      max-width: 600px;
+      margin-top: 4px;
+      transition: color 0.3s;
+    }
+
+    .work-item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+      padding-right: 32px;
+    }
+
+    .work-company {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .work-category {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--cream-dark);
+      padding: 32px 60px;
+    }
+    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-tag, .page-title, .page-intro {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .page-tag { animation-delay: 0.1s; }
+    .page-title { animation-delay: 0.25s; }
+    .page-intro { animation-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+      nav { padding: 24px 32px; }
+      .page-content { padding: 120px 32px 80px; }
+      .work-item { grid-template-columns: 1fr; }
+      .work-item-right { align-items: flex-start; padding-right: 0; margin-top: 8px; }
+      .work-item::after { display: none; }
+      footer { padding: 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="index.html" class="nav-brand">
+      <svg class="logo-mark" width="40" height="57" viewBox="0 0 40 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4 L30 8 L34 16 L34 24 L28 28 L34 32 L34 42 L30 50 L20 54 L10 50 L6 42 L6 32 L12 28 L6 24 L6 16 L10 8 Z" fill="none" stroke="#1B2F6E" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M28 28 L34 24 L34 32 L28 28Z" fill="#B386EF" stroke="#1B2F6E" stroke-width="0.8"/>
+        <path d="M30 50 L34 42 L34 32 L28 28 L30 50Z" fill="#B386EF" stroke="#1B2F6E" stroke-width="0.8"/>
+        <path d="M20 10 L26 13 L29 19 L29 24 L22 27 L22 31 L29 34 L29 41 L26 47 L20 50 L14 47 L11 41 L11 34 L18 31 L18 27 L11 24 L11 19 L14 13 Z" fill="none" stroke="#1B2F6E" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav-name">Sammie Spector</span>
+    </a>
+    <ul>
+      <li><a href="portfolio.html">Experience</a></li>
+      <li><a href="index.html#industry">Industry</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-content">
+    <p class="page-tag">Selected Work</p>
+    <h1 class="page-title">Leadership through craft, systems, and strategy.</h1>
+    <p class="page-intro">A selection of projects spanning content systems, subscription design, and interactive UX — each rooted in a clear business challenge and a user-first approach.</p>
+
+    <div class="work-list">
+
+      <a href="global-accounts.html" class="work-item">
+        <div class="work-item-left">
+          <span class="work-number">01</span>
+          <h2 class="work-title">Global Accounts</h2>
+          <p class="work-desc">Redesigning the end-to-end sign-in flow across 10+ Condé Nast brands — resulting in a 500% increase in signed-in users and 6.3M registered users globally. Content systems and design systems.</p>
+        </div>
+        <div class="work-item-right">
+          <span class="work-company">Condé Nast</span>
+          <span class="work-category">Content Systems</span>
+        </div>
+      </a>
+
+      <a href="paywall.html" class="work-item">
+        <div class="work-item-left">
+          <span class="work-number">02</span>
+          <h2 class="work-title">Paywall Design</h2>
+          <p class="work-desc">Crafting Vogue's first-ever digital paywall — balancing a disruptive business model shift with a user-centric approach that drove 61% of total site subscriptions.</p>
+        </div>
+        <div class="work-item-right">
+          <span class="work-company">Vogue</span>
+          <span class="work-category">Strategy & Conversion</span>
+        </div>
+      </a>
+
+      <a href="voting.html" class="work-item">
+        <div class="work-item-left">
+          <span class="work-number">03</span>
+          <h2 class="work-title">Met Gala Voting Experience</h2>
+          <p class="work-desc">Designing an interactive voting feature for the Met Gala red carpet that generated 2.9M votes and 27k registrations — 83% above goal — without frustrating non-participating readers.</p>
+        </div>
+        <div class="work-item-right">
+          <span class="work-company">Vogue</span>
+          <span class="work-category">UX & Engagement</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Sammie Spector</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.work-item').forEach((el, i) => {
+      el.dataset.delay = i * 100;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

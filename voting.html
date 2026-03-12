@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Met Gala Voting — Sammie Spector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED; --cream-dark: #EAE7E0;
+      --ink: #1A1A18; --ink-light: #4A4A46;
+      --navy: #1B2F6E; --accent: #B386EF; --accent-light: #D9C2F5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--cream); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 60px; background: var(--cream); border-bottom: 1px solid transparent; transition: border-color 0.4s ease, background 0.4s ease; }
+    nav.scrolled { border-bottom-color: var(--cream-dark); background: rgba(244, 242, 237, 0.96); backdrop-filter: blur(8px); }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .nav-brand:hover .logo-mark { opacity: 1; }
+    .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); transition: color 0.3s; }
+    .nav-brand:hover .nav-name { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul li a { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--ink-light); position: relative; transition: color 0.3s ease; }
+    nav ul li a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.35s ease; }
+    nav ul li a:hover { color: var(--accent); }
+    nav ul li a:hover::after { width: 100%; }
+    .case-study { max-width: 860px; margin: 0 auto; padding: 140px 60px 100px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: var(--ink-light); margin-bottom: 48px; transition: color 0.3s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; font-size: 16px; }
+    .case-tag { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .case-title { font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; }
+    .case-intro { font-size: 20px; font-weight: 300; color: var(--ink-light); line-height: 1.6; max-width: 680px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-section { margin-bottom: 56px; }
+    .case-section-label { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .case-section p { font-size: 18px; font-weight: 300; line-height: 1.75; color: var(--ink); margin-bottom: 1.2em; }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-section ul { list-style: none; margin: 16px 0; }
+    .case-section ul li { font-size: 18px; font-weight: 300; line-height: 1.75; color: var(--ink); padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative; }
+    .case-section ul li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+    .case-image { width: 100%; height: auto; display: block; margin: 40px 0; border: 1px solid var(--cream-dark); }
+    .outcome-stat { font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.2; padding: 32px 0; border-bottom: 1px solid var(--cream-dark); }
+    .outcome-stat em { font-style: italic; color: var(--accent); }
+    footer { border-top: 1px solid var(--cream-dark); padding: 32px 60px; margin-top: 80px; }
+    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+    @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } footer { padding: 24px 32px; } }
+  </style>
+</head>
+<body>
+  <nav id="main-nav">
+    <a href="index.html" class="nav-brand">
+      <svg class="logo-mark" width="40" height="57" viewBox="0 0 40 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4 L30 8 L34 16 L34 24 L28 28 L34 32 L34 42 L30 50 L20 54 L10 50 L6 42 L6 32 L12 28 L6 24 L6 16 L10 8 Z" fill="none" stroke="#1B2F6E" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M28 28 L34 24 L34 32 L28 28Z" fill="#B386EF" stroke="#1B2F6E" stroke-width="0.8"/>
+        <path d="M30 50 L34 42 L34 32 L28 28 L30 50Z" fill="#B386EF" stroke="#1B2F6E" stroke-width="0.8"/>
+        <path d="M20 10 L26 13 L29 19 L29 24 L22 27 L22 31 L29 34 L29 41 L26 47 L20 50 L14 47 L11 41 L11 34 L18 31 L18 27 L11 24 L11 19 L14 13 Z" fill="none" stroke="#1B2F6E" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav-name">Sammie Spector</span>
+    </a>
+    <ul>
+      <li><a href="index.html#experience">Work</a></li>
+      <li><a href="index.html#industry">Industry</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <article class="case-study">
+    <a href="index.html" class="back-link">Back to home</a>
+    <p class="case-tag">Case Study — Vogue</p>
+    <h1 class="case-title">The Met Gala Voting Experience</h1>
+    <p class="case-intro">We needed to design a new feature for the 2022 Met Gala that would compel readers to register for free accounts and engage on our pages for longer. Vogue's Met Gala red carpet gallery sees almost 2 million visitors in the first 3 days it's live — if just 1% of visitors registered, our known user base would skyrocket.</p>
+
+    <div class="case-section">
+      <p class="case-section-label">Challenge</p>
+      <p>One of Condé Nast's primary business initiatives is turning visitors into known users. In June 2021, we began gating content — but gates proved negative as an experience, and we didn't want to risk frustrating our audience during our highest-traffic event: The Met Gala.</p>
+      <p>The design challenge: Rather than taking something away from readers, what value could we add that was worth creating an account?</p>
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Design Rationale</p>
+      <ul>
+        <li>The game toggles were clearly visible on the gallery page. Once a user chose to interact, they would be prompted to register to continue — blocked from voting until they entered their email address.</li>
+        <li>For users who decided not to continue, their reading experience was not blocked — avoiding the risk of frustration and page abandonment.</li>
+        <li>We needed language that created a compelling game but didn't feel off-brand for Vogue. After workshopping with Editorial, we proposed "Is this look on theme?" — positive, yet still compelling an opinion, focused on fashion rather than personal judgement.</li>
+      </ul>
+      <img class="case-image" src="https://lh3.googleusercontent.com/sitesv/APaQ0SRN2mWpaDXIjMePfXglPig1TrcdqFbokajADeMNueoOgccn461YRwyMKZNTDm-VIrVtEBPvXzDzcjwodwj2k2c7BqE1CvEJttSuQ0i9YCZfCGkNvq_VkBUOQiQmX9-yBLWwvlBKceRP3zSyVCKEIhzi_UI7A2R_8vlPKpgerHq1o2bAw-XfFawfyGz1XqC0IKxxpHPwAM4DNtn5_paqxocTdVSBP48yHbGKVwM=w1280" alt="Met Gala voting feature" />
+      <p>An overlay appeared after a user cast their vote, prompting registration to continue engaging with the feature.</p>
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Outcome</p>
+      <div class="outcome-stat"><em>2.9 million votes</em> cast across 10 Vogue sites, with an average of 21 votes per session.</div>
+      <div class="outcome-stat"><em>45 million engaged minutes</em> on the red carpet page — 29% higher than our goal.</div>
+      <div class="outcome-stat"><em>27k registrations</em> in the week of launch — 83% higher than our goal.</div>
+      <img class="case-image" src="https://lh3.googleusercontent.com/sitesv/APaQ0STvzPVNNSuWEeB3rdtPjVCsGeKkq0WENbkewZUCpbfZri6JN2qnTCsdZvsajegf_gXVeyMcLoicDZab6HrqQNgUgVkbZ0pNokKAuIxOx1INt2s6AJ_Hm_uZ5e-23wSTHKWSf0IgbTu-T_y6E1_qIdxWrzYFDoviH08dTSFhdioX0VAtYXknkOXpXLDvEvEpEnrAcWOzxfo=w1280" alt="Voting feature outcomes" />
+      <img class="case-image" src="https://lh3.googleusercontent.com/sitesv/APaQ0SRfoTQ1LtjYpvV7wm1WVNHm9wbIHMtnaZuOBgfm0BtPMPqn-uhKvFfdW06jIrbsB4Rs-FfV3kTNKlP88Eyeg6i4y_Yujtbz8hAQteUnOYQbyhnIbuKKJrbHOogzCpf5qewY5iM4OA0uYCjnxgsqQuu61XlSyPqu4jB_ykAMl3YJSpWX--IAqdIpCca6o3BZo7sFrbHvHhKeNx9x-g6AuEpmAimyIJc0=w1280" alt="Registration overlay" />
+    </div>
+  </article>
+
+  <footer><p>© 2025 Sammie Spector</p></footer>
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  </script>
+</body>
+</html>

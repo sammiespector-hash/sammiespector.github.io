@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paywall — Sammie Spector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED; --cream-dark: #EAE7E0;
+      --ink: #1A1A18; --ink-light: #4A4A46;
+      --navy: #1B2F6E; --accent: #B386EF; --accent-light: #D9C2F5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--cream); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 60px; background: var(--cream); border-bottom: 1px solid transparent; transition: border-color 0.4s ease, background 0.4s ease; }
+    nav.scrolled { border-bottom-color: var(--cream-dark); background: rgba(244, 242, 237, 0.96); backdrop-filter: blur(8px); }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .nav-brand:hover .logo-mark { opacity: 1; }
+    .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); transition: color 0.3s; }
+    .nav-brand:hover .nav-name { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul li a { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--ink-light); position: relative; transition: color 0.3s ease; }
+    nav ul li a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.35s ease; }
+    nav ul li a:hover { color: var(--accent); }
+    nav ul li a:hover::after { width: 100%; }
+    .case-study { max-width: 860px; margin: 0 auto; padding: 140px 60px 100px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: var(--ink-light); margin-bottom: 48px; transition: color 0.3s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; font-size: 16px; }
+    .case-tag { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .case-title { font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; }
+    .case-intro { font-size: 20px; font-weight: 300; color: var(--ink-light); line-height: 1.6; max-width: 680px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-section { margin-bottom: 56px; }
+    .case-section-label { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .case-section p { font-size: 18px; font-weight: 300; line-height: 1.75; color: var(--ink); margin-bottom: 1.2em; }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-image { width: 100%; height: auto; display: block; margin: 40px 0; border: 1px solid var(--cream-dark); }
+    .outcome-stat { font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.2; padding: 32px 0; border-bottom: 1px solid var(--cream-dark); }
+    .outcome-stat em { font-style: italic; color: var(--accent); }
+    footer { border-top: 1px solid var(--cream-dark); padding: 32px 60px; margin-top: 80px; }
+    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+    @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } footer { padding: 24px 32px; } }
+  </style>
+</head>
+<body>
+  <nav id="main-nav">
+    <a href="index.html" class="nav-brand">
+      <svg class="logo-mark" width="40" height="57" viewBox="0 0 40 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4 L30 8 L34 16 L34 24 L28 28 L34 32 L34 42 L30 50 L20 54 L10 50 L6 42 L6 32 L12 28 L6 24 L6 16 L10 8 Z" fill="none" stroke="#1B2F6E" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M28 28 L34 24 L34 32 L28 28Z" fill="#B386EF" stroke="#1B2F6E" stroke-width="0.8"/>
+        <path d="M30 50 L34 42 L34 32 L28 28 L30 50Z" fill="#B386EF" stroke="#1B2F6E" stroke-width="0.8"/>
+        <path d="M20 10 L26 13 L29 19 L29 24 L22 27 L22 31 L29 34 L29 41 L26 47 L20 50 L14 47 L11 41 L11 34 L18 31 L18 27 L11 24 L11 19 L14 13 Z" fill="none" stroke="#1B2F6E" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav-name">Sammie Spector</span>
+    </a>
+    <ul>
+      <li><a href="index.html#experience">Work</a></li>
+      <li><a href="index.html#industry">Industry</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <article class="case-study">
+    <a href="index.html" class="back-link">Back to home</a>
+    <p class="case-tag">Case Study — Vogue / Condé Nast</p>
+    <h1 class="case-title">Implementing a Digital Paywall on Vogue.com</h1>
+    <p class="case-intro">The Vogue design team was tasked with crafting the first-ever Vogue digital paywall, after a strategic business decision to shift to a subscription model for digital content. Design had the specific responsibility of balancing this business need with a user-centric approach — because implementing a paywall means automatically frustrating the user.</p>
+
+    <div class="case-section">
+      <p class="case-section-label">Challenge</p>
+      <p>We were given a short turnaround to work across cross-functional partners — Editorial, Legal, Marketing, Consumer Revenue, and Creative — to adapt Condé Nast's current subscription model and payment flows to Vogue.</p>
+      <p>Implementing a paywall means automatically frustrating the user, so Design had the specific responsibility of balancing this business need with taking a user-centric approach as much as possible.</p>
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Approach</p>
+      <p>For such a strategic business proposition, we looked to the numbers. By analysing data on which audience segments (e.g. coming in from search vs. social) registered for a free account on which types of content (e.g. Culture vs. Runway site sections), we built a data-informed strategy.</p>
+      <p>Because this was such a drastic change for readers, we implemented a phased approach: warning gates on 1–3 articles before landing on a fully gated article. We crafted straightforward, clear messaging — in lieu of marketing language — to delicately balance a moment when consistent readers would be faced with paying to continue their readership.</p>
+      <img class="case-image" src="https://lh3.googleusercontent.com/sitesv/APaQ0ST0W1RTU--lrqMpeeRHWmTRZC9ZgjxFQS9so2XkZCrv6j7eD58DD3w7ZFMIyDJLw_irunpHV865OtwSCjCCPFbSn8IE86ejI4DKy2x9x62cnNpOh_TRg70RQ5mu_Rb-D6MKW8gjWmRDANuO-nJorCcjH-VoDVHGuzjz3reLsFqVt_BH2CeVbBHklggiP1bVTsofZBxWlDWDjNa0bNx6MUCMR8fmiczgcA=w1280" alt="Paywall design" />
+      <p>We crafted a handful of panel tests and accompanying flows to help us better understand and optimise conversion.</p>
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Outcome</p>
+      <div class="outcome-stat">Our first paywall campaign drove <em>61%</em> of total site subscriptions since launch.</div>
+      <div class="outcome-stat">The daily site subscription average increased <em>+116%</em> overall.</div>
+      <img class="case-image" src="https://lh3.googleusercontent.com/sitesv/APaQ0STtlKZr30uU6iKEFvhitEpi6W8_zqAZpcV8yHcp6bQXYnZ74Kr7P2saZZmf5wrBv1-EIQML9JFmbHfa24xaJs3QRhXEF5lD58bR12Vr-aEorKL2BVgHNwcZR9xt9nNfBxn2fZPoMHLnxjG_8tAYB_IlKM_kLpxsGTNkiySyHF-v49mIyBVReqnuseoyp7ARH4ZlpxK7v1Sclz6Eb4dJor1jYLst2bmkJkwbtEc=w1280" alt="Paywall outcomes" />
+      <p>The following year, British Vogue became the first Condé Nast brand with an international paywall, following Vogue.com's template and scaling for GDPR, international, and localisation needs.</p>
+    </div>
+  </article>
+
+  <footer><p>© 2025 Sammie Spector</p></footer>
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  </script>
+</body>
+</html>

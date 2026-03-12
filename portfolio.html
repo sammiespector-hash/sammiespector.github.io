@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — Sammie Spector</title>
+  <title>Portfolio — Sammie Spector</title>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,69 @@
       line-height: 1.7;
       overflow-x: hidden;
     }
+
+    body.locked .auth-content { display: none; }
+
+    /* PASSWORD GATE */
+    .password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+      padding: 20px;
+    }
+    .password-gate.hidden { display: none; }
+    .password-gate-inner {
+      max-width: 360px;
+      width: 100%;
+    }
+    .password-gate label {
+      display: block;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+    }
+    .password-gate input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--cream-dark);
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .password-gate input[type="password"]:focus {
+      border-color: var(--accent);
+    }
+    .password-gate .error {
+      font-size: 14px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      min-height: 20px;
+    }
+    .password-gate button {
+      width: 100%;
+      padding: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .password-gate button:hover { opacity: 0.9; }
 
     /* NAV */
     nav {
@@ -92,32 +155,25 @@
     nav ul li a:hover::after { width: 100%; }
 
     /* PAGE CONTENT */
-    .about-content {
+    .portfolio-content {
       padding: 140px 60px 80px;
       max-width: 1200px;
       margin: 0 auto;
     }
-    .about-content .section-tag {
+    .portfolio-content .section-tag {
       font-size: 15px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 32px;
     }
-    .about-content .prose {
+    .portfolio-content .prose {
       max-width: 680px;
       font-size: 20px;
       font-weight: 300;
-      color: var(--ink);
+      color: var(--ink-light);
       line-height: 1.7;
     }
-    .about-content .prose p {
-      margin-bottom: 1.4em;
-    }
-    .about-content .prose p:last-child {
-      margin-bottom: 0;
-    }
-    .about-content .prose em { font-style: italic; color: var(--accent); }
 
     .section-divider {
       width: 1px; height: 48px;
@@ -125,7 +181,6 @@
       margin: 0 auto;
     }
 
-    /* SECTION BASE (for Say Hello) */
     section {
       padding: 60px 60px;
       max-width: 1200px;
@@ -138,10 +193,7 @@
       color: var(--accent);
       margin-bottom: 20px;
     }
-    .industry-list {
-      margin-top: 20px;
-      border-top: 1px solid var(--cream-dark);
-    }
+    .industry-list { margin-top: 20px; border-top: 1px solid var(--cream-dark); }
     .industry-item {
       display: flex;
       justify-content: space-between;
@@ -167,57 +219,49 @@
     #say-hello .industry-list { border-top: none; }
     #say-hello .industry-item { border-bottom: none; padding: 8px 0; }
 
-    /* FOOTER */
     footer {
       border-top: 1px solid var(--cream-dark);
       padding: 32px 60px;
     }
     footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
 
-    /* RESPONSIVE — Tablet */
     @media (max-width: 900px) {
       nav { padding: 24px 32px; }
       nav ul { gap: 28px; }
       nav ul li a { font-size: 14px; letter-spacing: 0.08em; }
-      .about-content { padding: 120px 32px 60px; }
-      .about-content .prose { font-size: 18px; }
-      section { padding: 48px 32px; scroll-margin-top: 80px; }
-      .industry-item { padding: 14px 0; }
-      .industry-title { font-size: 20px; }
-      .industry-type { font-size: 12px; margin-left: 24px; }
+      .portfolio-content { padding: 120px 32px 60px; }
+      .portfolio-content .prose { font-size: 18px; }
+      section { padding: 48px 32px; }
       footer { padding: 24px 32px; }
     }
-
-    /* RESPONSIVE — Mobile */
     @media (max-width: 600px) {
       nav { padding: 20px 20px; }
       nav ul { gap: 20px; }
       nav ul li a { font-size: 13px; letter-spacing: 0.06em; }
       .nav-name { font-size: 13px; letter-spacing: 0.12em; }
       .logo-mark { width: 32px; }
-      .about-content { padding: 100px 20px 48px; }
-      .about-content .section-tag { font-size: 15px; letter-spacing: 0.18em; margin-bottom: 24px; }
-      .about-content .prose { font-size: 17px; line-height: 1.65; }
-      .about-content .prose p { margin-bottom: 1.2em; }
-      section { padding: 36px 20px; scroll-margin-top: 72px; }
-      .industry-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        padding: 16px 0;
-      }
-      .industry-title { font-size: 18px; }
-      .industry-type { margin-left: 0; font-size: 11px; letter-spacing: 0.08em; }
-      #say-hello .industry-item { padding: 12px 0; }
+      .portfolio-content { padding: 100px 20px 48px; }
+      .portfolio-content .prose { font-size: 17px; }
+      section { padding: 36px 20px; }
       footer { padding: 20px; }
       footer p { font-size: 12px; }
     }
   </style>
 </head>
-<body>
+<body class="locked">
 
-  <!-- NAV -->
-  <nav id="main-nav">
+  <!-- PASSWORD GATE -->
+  <div id="password-gate" class="password-gate">
+    <div class="password-gate-inner">
+      <label for="portfolio-password">Enter password</label>
+      <input type="password" id="portfolio-password" placeholder="Password" autocomplete="current-password" autofocus>
+      <p class="error" id="password-error" aria-live="polite"></p>
+      <button type="button" id="password-submit">Enter</button>
+    </div>
+  </div>
+
+  <!-- NAV (visible after unlock) -->
+  <nav id="main-nav" class="auth-content">
     <a href="index.html" class="nav-brand">
       <img class="logo-mark" src="assets/logo.png" alt="Sammie Spector" width="40" height="40" />
       <span class="nav-name">Sammie Spector</span>
@@ -230,20 +274,16 @@
     </ul>
   </nav>
 
-  <main class="about-content">
-    <p class="section-tag">About</p>
+  <main class="portfolio-content auth-content">
+    <p class="section-tag">Portfolio</p>
     <div class="prose">
-      <p>Hello, I'm Sammie. I currently head up UX Content Design at <em>Angi</em>, a home services marketplace that connects tradespeople to homeowners, with both B2C and B2B experiences.</p>
-      <p>I'm now based in London, after city-hopping from Miami &gt; Chicago &gt; NYC.</p>
-      <p>As a UX thinker, my primary interests are in behavioral design and the concept of nudges. As a numbers person, I strive to base design decisions in data and user insights, balancing user-centric advocacy and business needs.</p>
-      <p>I'm a thoughtful manager who has found developing career and craft growth rewarding. I like organizational strategy, and look for ways to improve or elevate team processes.</p>
-      <p>Since 2019, I've worked and partnered with the UX Content Collective. I've developed course and workshop materials, and have enjoyed writing about some of my favorite UX topics, published on their blog.</p>
+      <p>Portfolio content coming soon.</p>
     </div>
   </main>
 
   <div class="section-divider"></div>
 
-  <section id="say-hello">
+  <section id="say-hello" class="auth-content">
     <p class="section-tag">Say Hello</p>
     <div class="industry-list">
       <a href="mailto:hello@sammiespector.com" class="industry-item">
@@ -257,15 +297,61 @@
     </div>
   </section>
 
-  <footer>
+  <footer class="auth-content">
     <p>© 2026 Sammie Spector</p>
   </footer>
 
   <script>
+    (function() {
+      const PASSWORD = 'ss2026';
+      const STORAGE_KEY = 'portfolio_authenticated';
+
+      const gate = document.getElementById('password-gate');
+      const content = document.querySelectorAll('.auth-content');
+      const input = document.getElementById('portfolio-password');
+      const submitBtn = document.getElementById('password-submit');
+      const errorEl = document.getElementById('password-error');
+
+      function unlock() {
+        sessionStorage.setItem(STORAGE_KEY, '1');
+        document.body.classList.remove('locked');
+        gate.classList.add('hidden');
+      }
+
+      function showError(msg) {
+        errorEl.textContent = msg;
+      }
+
+      if (sessionStorage.getItem(STORAGE_KEY)) {
+        unlock();
+      }
+
+      function checkPassword() {
+        const value = (input.value || '').trim();
+        if (value === PASSWORD) {
+          showError('');
+          unlock();
+        } else {
+          showError('Incorrect password. Try again.');
+          input.focus();
+        }
+      }
+
+      submitBtn.addEventListener('click', checkPassword);
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          checkPassword();
+        }
+      });
+    })();
+
     const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    if (nav) {
+      window.addEventListener('scroll', function() {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+      });
+    }
   </script>
 
 </body>

@@ -32,69 +32,6 @@
       overflow-x: hidden;
     }
 
-    body.locked .auth-content { display: none; }
-
-    /* PASSWORD GATE */
-    .password-gate {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--cream);
-      padding: 20px;
-    }
-    .password-gate.hidden { display: none; }
-    .password-gate-inner {
-      max-width: 360px;
-      width: 100%;
-    }
-    .password-gate label {
-      display: block;
-      font-size: 15px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 12px;
-    }
-    .password-gate input[type="password"] {
-      width: 100%;
-      padding: 14px 16px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      color: var(--ink);
-      background: #fff;
-      border: 1px solid var(--cream-dark);
-      margin-bottom: 16px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .password-gate input[type="password"]:focus {
-      border-color: var(--accent);
-    }
-    .password-gate .error {
-      font-size: 14px;
-      color: var(--accent);
-      margin-bottom: 12px;
-      min-height: 20px;
-    }
-    .password-gate button {
-      width: 100%;
-      padding: 14px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
-      background: var(--accent);
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .password-gate button:hover { opacity: 0.9; }
-
     /* NAV */
     nav {
       position: fixed;
@@ -167,12 +104,32 @@
       color: var(--accent);
       margin-bottom: 32px;
     }
-    .portfolio-content .prose {
-      max-width: 680px;
-      font-size: 20px;
-      font-weight: 300;
+
+    .portfolio-list {
+      margin-top: 20px;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .portfolio-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      text-decoration: none;
+      color: var(--ink);
+      transition: color 0.3s;
+    }
+    .portfolio-item:hover .portfolio-title { color: var(--accent); }
+    .portfolio-item:hover .portfolio-type { color: var(--accent-light); }
+    .portfolio-title { font-size: 22px; font-weight: 400; transition: color 0.3s; }
+    .portfolio-type {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--ink-light);
-      line-height: 1.7;
+      transition: color 0.3s;
+      flex-shrink: 0;
+      margin-left: 32px;
     }
 
     .section-divider {
@@ -230,8 +187,12 @@
       nav ul { gap: 28px; }
       nav ul li a { font-size: 14px; letter-spacing: 0.08em; }
       .portfolio-content { padding: 120px 32px 60px; }
-      .portfolio-content .prose { font-size: 18px; }
+      .portfolio-title { font-size: 20px; }
+      .portfolio-type { font-size: 12px; margin-left: 24px; }
       section { padding: 48px 32px; }
+      .industry-item { padding: 14px 0; }
+      .industry-title { font-size: 20px; }
+      .industry-type { font-size: 12px; margin-left: 24px; }
       footer { padding: 24px 32px; }
     }
     @media (max-width: 600px) {
@@ -241,27 +202,32 @@
       .nav-name { font-size: 13px; letter-spacing: 0.12em; }
       .logo-mark { width: 32px; }
       .portfolio-content { padding: 100px 20px 48px; }
-      .portfolio-content .prose { font-size: 17px; }
+      .portfolio-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 16px 0;
+      }
+      .portfolio-title { font-size: 18px; }
+      .portfolio-type { margin-left: 0; font-size: 11px; letter-spacing: 0.08em; }
       section { padding: 36px 20px; }
+      .industry-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 16px 0;
+      }
+      .industry-title { font-size: 18px; }
+      .industry-type { margin-left: 0; font-size: 11px; letter-spacing: 0.08em; }
+      #say-hello .industry-item { padding: 12px 0; }
       footer { padding: 20px; }
       footer p { font-size: 12px; }
     }
   </style>
 </head>
-<body class="locked">
+<body>
 
-  <!-- PASSWORD GATE -->
-  <div id="password-gate" class="password-gate">
-    <div class="password-gate-inner">
-      <label for="portfolio-password">Enter password</label>
-      <input type="password" id="portfolio-password" placeholder="Password" autocomplete="current-password" autofocus>
-      <p class="error" id="password-error" aria-live="polite"></p>
-      <button type="button" id="password-submit">Enter</button>
-    </div>
-  </div>
-
-  <!-- NAV (visible after unlock) -->
-  <nav id="main-nav" class="auth-content">
+  <nav id="main-nav">
     <a href="index.html" class="nav-brand">
       <img class="logo-mark" src="assets/logo.png" alt="Sammie Spector" width="40" height="40" />
       <span class="nav-name">Sammie Spector</span>
@@ -274,16 +240,27 @@
     </ul>
   </nav>
 
-  <main class="portfolio-content auth-content">
+  <main class="portfolio-content">
     <p class="section-tag">Portfolio</p>
-    <div class="prose">
-      <p>Portfolio content coming soon.</p>
+    <div class="portfolio-list">
+      <a href="voting.html" class="portfolio-item">
+        <span class="portfolio-title">The Met Gala Voting Experience</span>
+        <span class="portfolio-type">Case Study — Vogue</span>
+      </a>
+      <a href="paywall.html" class="portfolio-item">
+        <span class="portfolio-title">Implementing a Digital Paywall on Vogue.com</span>
+        <span class="portfolio-type">Case Study — Vogue / Condé Nast</span>
+      </a>
+      <a href="global-accounts.html" class="portfolio-item">
+        <span class="portfolio-title">Global Accounts</span>
+        <span class="portfolio-type">Case Study — Condé Nast</span>
+      </a>
     </div>
   </main>
 
   <div class="section-divider"></div>
 
-  <section id="say-hello" class="auth-content">
+  <section id="say-hello">
     <p class="section-tag">Say Hello</p>
     <div class="industry-list">
       <a href="mailto:hello@sammiespector.com" class="industry-item">
@@ -297,61 +274,15 @@
     </div>
   </section>
 
-  <footer class="auth-content">
+  <footer>
     <p>© 2026 Sammie Spector</p>
   </footer>
 
   <script>
-    (function() {
-      const PASSWORD = 'ss2026';
-      const STORAGE_KEY = 'portfolio_authenticated';
-
-      const gate = document.getElementById('password-gate');
-      const content = document.querySelectorAll('.auth-content');
-      const input = document.getElementById('portfolio-password');
-      const submitBtn = document.getElementById('password-submit');
-      const errorEl = document.getElementById('password-error');
-
-      function unlock() {
-        sessionStorage.setItem(STORAGE_KEY, '1');
-        document.body.classList.remove('locked');
-        gate.classList.add('hidden');
-      }
-
-      function showError(msg) {
-        errorEl.textContent = msg;
-      }
-
-      if (sessionStorage.getItem(STORAGE_KEY)) {
-        unlock();
-      }
-
-      function checkPassword() {
-        const value = (input.value || '').trim();
-        if (value === PASSWORD) {
-          showError('');
-          unlock();
-        } else {
-          showError('Incorrect password. Try again.');
-          input.focus();
-        }
-      }
-
-      submitBtn.addEventListener('click', checkPassword);
-      input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          checkPassword();
-        }
-      });
-    })();
-
     const nav = document.getElementById('main-nav');
-    if (nav) {
-      window.addEventListener('scroll', function() {
-        nav.classList.toggle('scrolled', window.scrollY > 40);
-      });
-    }
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
   </script>
 
 </body>

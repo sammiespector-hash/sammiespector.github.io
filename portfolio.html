@@ -123,11 +123,13 @@
       color: var(--ink);
       opacity: 0;
       transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      animation: fadeUpWork 0.5s ease forwards;
       position: relative;
     }
 
-    .work-item.visible { opacity: 1; transform: translateY(0); }
+    .work-item:nth-child(1) { animation-delay: 1.2s; }
+    .work-item:nth-child(2) { animation-delay: 1.5s; }
+    .work-item:nth-child(3) { animation-delay: 1.8s; }
 
     .work-item::after {
       content: '→';
@@ -205,6 +207,11 @@
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUpWork {
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -297,19 +304,6 @@
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.work-item').forEach((el, i) => {
-      el.dataset.delay = i * 100;
-      observer.observe(el);
-    });
   </script>
 
 </body>

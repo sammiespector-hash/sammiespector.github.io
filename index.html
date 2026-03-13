@@ -68,7 +68,27 @@
       transition: color 0.3s;
     }
     .nav-brand:hover .nav-name { color: var(--accent); }
-    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    nav.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    nav.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
     nav ul li a {
       font-family: 'Cormorant Garamond', serif;
       font-size: 15px;
@@ -277,8 +297,22 @@
     /* RESPONSIVE — Mobile */
     @media (max-width: 600px) {
       nav { padding: 20px 20px; }
-      nav ul { gap: 20px; }
-      nav ul li a { font-size: 13px; letter-spacing: 0.06em; }
+      .nav-toggle { display: flex; }
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(244, 242, 237, 0.98);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--cream-dark);
+        padding: 8px 0 20px;
+      }
+      nav ul li a { display: block; padding: 12px 20px; font-size: 14px; letter-spacing: 0.1em; }
+      nav ul li a::after { display: none; }
+      nav.nav-open ul { display: flex; }
       .nav-name { font-size: 13px; letter-spacing: 0.12em; }
       .logo-mark { width: 32px; }
       section { padding: 36px 20px; scroll-margin-top: 72px; }
@@ -319,6 +353,9 @@
       <li><a href="about.html">About</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
     </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -429,6 +466,11 @@
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    const navToggle = document.getElementById('nav-toggle');
+    navToggle.addEventListener('click', () => nav.classList.toggle('nav-open'));
+    document.querySelectorAll('nav ul a').forEach(a => {
+      a.addEventListener('click', () => nav.classList.remove('nav-open'));
     });
 
     const observer = new IntersectionObserver((entries) => {

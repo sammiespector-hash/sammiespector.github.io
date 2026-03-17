@@ -126,6 +126,11 @@
     .case-section {
       margin-bottom: 56px;
     }
+    .case-section::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
 
     .case-section-label {
       font-size: 12px;
@@ -169,25 +174,132 @@
     }
 
     .case-image {
-      width: 100%;
+      max-width: 36%;
+      width: auto;
       height: auto;
-      display: block;
-      margin: 40px 0;
+      float: right;
+      margin: 0 0 24px 32px;
       border: 1px solid var(--cream-dark);
     }
 
+    .outcome-with-image {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      margin-top: 24px;
+    }
+
+    .outcome-stats {
+      flex: 1;
+      min-width: 0;
+    }
+
     .outcome-stat {
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 300;
+      font-size: clamp(19px, 2.2vw, 22px);
+      font-weight: 400;
       color: var(--ink);
-      line-height: 1.2;
-      padding: 32px 0;
+      line-height: 1.4;
+      padding: 24px 0;
       border-bottom: 1px solid var(--cream-dark);
     }
 
     .outcome-stat em {
       font-style: italic;
       color: var(--accent);
+    }
+
+    .outcome-image {
+      flex-shrink: 0;
+      max-width: 260px;
+      width: auto;
+      height: auto;
+      border: 1px solid var(--cream-dark);
+    }
+
+    /* CAROUSEL */
+    .case-carousel {
+      margin-top: 56px;
+    }
+
+    .case-carousel-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .case-carousel-inner {
+      position: relative;
+      max-width: 780px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .case-carousel-track {
+      display: flex;
+      width: 500%;
+      transition: transform 0.4s ease;
+    }
+
+    .case-carousel-slide {
+      flex: 0 0 20%;
+      width: 20%;
+      min-width: 0;
+    }
+
+    .case-carousel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: top;
+    }
+
+    .case-carousel-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--cream-dark);
+      background: var(--cream);
+      color: var(--accent);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s, background 0.3s;
+    }
+
+    .case-carousel-btn:hover {
+      color: var(--ink);
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .case-carousel-dots-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .case-carousel-dots {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .case-carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s;
+    }
+
+    .case-carousel-dot.active {
+      background: var(--accent);
     }
 
     /* FOOTER */
@@ -202,6 +314,14 @@
       nav { padding: 24px 32px; }
       .case-study { padding: 120px 32px 80px; }
       footer { padding: 24px 32px; }
+    }
+    @media (max-width: 700px) {
+      .case-image { float: none; max-width: 100%; margin: 24px 0; }
+      .outcome-with-image { flex-direction: column; }
+      .outcome-image { max-width: 100%; margin-top: 24px; }
+      .case-carousel-row { flex-wrap: wrap; justify-content: center; }
+      .case-carousel-inner { max-width: 100%; }
+      .outcome-stat { font-size: 19px; padding: 20px 0; }
     }
   </style>
 </head>
@@ -261,16 +381,49 @@
       <p>For the sign-in journey, we deprecated passwords in favour of SSO (Google, Apple) as the fastest path. We crafted a new flexible styling format that incorporated unique brand identities — imagery, fonts, and colours — so users never felt like they were leaving the site they were trying to access.</p>
       <p>To scale for new markets, we worked with Legal to add international marketing permissions and legal disclaimer needs.</p>
       <img class="case-image" src="assets/sign-in-journey-design.png" alt="Sign-in journey design" />
-      <img class="case-image" src="assets/brand-identity-in-sign-in-flow.png" alt="Brand identity in sign-in flow" />
     </div>
 
     <div class="case-section">
       <p class="case-section-label">Outcome</p>
       <p>Vogue was the first to test and roll out the new UX. After introducing the new experience in 2021, we saw encouraging results immediately.</p>
-      <div class="outcome-stat">Authenticated rate increased <em>+131%</em> with the new UX.</div>
-      <div class="outcome-stat">In just one month, Vogue.com's signed-in users jumped from 5K to <em>30K</em> — a 500% increase.</div>
-      <div class="outcome-stat">In four months, Vogue saw <em>171.7k registrations.</em></div>
-      <div class="outcome-stat">As of 2024, <em>6.3M registered users</em> across Condé Nast brands follow the same legal and brand templates we crafted in 2021.</div>
+      <div class="outcome-with-image">
+        <div class="outcome-stats">
+          <div class="outcome-stat">Authenticated rate increased <em>+131%</em> with the new UX.</div>
+          <div class="outcome-stat">In just one month, Vogue.com's signed-in users jumped from 5K to <em>30K</em> — a 500% increase.</div>
+          <div class="outcome-stat">In four months, Vogue saw <em>171.7k registrations.</em></div>
+          <div class="outcome-stat">As of 2024, <em>6.3M registered users</em> across Condé Nast brands follow the same legal and brand templates we crafted in 2021.</div>
+        </div>
+        <img class="outcome-image" src="assets/brand-identity-in-sign-in-flow.png" alt="Brand identity in sign-in flow" />
+      </div>
+    </div>
+
+    <div class="case-carousel" id="global-accounts-carousel">
+      <div class="case-carousel-row">
+        <button type="button" class="case-carousel-btn" id="carousel-prev" aria-label="Previous image">←</button>
+        <div class="case-carousel-inner">
+          <div class="case-carousel-track">
+            <div class="case-carousel-slide">
+              <img src="assets/global-accounts/Carousel1.png" alt="Global accounts" />
+            </div>
+            <div class="case-carousel-slide">
+              <img src="assets/global-accounts/Carousel2.png" alt="Global accounts" />
+            </div>
+            <div class="case-carousel-slide">
+              <img src="assets/global-accounts/Carousel3.png" alt="Global accounts" />
+            </div>
+            <div class="case-carousel-slide">
+              <img src="assets/global-accounts/Carousel4.png" alt="Global accounts" />
+            </div>
+            <div class="case-carousel-slide">
+              <img src="assets/global-accounts/Carousel5.png" alt="Global accounts" />
+            </div>
+          </div>
+        </div>
+        <button type="button" class="case-carousel-btn" id="carousel-next" aria-label="Next image">→</button>
+      </div>
+      <div class="case-carousel-dots-wrap">
+        <div class="case-carousel-dots" id="carousel-dots"></div>
+      </div>
     </div>
   </article>
 
@@ -283,6 +436,44 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
+
+    (function() {
+      const carousel = document.getElementById('global-accounts-carousel');
+      if (!carousel) return;
+      const track = carousel.querySelector('.case-carousel-track');
+      const slides = carousel.querySelectorAll('.case-carousel-slide');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+      const dotsEl = document.getElementById('carousel-dots');
+      const total = slides.length;
+      let index = 0;
+
+      function goTo(i) {
+        index = ((i % total) + total) % total;
+        track.style.transform = 'translateX(-' + (index * 20) + '%)';
+        dotsEl.querySelectorAll('.case-carousel-dot').forEach(function(dot, d) {
+          dot.classList.toggle('active', d === index);
+        });
+      }
+
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'case-carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+        (function(idx) {
+          dot.addEventListener('click', function() { goTo(idx); });
+        })(i);
+        dotsEl.appendChild(dot);
+      }
+
+      prevBtn.addEventListener('click', function() { goTo(index - 1); });
+      nextBtn.addEventListener('click', function() { goTo(index + 1); });
+
+      var autoAdvance = setInterval(function() {
+        goTo(index + 1);
+      }, 4500);
+    })();
   </script>
 </body>
 </html>

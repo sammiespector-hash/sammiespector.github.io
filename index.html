@@ -197,6 +197,16 @@
       text-align: center;
       justify-self: center;
     }
+    .exp-company-logo {
+      max-height: 36px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .exp-company-logo--angi { max-height: 42px; }
+    .exp-company-logo--vogue { max-height: 30px; }
+    .exp-company-logo--morningstar { max-height: 40px; }
     .exp-date {
       font-size: 16px;
       color: var(--ink-light);
@@ -263,10 +273,14 @@
       .hero-sub { font-size: 18px; margin-top: 24px; }
       .section-tag { font-size: 16px; }
       .experience-intro { font-size: 16px; }
-      .experience-item { grid-template-columns: 1fr; gap: 4px 0; padding: 24px 0; }
+      .experience-item { grid-template-columns: 1fr; gap: 4px 0; padding: 24px 0; align-items: center; }
       .exp-role, .exp-company, .exp-date { justify-self: start; }
       .exp-role { font-size: 20px; }
       .exp-company { font-size: 18px; }
+      .exp-company-logo { max-height: 32px; }
+      .exp-company-logo--angi { max-height: 38px; }
+      .exp-company-logo--vogue { max-height: 26px; }
+      .exp-company-logo--morningstar { max-height: 36px; }
       .exp-date { text-align: left; font-size: 15px; }
       .industry-item { padding: 14px 0; }
       .industry-title { font-size: 20px; }
@@ -291,6 +305,10 @@
       .experience-item { padding: 20px 0; }
       .exp-role { font-size: 18px; }
       .exp-company { font-size: 16px; }
+      .exp-company-logo { max-height: 28px; }
+      .exp-company-logo--angi { max-height: 32px; }
+      .exp-company-logo--vogue { max-height: 24px; }
+      .exp-company-logo--morningstar { max-height: 30px; }
       .industry-item {
         flex-direction: column;
         align-items: flex-start;
@@ -339,26 +357,32 @@
 
       <div class="experience-item">
         <p class="exp-role">Head of Content Design</p>
-        <p class="exp-company">Angi | Instapro (EU)</p>
+        <div class="exp-company"><img src="assets/Logo-Angi.svg" alt="Angi" class="exp-company-logo exp-company-logo--angi" /></div>
         <p class="exp-date">Present</p>
       </div>
 
       <div class="experience-item">
         <p class="exp-role">Head of Content Design</p>
-        <p class="exp-company">Condé Nast</p>
+        <div class="exp-company"><img src="assets/Logo-Condé Nast.svg" alt="Condé Nast" class="exp-company-logo" /></div>
         <p class="exp-date">2023 – 2025</p>
       </div>
 
       <div class="experience-item">
         <p class="exp-role">Design Lead</p>
-        <p class="exp-company">Vogue</p>
+        <div class="exp-company"><img src="assets/Logo-Vogue.svg" alt="Vogue" class="exp-company-logo exp-company-logo--vogue" /></div>
         <p class="exp-date">2022 – 2023</p>
       </div>
 
       <div class="experience-item">
         <p class="exp-role">Senior Content Designer</p>
-        <p class="exp-company">Condé Nast</p>
-        <p class="exp-date">2021 – 2023</p>
+        <div class="exp-company"><img src="assets/Logo-Condé Nast.svg" alt="Condé Nast" class="exp-company-logo" /></div>
+        <p class="exp-date">2019 – 2023</p>
+      </div>
+
+      <div class="experience-item">
+        <p class="exp-role">Content Strategist, Behavioral Research</p>
+        <div class="exp-company"><img src="assets/Logo-Morningstar.svg" alt="Morningstar" class="exp-company-logo exp-company-logo--morningstar" /></div>
+        <p class="exp-date">2017 – 2019</p>
       </div>
 
     </div>

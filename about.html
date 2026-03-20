@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream: #F4F2ED;
@@ -24,7 +24,7 @@
     body {
       background-color: var(--cream);
       color: var(--ink);
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
@@ -84,7 +84,7 @@
     /* INTRO: two-column layout */
     .about-intro {
       display: grid;
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 1fr 240px;
       gap: 80px;
       align-items: start;
       margin-bottom: 80px;
@@ -94,9 +94,11 @@
 
     .about-text {}
 
-    .about-tag {
-      font-size: 12px;
-      letter-spacing: 0.22em;
+    .about-text p.about-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 24px;
@@ -104,9 +106,10 @@
       animation: fadeUp 0.7s ease 0.1s forwards;
     }
 
-    .about-text p {
-      font-size: 19px;
-      font-weight: 300;
+    .about-text p:not(.about-tag) {
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
       line-height: 1.75;
       color: var(--ink);
       margin-bottom: 1.4em;
@@ -114,10 +117,13 @@
       animation: fadeUp 0.7s ease forwards;
     }
     .about-text p:nth-child(2) { animation-delay: 0.2s; }
-    .about-text p:nth-child(3) { animation-delay: 0.3s; }
-    .about-text p:nth-child(4) { animation-delay: 0.4s; }
-    .about-text p:nth-child(5) { animation-delay: 0.5s; }
-    .about-text p:nth-child(6) { animation-delay: 0.6s; }
+    .about-text p:nth-child(3) { animation-delay: 0.25s; }
+    .about-text p:nth-child(4) { animation-delay: 0.3s; }
+    .about-text p:nth-child(5) { animation-delay: 0.35s; }
+    .about-text p:nth-child(6) { animation-delay: 0.4s; }
+    .about-text p:nth-child(7) { animation-delay: 0.45s; }
+    .about-text p:nth-child(8) { animation-delay: 0.5s; }
+    .about-text p:nth-child(9) { animation-delay: 0.55s; }
     .about-text p:last-child { margin-bottom: 0; }
     .about-text em { font-style: italic; color: var(--accent); }
 
@@ -140,8 +146,10 @@
 
     /* SAY HELLO */
     .section-tag {
-      font-size: 12px;
-      letter-spacing: 0.22em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 20px;
@@ -221,9 +229,12 @@
     <div class="about-intro">
       <div class="about-text">
         <p class="about-tag">About</p>
-        <p>Hello, I'm Sammie. I currently head up UX Content Design at <em>Angi</em>, a home services marketplace that connects tradespeople to homeowners, with both B2C and B2B experiences.</p>
-        <p>I'm now based in London, after city-hopping from Miami → Chicago → NYC.</p>
-        <p>As a UX thinker, my primary interests are in behavioral design and the concept of nudges. As a numbers person, I strive to base design decisions in data and user insights, balancing user-centric advocacy and business needs.</p>
+        <p>Hello, I'm Sammie. I currently lead the UX Content Design practice at Angi, the largest global home services marketplace that connects tradespeople to homeowners, with both B2C and B2B experiences.</p>
+        <p>I'm based in London, after city-hopping from Miami → Chicago → NYC.</p>
+        <p>As a UX thinker, my primary interests are in behavioral economics and the concept of nudges. I began my career as the first Content Design intern in Silicon Valley, at Intuit, where I gained my first UX writing chops working on experiences for QuickBooks, TurboTax, and Mint, a range of personal and small business financial tools. Back then, QuickBooks was a desktop experience and Mint, the first personal finance app, was just taking shape. With a burgeoning love of behavioral insights and data-driven decisions (even as a staunch liberal arts major), I began to balance user-centric advocacy with business needs and base my design rationale in data and user insights.</p>
+        <p>I moved to New York and over to Condé Nast, where I started as a UX writer on editorial tools and back-end systems across the entire suite of brands. I grew as a design practitioner and leader, and switched into Product Design, becoming a UX Design Lead for Vogue. I got to work on our first-ever consumer-facing app, our foray into augmented reality (think Cher's closet in Clueless), and attended three Met Galas (think basement war room, not ball gown).</p>
+        <p>I gained broader scope when I took on leading the global Content Design practice across all brands at Condé Nast, including The New Yorker, Wired, Bon Appétit, Epicurious, and my personal favorite, Teen Vogue. I got tangled up in our design system and its lack of content guidelines for components—and its pain points as an internal product in and of itself. I teamed up with our Design Systems lead to overhaul its organization, naming, usage guidelines, governance model, and more.</p>
+        <p>Now you can find me coming full circle at Angi, where I head up our global Content Design practice, and help connect homeowners across the globe to local tradespeople. I'm particularly focused on our LLM and experimenting with agentic design.</p>
         <p>I'm a thoughtful manager who has found developing career and craft growth rewarding. I like organizational strategy, and look for ways to improve or elevate team processes.</p>
         <p>Since 2019, I've worked and partnered with the UX Content Collective. I've developed course and workshop materials, and have enjoyed writing about some of my favorite UX topics, published on their blog.</p>
       </div>

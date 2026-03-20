@@ -1,0 +1,38 @@
+---
+description: Section tag typography — labels above body copy must match navigation font
+globs: "**/*.html"
+alwaysApply: false
+---
+
+# Section Tag Typography
+
+Section tags (labels above body copy) must use the **exact same font as the navigation** for visual consistency.
+
+## Font Properties
+
+Apply to `.section-tag`, `.page-tag`, `.case-section-label`, `.about-tag`, and any similar labels:
+
+```css
+font-family: 'Cormorant Garamond', serif;
+font-size: 15px;
+font-weight: 400;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--accent);
+```
+
+## Affected Classes
+
+- `.section-tag` — index (Experience, Community, Say Hello), about (Say Hello)
+- `.page-tag` — portfolio (Selected Work)
+- `.case-section-label` — case studies (Challenge, Approach, Outcome, etc.)
+- `.about-tag` — about page intro label
+
+## When Body Copy Uses a Different Font
+
+If body copy uses a different font (e.g. Manrope), ensure the tag selector is **more specific** than the body copy selector so it doesn't get overridden. Example:
+
+```css
+.about-text p.about-tag { /* tag: Cormorant */ }
+.about-text p:not(.about-tag) { /* body: Manrope */ }
+```

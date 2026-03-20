@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream: #F4F2ED; --cream-dark: #EAE7E0;
@@ -17,7 +17,7 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { background-color: var(--cream); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    body { background-color: var(--cream); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 60px; background: var(--cream); border-bottom: 1px solid transparent; transition: border-color 0.4s ease, background 0.4s ease; }
     nav.scrolled { border-bottom-color: var(--cream-dark); background: rgba(244, 242, 237, 0.96); backdrop-filter: blur(8px); }
     .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
@@ -36,19 +36,20 @@
     .back-link::before { content: '←'; font-size: 16px; }
     .case-tag { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
     .case-title { font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; }
-    .case-intro { font-size: 20px; font-weight: 300; color: var(--ink-light); line-height: 1.6; max-width: 680px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-intro { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-light); line-height: 1.6; max-width: 680px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
     .case-section { margin-bottom: 56px; }
-    .case-section-label { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-    .case-section p { font-size: 18px; font-weight: 300; line-height: 1.75; color: var(--ink); margin-bottom: 1.2em; }
+    .case-section-label { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .case-section p { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; color: var(--ink); margin-bottom: 1.2em; }
     .case-section p:last-child { margin-bottom: 0; }
     .case-section::after { content: ''; display: table; clear: both; }
     .case-image { max-width: 36%; width: auto; height: auto; float: right; margin: 0 0 24px 32px; border: 1px solid var(--cream-dark); }
-    .outcome-stat { font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.2; padding: 32px 0; border-bottom: 1px solid var(--cream-dark); }
+    .outcome-stat { font-size: clamp(19px, 2.2vw, 22px); font-weight: 400; color: var(--ink); line-height: 1.4; padding: 24px 0; border-bottom: 1px solid var(--cream-dark); }
     .outcome-stat em { font-style: italic; color: var(--accent); }
+    .outcome-image { float: none; max-width: 100%; margin: 32px 0 0 0; }
     footer { border-top: 1px solid var(--cream-dark); padding: 32px 60px; margin-top: 80px; }
     footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
     @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } footer { padding: 24px 32px; } }
-    @media (max-width: 700px) { .case-image { float: none; max-width: 100%; margin: 24px 0; } }
+    @media (max-width: 700px) { .case-image { float: none; max-width: 100%; margin: 24px 0; } .outcome-image { max-width: 100%; margin-top: 24px; } .outcome-stat { font-size: 19px; padding: 20px 0; } }
   </style>
 </head>
 <body>
@@ -81,7 +82,7 @@
       <p class="case-section-label">Approach</p>
       <p>For such a strategic business proposition, we looked to the numbers. By analysing data on which audience segments (e.g. coming in from search vs. social) registered for a free account on which types of content (e.g. Culture vs. Runway site sections), we built a data-informed strategy.</p>
       <p>Because this was such a drastic change for readers, we implemented a phased approach: warning gates on 1–3 articles before landing on a fully gated article. We crafted straightforward, clear messaging — in lieu of marketing language — to delicately balance a moment when consistent readers would be faced with paying to continue their readership.</p>
-      <img class="case-image" src="assets/paywall-design.png" alt="Paywall design" />
+      <img class="case-image outcome-image" src="assets/paywall-design.png" alt="Paywall design" />
       <p>We crafted a handful of panel tests and accompanying flows to help us better understand and optimise conversion.</p>
     </div>
 
@@ -89,8 +90,8 @@
       <p class="case-section-label">Outcome</p>
       <div class="outcome-stat">Our first paywall campaign drove <em>61%</em> of total site subscriptions since launch.</div>
       <div class="outcome-stat">The daily site subscription average increased <em>+116%</em> overall.</div>
-      <img class="case-image" src="assets/paywall-outcomes.png" alt="Paywall outcomes" />
-      <p>The following year, British Vogue became the first Condé Nast brand with an international paywall, following Vogue.com's template and scaling for GDPR, international, and localisation needs.</p>
+      <div class="outcome-stat">The following year, British Vogue became the first Condé Nast brand with an international paywall, following Vogue.com's template and scaling for GDPR, international, and localisation needs.</div>
+      <img class="case-image outcome-image" src="assets/paywall-outcomes.png" alt="Paywall outcomes" />
     </div>
   </article>
 

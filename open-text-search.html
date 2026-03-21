@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Text Search — Sammie Spector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED;
+      --cream-dark: #EAE7E0;
+      --ink: #1A1A18;
+      --ink-light: #4A4A46;
+      --navy: #1B2F6E;
+      --accent: #B386EF;
+      --accent-light: #D9C2F5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s ease, background 0.4s ease;
+    }
+    nav.scrolled {
+      border-bottom-color: var(--cream-dark);
+      background: rgba(244, 242, 237, 0.96);
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .nav-brand:hover .logo-mark { opacity: 1; }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); transition: color 0.3s;
+    }
+    .nav-brand:hover .nav-name { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul li a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; color: var(--ink-light);
+      position: relative; transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0; width: 0; height: 1px;
+      background: var(--accent); transition: width 0.35s ease;
+    }
+    nav ul li a:hover { color: var(--accent); }
+    nav ul li a:hover::after { width: 100%; }
+
+    .case-study {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 140px 60px 100px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-light);
+      margin-bottom: 48px;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; font-size: 16px; }
+
+    .case-tag {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .case-title {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .case-intro {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.6;
+      max-width: 680px;
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .case-meta-item {}
+    .case-meta-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .case-meta-value {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink-light);
+    }
+
+    .case-section { margin-bottom: 56px; }
+
+    .case-section-label {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .case-section p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 1.2em;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+
+    .case-section ul {
+      list-style: none;
+      margin: 16px 0;
+    }
+    .case-section ul li {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      padding: 10px 0 10px 20px;
+      border-bottom: 1px solid var(--cream-dark);
+      position: relative;
+    }
+    .case-section ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .case-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 40px 0;
+      border: 1px solid var(--cream-dark);
+    }
+
+    /* Two-up image grid */
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .image-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--cream-dark);
+    }
+
+    .subsection-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin: 32px 0 12px;
+      padding-top: 32px;
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .outcome-stat {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .outcome-stat em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    footer {
+      border-top: 1px solid var(--cream-dark);
+      padding: 32px 60px;
+      margin-top: 80px;
+    }
+    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+
+    @media (max-width: 900px) {
+      nav { padding: 24px 32px; }
+      .case-study { padding: 120px 32px 80px; }
+      .case-meta { flex-wrap: wrap; gap: 24px; }
+      .image-grid { grid-template-columns: 1fr; }
+      footer { padding: 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo.png" class="logo-mark" alt="Sammie Spector" />
+      <span class="nav-name">Sammie Spector</span>
+    </a>
+    <ul>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#industry">Industry</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <article class="case-study">
+    <a href="portfolio.html" class="back-link">Back to portfolio</a>
+
+    <p class="case-tag">Case Study — Vogue / Condé Nast</p>
+    <h1 class="case-title">Vogue Open Text Search</h1>
+    <p class="case-intro">A technically-minded project that demonstrates the contributions of Content Design when there isn't much text on the screen. I owned the content design contributions for this project, as well as its handover to marketing.</p>
+
+    <div class="case-meta">
+      <div class="case-meta-item">
+        <p class="case-meta-label">Team</p>
+        <p class="case-meta-value">1 PM, 1 Product Director, 2 Designers,<br>1 Machine Learning Team, 1 Principal Architect</p>
+      </div>
+      <div class="case-meta-item">
+        <p class="case-meta-label">My Role</p>
+        <p class="case-meta-value">Content Design Lead</p>
+      </div>
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Background</p>
+      <p>Vogue owns 1.2 million images from runway shows — a library spanning across the globe and the history of fashion. The everyday Vogue reader didn't have easy access to this vast archive. Plus, fashion designers and students needed better tools in order to see our IP as a valuable resource.</p>
+      <p>Enter a collaboration with our Machine Learning team.</p>
+
+      <img class="case-image" src="assets/image-search-challenge.svg" alt="The challenge — limited filters" />
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Challenge</p>
+      <p>The only way to sort through the repository was via two filters: season or designer. But with Machine Learning at our disposal, we could build a model that mimicked how readers and fashion professionals searched.</p>
+      <p>The added challenge: We needed to build a different yet consistent experience for the web and apps.</p>
+      <img class="case-image" src="assets/image-search-approach1.svg" alt="Jobs to be done" />
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Approach</p>
+      <p>We started by understanding the Jobs To Be Done — mapping the distinct ways a Fashion Editor researching couture, a Fashion Stylist exploring trends, and a Fashion Enthusiast browsing casually would each approach search differently.</p>
+      <p>From there, we understood the technology at our disposal and shaped the content design around three distinct search modes:</p>
+      <ul>
+        <li><strong>Natural language model</strong> — patterns, colors, shapes, occasions</li>
+        <li><strong>Keyword search</strong> — brands, designers, years, cities</li>
+        <li><strong>Editorial override</strong> — significant, culturally relevant, or of-the-moment looks</li>
+      </ul>
+      <img class="case-image" src="assets/image-search-approach2.svg" alt="Search modes on app" />
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Design Rationale</p>
+
+      <p class="subsection-label">App</p>
+      <ul>
+        <li>Worked with the model creators to ensure we came as close as possible to intuitive human queries</li>
+        <li>Retained keyword search as a quick and easy tool that also helps users understand "open text" capabilities</li>
+        <li>Partnered with design on visual cues that differentiate word types</li>
+        <li>Educated users during use in lieu of lengthy onboarding</li>
+        <li>Helped Editorial understand the technology by creating an internal tool for refining the model</li>
+      </ul>
+      <img class="case-image" src="assets/image-search-rationale.svg" alt="App design rationale" />
+      <img class="case-image" src="assets/image-search-rationale2.svg" alt="App keyword and filter design" />
+      <img class="case-image" src="assets/image-search-rationale3.png" alt="App empty state and onboarding" />
+      <img class="case-image" src="assets/image-search-rationale4.svg" alt="Internal editorial tool" />
+
+      <p class="subsection-label">Web</p>
+      <ul>
+        <li>Focused on discovery as the end-goal by guiding user searches toward open-ended terms</li>
+        <li>Worked with Legal on disclosures needed for AI</li>
+        <li>Named the thing!</li>
+      </ul>
+      <img class="case-image" src="assets/image-search-rationale5.svg" alt="Web AB test variants" />
+      <img class="case-image" src="assets/image-search-rationale6.svg" alt="Web Image Archive — AI disclosure" />
+      <img class="case-image" src="assets/image-search-rationale7.svg" alt="Web Image Archive — naming" />
+    </div>
+
+    <div class="case-section">
+      <p class="case-section-label">Outcome</p>
+
+      <p class="subsection-label">App</p>
+      <div class="outcome-stat"><em>70%</em> of all app sessions use image search since launch.</div>
+      <div class="outcome-stat">App success unlocked investment to build <em>open text search on the web.</em></div>
+
+      <p class="subsection-label" style="margin-top: 48px;">Web</p>
+      <div class="outcome-stat">The Image Archive saw <em>30,000 visits</em> in its first month live.</div>
+      <div class="outcome-stat">Placed behind the paywall in September, the feature alone drove <em>17% of monthly conversions.</em></div>
+      <div class="outcome-stat">Average time spent per user of <em>5.92 minutes</em> — more than double the total site average.</div>
+
+      <img class="case-image" src="assets/image-search-outcome.svg" alt="Outcome — search queries" />
+
+      <video
+        class="case-image"
+        src="assets/image-search-background.mov"
+        autoplay
+        loop
+        muted
+        playsinline
+        style="border: 1px solid var(--cream-dark);">
+      </video>
+
+    </div>
+
+  </article>
+
+  <footer>
+    <p>© 2026 Sammie Spector</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+
+</body>
+</html>

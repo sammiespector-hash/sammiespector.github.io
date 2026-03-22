@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Content Design — Sammie Spector</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED;
+      --cream-dark: #EAE7E0;
+      --ink: #1A1A18;
+      --ink-light: #4A4A46;
+      --navy: #1B2F6E;
+      --accent: #B386EF;
+      --accent-light: #D9C2F5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gate {
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .gate-tag {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .gate-title {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 40px;
+      color: var(--ink);
+    }
+
+    .gate-input {
+      width: 100%;
+      background: white;
+      border: 1px solid var(--cream-dark);
+      padding: 16px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+      letter-spacing: 0.05em;
+    }
+
+    .gate-input:focus {
+      border-color: var(--accent);
+    }
+
+    .gate-input::placeholder {
+      color: var(--accent-light);
+    }
+
+    .gate-button {
+      width: 100%;
+      background: var(--accent);
+      border: none;
+      padding: 16px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .gate-button:hover {
+      background: var(--navy);
+    }
+
+    .gate-error {
+      font-size: 14px;
+      color: var(--ink-light);
+      margin-top: 16px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gate-error.visible {
+      opacity: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-light);
+      margin-top: 40px;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; font-size: 14px; }
+
+    /* CONTENT — hidden until unlocked */
+    .content { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="gate" id="gate">
+    <p class="gate-tag">Enter Password</p>
+    <h1 class="gate-title">Agentic Content Design</h1>
+    <input
+      class="gate-input"
+      type="password"
+      id="password-input"
+      placeholder="Password"
+      autocomplete="off"
+    />
+    <button class="gate-button" onclick="checkPassword()">Enter</button>
+    <p class="gate-error" id="gate-error">Incorrect password. Try again.</p>
+    <a href="portfolio.html" class="back-link">Back to portfolio</a>
+  </div>
+
+  <script>
+    // Allow pressing Enter to submit
+    document.getElementById('password-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    function checkPassword() {
+      const input = document.getElementById('password-input').value;
+      const error = document.getElementById('gate-error');
+      if (input === 'spector2026') {
+        // Store in session so page doesn't re-lock on refresh
+        sessionStorage.setItem('agentic-unlocked', 'true');
+        window.location.href = 'agentic-content.html';
+      } else {
+        error.classList.add('visible');
+        document.getElementById('password-input').value = '';
+        document.getElementById('password-input').focus();
+      }
+    }
+
+    // If already unlocked this session, skip gate
+    if (sessionStorage.getItem('agentic-unlocked') === 'true') {
+      window.location.href = 'agentic-content.html';
+    }
+  </script>
+
+</body>
+</html>

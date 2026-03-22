@@ -187,6 +187,33 @@
       margin: 40px 0;
       border: 1px solid var(--cream-dark);
     }
+    .case-image-small {
+      width: 50%;
+      height: auto;
+      display: block;
+      margin: 40px 0;
+      border: 1px solid var(--cream-dark);
+    }
+    .case-image-medium {
+      width: 67%;
+      height: auto;
+      display: block;
+      margin: 40px 0;
+      border: 1px solid var(--cream-dark);
+    }
+    .outcome-with-image {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin: 0 0 40px;
+    }
+    .outcome-with-image .outcome-stats { flex: 1; }
+    .outcome-with-image img {
+      width: 45%;
+      height: auto;
+      border: 1px solid var(--cream-dark);
+      flex-shrink: 0;
+    }
 
     /* Two-up image grid */
     .image-grid {
@@ -279,14 +306,14 @@
       <p>Vogue owns 1.2 million images from runway shows — a library spanning across the globe and the history of fashion. The everyday Vogue reader didn't have easy access to this vast archive. Plus, fashion designers and students needed better tools in order to see our IP as a valuable resource.</p>
       <p>Enter a collaboration with our Machine Learning team.</p>
 
-      <img class="case-image" src="assets/image-search-challenge.svg" alt="The challenge — limited filters" />
+      <img class="case-image-medium" src="assets/image-search-challenge.svg" alt="The challenge — limited filters" />
     </div>
 
     <div class="case-section">
       <p class="case-section-label">Challenge</p>
       <p>The only way to sort through the repository was via two filters: season or designer. But with Machine Learning at our disposal, we could build a model that mimicked how readers and fashion professionals searched.</p>
       <p>The added challenge: We needed to build a different yet consistent experience for the web and apps.</p>
-      <img class="case-image" src="assets/image-search-approach1.svg" alt="Jobs to be done" />
+      <img class="case-image-small" src="assets/image-search-approach1.svg" alt="Jobs to be done" />
     </div>
 
     <div class="case-section">
@@ -312,9 +339,9 @@
         <li>Educated users during use in lieu of lengthy onboarding</li>
         <li>Helped Editorial understand the technology by creating an internal tool for refining the model</li>
       </ul>
-      <img class="case-image" src="assets/image-search-rationale.svg" alt="App design rationale" />
+      <img class="case-image-small" src="assets/image-search-rationale.svg" alt="App design rationale" />
       <img class="case-image" src="assets/image-search-rationale2.svg" alt="App keyword and filter design" />
-      <img class="case-image" src="assets/image-search-rationale3.png" alt="App empty state and onboarding" />
+      <img class="case-image-small" src="assets/image-search-rationale3.png" alt="App empty state and onboarding" />
       <img class="case-image" src="assets/image-search-rationale4.svg" alt="Internal editorial tool" />
 
       <p class="subsection-label">Web</p>
@@ -324,8 +351,10 @@
         <li>Named the thing!</li>
       </ul>
       <img class="case-image" src="assets/image-search-rationale5.svg" alt="Web AB test variants" />
-      <img class="case-image" src="assets/image-search-rationale6.svg" alt="Web Image Archive — AI disclosure" />
-      <img class="case-image" src="assets/image-search-rationale7.svg" alt="Web Image Archive — naming" />
+      <div class="image-grid">
+        <img src="assets/image-search-rationale6.svg" alt="Web Image Archive — AI disclosure" />
+        <img src="assets/image-search-rationale7.svg" alt="Web Image Archive — naming" />
+      </div>
     </div>
 
     <div class="case-section">
@@ -336,11 +365,14 @@
       <div class="outcome-stat">App success unlocked investment to build <em>open text search on the web.</em></div>
 
       <p class="subsection-label" style="margin-top: 48px;">Web</p>
-      <div class="outcome-stat">The Image Archive saw <em>30,000 visits</em> in its first month live.</div>
-      <div class="outcome-stat">Placed behind the paywall in September, the feature alone drove <em>17% of monthly conversions.</em></div>
-      <div class="outcome-stat">Average time spent per user of <em>5.92 minutes</em> — more than double the total site average.</div>
-
-      <img class="case-image" src="assets/image-search-outcome.svg" alt="Outcome — search queries" />
+      <div class="outcome-with-image">
+        <div class="outcome-stats">
+          <div class="outcome-stat">The Image Archive saw <em>30,000 visits</em> in its first month live.</div>
+          <div class="outcome-stat">Placed behind the paywall in September, the feature alone drove <em>17% of monthly conversions.</em></div>
+          <div class="outcome-stat">Average time spent per user of <em>5.92 minutes</em> — more than double the total site average.</div>
+        </div>
+        <img src="assets/image-search-outcome.svg" alt="Outcome — search queries" />
+      </div>
 
       <video
         class="case-image"

@@ -340,7 +340,7 @@
       border-color: var(--accent);
       background: var(--accent-light);
     }
-    .case-carousel-dots-wrap { display: flex; justify-content: center; }
+    .case-carousel-dots-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
     .case-carousel-dots { display: flex; gap: 10px; align-items: center; }
     .case-carousel-dot {
       width: 8px;
@@ -438,6 +438,9 @@
         <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
         <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
         <div class="case-carousel" id="localization-carousel">
+          <div class="case-carousel-dots-wrap">
+            <div class="case-carousel-dots" id="loc-carousel-dots"></div>
+          </div>
           <div class="case-carousel-row">
             <button type="button" class="case-carousel-btn" id="loc-carousel-prev" aria-label="Previous image">←</button>
             <div class="case-carousel-inner">
@@ -454,9 +457,6 @@
               </div>
             </div>
             <button type="button" class="case-carousel-btn" id="loc-carousel-next" aria-label="Next image">→</button>
-          </div>
-          <div class="case-carousel-dots-wrap">
-            <div class="case-carousel-dots" id="loc-carousel-dots"></div>
           </div>
         </div>
         <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>

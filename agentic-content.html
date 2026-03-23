@@ -283,6 +283,71 @@
     }
     .outcome-stat em { font-style: italic; color: var(--accent); }
 
+    /* CAROUSEL */
+    .case-carousel { margin-top: 40px; margin-bottom: 40px; }
+    .case-carousel-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .case-carousel-inner {
+      position: relative;
+      max-width: 780px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .case-carousel-track {
+      display: flex;
+      width: 300%;
+      transition: transform 0.4s ease;
+    }
+    .case-carousel-slide {
+      flex: 0 0 33.333%;
+      width: 33.333%;
+      min-width: 0;
+    }
+    .case-carousel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: top;
+      border: 1px solid var(--cream-dark);
+    }
+    .case-carousel-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--cream-dark);
+      background: var(--cream);
+      color: var(--accent);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .case-carousel-btn:hover {
+      color: var(--ink);
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+    .case-carousel-dots-wrap { display: flex; justify-content: center; }
+    .case-carousel-dots { display: flex; gap: 10px; align-items: center; }
+    .case-carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: var(--cream-dark);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s;
+    }
+    .case-carousel-dot.active { background: var(--accent); }
+
     footer {
       border-top: 1px solid var(--cream-dark);
       padding: 32px 60px;
@@ -367,9 +432,28 @@
         <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
         <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
         <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
-        <img class="case-image" src="assets/Agentic experiments/Localization1.png" alt="Localization process" />
-        <img class="case-image" src="assets/Agentic experiments/Localization2.png" alt="Localization agent" />
-        <img class="case-image" src="assets/Agentic experiments/Localization3.png" alt="Localization review screens" />
+        <div class="case-carousel" id="localization-carousel">
+          <div class="case-carousel-row">
+            <button type="button" class="case-carousel-btn" id="loc-carousel-prev" aria-label="Previous image">←</button>
+            <div class="case-carousel-inner">
+              <div class="case-carousel-track">
+                <div class="case-carousel-slide">
+                  <img src="assets/Agentic experiments/Localization1.png" alt="Localization process" />
+                </div>
+                <div class="case-carousel-slide">
+                  <img src="assets/Agentic experiments/Localization2.png" alt="Localization agent" />
+                </div>
+                <div class="case-carousel-slide">
+                  <img src="assets/Agentic experiments/Localization3.png" alt="Localization review screens" />
+                </div>
+              </div>
+            </div>
+            <button type="button" class="case-carousel-btn" id="loc-carousel-next" aria-label="Next image">→</button>
+          </div>
+          <div class="case-carousel-dots-wrap">
+            <div class="case-carousel-dots" id="loc-carousel-dots"></div>
+          </div>
+        </div>
         <video class="case-image" src="assets/Agentic experiments/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
       </div>
 
@@ -396,8 +480,8 @@
         <p class="case-section-label">Approach</p>
         <p>I started by listening. My team was split between feeling overwhelmed and feeling guilty about it. Once again, I treated the constraint as a design problem and wanted to automate what I could to take off their plate. They couldn't be everywhere at once, and were starting to feel like they might get left behind. I realized this was less about reducing manual work, but more so not having the time nor agency to influence our product at scale.</p>
         <p>I took our existing style guide, Angi voice and tone documentation, UX writing best practice guides, and discipline resources and insights we'd shared across the past year, and turned them into a living style guide that lives inside Cursor—where our PMs and designers are already working. The key was making it active, not passive: rather than a doc no one outside content design would read, beyond making it into a prototype, I also built it as a Cursor skill that deploys whenever a designer is building new screens or flows.</p>
-        <img class="case-image" src="assets/Agentic experiments/StyleGuide1.png" alt="Style guide in Cursor" />
-        <img class="case-image" src="assets/Agentic experiments/StyleGuide2.png" alt="Style guide governance" />
+        <img class="case-image" src="assets/Agentic experiments/StyleGuide1.png" alt="Style guide in Cursor" style="width: 66.666%; margin-left: auto; margin-right: auto;" />
+        <img class="case-image" src="assets/Agentic experiments/StyleGuide2.png" alt="Style guide governance" style="width: 66.666%; margin-left: auto; margin-right: auto;" />
         <p>The skill includes our full terminology guide, and governs automatically. For example, if a designer uses "client" in a prompt, Cursor automatically corrects it to "customer," our official term. Same for punctuation rules, capitalisation standards, and heading styles. It works exactly like a design system, just for language.</p>
         <p>I also connected the live style guide to the Cursor skill so that any amendments or additions automatically update the skill without manual maintenance required. Now I've been tinkering with building out a stronger governance layer: when new screens are added to our shared repo, an agent runs an automatic check and flags any net-new terminology or styling that doesn't exist or have an approved alternative in our system. Those flags come through a dedicated Slack channel, giving content designers a lightweight way to check in and course-correct without being embedded on every project.</p>
       </div>
@@ -458,6 +542,42 @@
     if (sessionStorage.getItem('agentic-unlocked') !== 'true') {
       window.location.replace('agentic.html');
     }
+
+    (function() {
+      const carousel = document.getElementById('localization-carousel');
+      if (!carousel) return;
+      const track = carousel.querySelector('.case-carousel-track');
+      const slides = carousel.querySelectorAll('.case-carousel-slide');
+      const prevBtn = document.getElementById('loc-carousel-prev');
+      const nextBtn = document.getElementById('loc-carousel-next');
+      const dotsEl = document.getElementById('loc-carousel-dots');
+      const total = slides.length;
+      let index = 0;
+
+      function goTo(i) {
+        index = ((i % total) + total) % total;
+        track.style.transform = 'translateX(-' + (index * (100 / total)) + '%)';
+        dotsEl.querySelectorAll('.case-carousel-dot').forEach(function(dot, d) {
+          dot.classList.toggle('active', d === index);
+        });
+      }
+
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'case-carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+        (function(idx) {
+          dot.addEventListener('click', function() { goTo(idx); });
+        })(i);
+        dotsEl.appendChild(dot);
+      }
+
+      prevBtn.addEventListener('click', function() { goTo(index - 1); });
+      nextBtn.addEventListener('click', function() { goTo(index + 1); });
+
+      setInterval(function() { goTo(index + 1); }, 4500);
+    })();
 
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {

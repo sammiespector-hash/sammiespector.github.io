@@ -275,8 +275,11 @@
     @media (max-width: 600px) {
       nav { padding: 20px 20px; }
       .nav-hamburger { display: flex; }
-      nav ul { position: fixed; inset: 0; background: var(--cream); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 40px; z-index: 500; }
-      nav ul.open { display: flex; }
+      nav ul { display: none; }
+      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+      nav.menu-open { position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; z-index: 9000; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; padding: 0; }
+      nav.menu-open .nav-brand { display: none; }
+      nav.menu-open .nav-hamburger { position: absolute; top: 20px; right: 20px; }
       nav ul li a { font-size: 24px; letter-spacing: 0.14em; }
       nav ul li a::after { display: none; }
       .nav-name { font-size: 13px; letter-spacing: 0.12em; }
@@ -423,6 +426,7 @@
     hamburger.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle('open');
       hamburger.classList.toggle('open', isOpen);
+      nav.classList.toggle('menu-open', isOpen);
       hamburger.setAttribute('aria-expanded', isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
@@ -430,6 +434,7 @@
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
         hamburger.classList.remove('open');
+        nav.classList.remove('menu-open');
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       });

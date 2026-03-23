@@ -431,7 +431,6 @@
         <p>Before our AI-first mandate, we had begun running machine translation experimentation and kept a detailed log of where the output broke down. This included where the review became most manual, where copy/pasting and reformatting ate up the most time, and where the gaps between translation and product best practice were widest.</p>
         <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
         <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
-        <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
         <div class="case-carousel" id="localization-carousel">
           <div class="case-carousel-row">
             <button type="button" class="case-carousel-btn" id="loc-carousel-prev" aria-label="Previous image">←</button>
@@ -454,6 +453,7 @@
             <div class="case-carousel-dots" id="loc-carousel-dots"></div>
           </div>
         </div>
+        <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
         <video class="case-image" src="assets/Agentic experiments/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
       </div>
 

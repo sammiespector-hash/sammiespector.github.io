@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Content Design—Sammie Spector</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F4F2ED;
+      --cream-dark: #EAE7E0;
+      --ink: #1A1A18;
+      --ink-light: #4A4A46;
+      --navy: #1B2F6E;
+      --accent: #B386EF;
+      --accent-light: #D9C2F5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s ease, background 0.4s ease;
+    }
+    nav.scrolled {
+      border-bottom-color: var(--cream-dark);
+      background: rgba(244, 242, 237, 0.96);
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .nav-brand:hover .logo-mark { opacity: 1; }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); transition: color 0.3s;
+    }
+    .nav-brand:hover .nav-name { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul li a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; color: var(--ink-light);
+      position: relative; transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0; width: 0; height: 1px;
+      background: var(--accent); transition: width 0.35s ease;
+    }
+    nav ul li a:hover { color: var(--accent); }
+    nav ul li a:hover::after { width: 100%; }
+
+    /* CASE STUDY */
+    .case-study {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 140px 60px 100px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-light);
+      margin-bottom: 48px;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; font-size: 16px; }
+
+    .case-tag {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .case-title {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .case-intro {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.6;
+      max-width: 680px;
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    /* TABLE OF CONTENTS */
+    .toc {
+      margin-bottom: 72px;
+      padding-bottom: 72px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .toc-label {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .toc-item {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: baseline;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      text-decoration: none;
+      color: var(--ink);
+      transition: color 0.3s;
+    }
+
+    .toc-item:hover { color: var(--accent); }
+
+    .toc-num {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      color: var(--accent-light);
+    }
+
+    .toc-title {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .toc-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-light);
+      text-align: right;
+      max-width: 260px;
+    }
+
+    /* EXPERIMENT SECTIONS */
+    .experiment {
+      margin-bottom: 80px;
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--cream-dark);
+      scroll-margin-top: 100px;
+    }
+
+    .experiment:last-of-type {
+      border-bottom: none;
+    }
+
+    .experiment-header {
+      margin-bottom: 48px;
+    }
+
+    .experiment-num {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+
+    .experiment-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .case-section { margin-bottom: 48px; }
+
+    .case-section-label {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .case-section p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 1.2em;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+
+    .case-section ul {
+      list-style: none;
+      margin: 16px 0;
+    }
+    .case-section ul li {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      padding: 10px 0 10px 20px;
+      border-bottom: 1px solid var(--cream-dark);
+      position: relative;
+    }
+    .case-section ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .case-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 40px 0;
+      border: 1px solid var(--cream-dark);
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 300px;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px 0;
+      border: 1px solid var(--cream-dark);
+    }
+    .image-placeholder span {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .outcome-stat {
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .outcome-stat em { font-style: italic; color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--cream-dark);
+      padding: 32px 60px;
+      margin-top: 80px;
+    }
+    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+
+    @media (max-width: 900px) {
+      nav { padding: 24px 32px; }
+      .case-study { padding: 120px 32px 80px; }
+      .toc-item { grid-template-columns: 28px 1fr; }
+      .toc-desc { display: none; }
+      footer { padding: 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo.png" class="logo-mark" alt="Sammie Spector" />
+      <span class="nav-name">Sammie Spector</span>
+    </a>
+    <ul>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#community">Community</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <article class="case-study">
+    <a href="portfolio.html" class="back-link">Back to portfolio</a>
+
+    <p class="case-tag">Case Study—Angi</p>
+    <h1 class="case-title">Agentic Content Design Projects</h1>
+    <p class="case-intro">In late 2025, Angi instituted an AI-first mandate across the company. Shortly after, a significant reduction-in-force left my team smaller, but the scope and volume of our work hadn't changed. Rather than stretching the team thin or accepting a drop in quality, I treated it as a design problem: how do we maintain output, protect craft, and give our content designers back their time for the work that actually needs a human? These are three ongoing experiments I'm running in using agents to answer that question. Localization automation has now launched, but the next two are work-in-progress, where I'm taking an iterative approach to improvement and adoption as time allows.</p>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <p class="toc-label">Three Experiments</p>
+      <ul class="toc-list">
+        <li>
+          <a href="#localization" class="toc-item">
+            <span class="toc-num">01</span>
+            <span class="toc-title">Localization Automation</span>
+            <span class="toc-desc">Rebuilding a £120k/year process from the ground up</span>
+          </a>
+        </li>
+        <li>
+          <a href="#style-guide" class="toc-item">
+            <span class="toc-num">02</span>
+            <span class="toc-title">Content Design Influence over Prototypes</span>
+            <span class="toc-desc">Keeping quality high when CDs aren't in the room</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sales-care" class="toc-item">
+            <span class="toc-num">03</span>
+            <span class="toc-title">Sales & Care Operations</span>
+            <span class="toc-desc">Scaling product knowledge across two large orgs</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- EXPERIMENT 01 -->
+    <section class="experiment" id="localization">
+      <div class="experiment-header">
+        <p class="experiment-num">Experiment 01</p>
+        <h2 class="experiment-title">Localization Automation</h2>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Challenge</p>
+        <p>Across the European branch of our business, we spent upwards of £120,000 annually on translation operations across 6 markets. The process was slow: our localization manager facilitated availability and deadlines with freelance translators, briefed them individually, worked within their schedules, and chased down reviews. The translators themselves often lacked the product context needed to translate effectively for a mobile marketplace, such as the nuance of microcopy, the logic of UI states, the specificity of our terminology. We were paying a premium for output that didn't really meet our product standards.</p>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Approach</p>
+        <p>Before our AI-first mandate, we had begun running machine translation experimentation and kept a detailed log of where the output broke down. This included where the review became most manual, where copy/pasting and reformatting ate up the most time, and where the gaps between translation and product best practice were widest.</p>
+        <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
+        <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
+        <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
+        <img class="case-image" src="assets/Agentic experiments/Localization1.png" alt="Localization process" />
+        <img class="case-image" src="assets/Agentic experiments/Localization2.png" alt="Localization agent" />
+        <img class="case-image" src="assets/Agentic experiments/Localization3.png" alt="Localization review screens" />
+        <video class="case-image" src="assets/Agentic experiments/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Outcome</p>
+        <div class="outcome-stat">Saved over <em>£100,000</em> in freelance bench hours annually.</div>
+        <div class="outcome-stat">Freed our localization manager from <em>manual coordination work</em> to focus on more strategic, complex projects.</div>
+      </div>
+    </section>
+
+    <!-- EXPERIMENT 02 -->
+    <section class="experiment" id="style-guide">
+      <div class="experiment-header">
+        <p class="experiment-num">Experiment 02</p>
+        <h2 class="experiment-title">Content Design Influence over Prototypes</h2>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Challenge</p>
+        <p>As agentic design becomes the norm, designers and PMs are increasingly building directly in prototype tools. At Angi, we're using Cursor, and we're getting close to shipping small experiments straight from there. The practical consequence is that content designers are less likely to be looped in, a recurring theme for the discipline no matter the tool. My team is already stretched across numerous projects and can't take on superlative reviews for work they aren't embedded on. But we also can't afford to lose quality either, and we're too stubborn to drop anything.</p>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Approach</p>
+        <p>I started by listening. My team was split between feeling overwhelmed and feeling guilty about it. Once again, I treated the constraint as a design problem and wanted to automate what I could to take off their plate. They couldn't be everywhere at once, and were starting to feel like they might get left behind. I realized this was less about reducing manual work, but more so not having the time nor agency to influence our product at scale.</p>
+        <p>I took our existing style guide, Angi voice and tone documentation, UX writing best practice guides, and discipline resources and insights we'd shared across the past year, and turned them into a living style guide that lives inside Cursor—where our PMs and designers are already working. The key was making it active, not passive: rather than a doc no one outside content design would read, beyond making it into a prototype, I also built it as a Cursor skill that deploys whenever a designer is building new screens or flows.</p>
+        <p>The skill includes our full terminology guide, and governs automatically. For example, if a designer uses "client" in a prompt, Cursor automatically corrects it to "customer," our official term. Same for punctuation rules, capitalisation standards, and heading styles. It works exactly like a design system, just for language.</p>
+        <p>I also connected the live style guide to the Cursor skill so that any amendments or additions automatically update the skill without manual maintenance required. Now I've been tinkering with building out a stronger governance layer: when new screens are added to our shared repo, an agent runs an automatic check and flags any net-new terminology or styling that doesn't exist or have an approved alternative in our system. Those flags come through a dedicated Slack channel, giving content designers a lightweight way to check in and course-correct without being embedded on every project.</p>
+        <img class="case-image" src="assets/Agentic experiments/StyleGuide1.png" alt="Style guide in Cursor" />
+        <img class="case-image" src="assets/Agentic experiments/StyleGuide2.png" alt="Style guide governance" />
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Outcome</p>
+        <div class="outcome-stat">Content design standards now <em>ship with every prototype</em>—whether a CD is in the room or not.</div>
+        <div class="outcome-stat">Automated governance means <em>fewer ad-hoc reviews</em> and more intentional, high-value CD involvement.</div>
+        <div class="outcome-stat">The style guide is <em>self-maintaining</em>—updated once, propagated everywhere.</div>
+      </div>
+    </section>
+
+    <!-- EXPERIMENT 03 -->
+    <section class="experiment" id="sales-care">
+      <div class="experiment-header">
+        <p class="experiment-num">Experiment 03</p>
+        <h2 class="experiment-title">Sales & Care Operations</h2>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Challenge</p>
+        <p>My team owns the voice of Angi's product beyond the app, which includes landing pages, transactional emails, product marketing, and most critically, the materials that enable our Sales and Care organizations. That means all Help Center wayfinding and content, troubleshooting guides, and the scripts and briefings that help reps on a traditional sales floor drive feature adoption and reinforce our subscription value propositions over the phone.</p>
+        <p>For every product release, upgrade, or policy change, my team is responsible for translating product knowledge into something Sales and Care can actually use. It requires heavy time outside the core product squad—a lot of manual writing, a lot of info-gathering, and a lot of last-minute fire drills before launch.</p>
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Approach</p>
+        <p>I created a core working group to tackle this recurring issue: myself, a principal content designer on my team, the director of learning design, and our operations manager who coordinates communications for launch. I experimented with several models before settling on a GPT trained on Angi's brand voice and tone, UX microcopy best practices, and our comms templates. We, of course, had to call it AnGPT!</p>
+        <p>The process now works to reduce manual effort and prioritize human touchpoints for reviews:</p>
+        <ol style="list-style: none; margin: 16px 0;">
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
+        </ol>
+        <img class="case-image" src="assets/Agentic experiments/Operations1.png" alt="Sales and Care operations" />
+        <img class="case-image" src="assets/Agentic experiments/Operations2.png" alt="AnGPT fact sheet process" />
+        <img class="case-image" src="assets/Agentic experiments/Operations3.png" alt="Launch communications workflow" />
+      </div>
+
+      <div class="case-section">
+        <p class="case-section-label">Outcome</p>
+        <div class="outcome-stat">Significant reduction in <em>manual hours</em> across content design, product management, and Sales and Care VPs and coordinators.</div>
+        <div class="outcome-stat">Tighter pre-launch alignment means <em>fewer hiccups at go-live</em>—and fewer reactive fixes after.</div>
+      </div>
+    </section>
+
+  </article>
+
+  <footer>
+    <p>© 2026 Sammie Spector</p>
+  </footer>
+
+  <script>
+    // Session guard — redirect to gate if not unlocked
+    if (sessionStorage.getItem('agentic-unlocked') !== 'true') {
+      window.location.replace('agentic.html');
+    }
+
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+
+</body>
+</html>

@@ -73,6 +73,70 @@
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
 
+    /* HAMBURGER */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 600;
+      position: relative;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* SPOTLIGHT */
+    .spotlight-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 24, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      cursor: zoom-out;
+    }
+    .spotlight-overlay.open { display: flex; }
+    .spotlight-img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.5);
+      cursor: default;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .spotlight-close {
+      position: fixed;
+      top: 20px;
+      right: 28px;
+      background: none;
+      border: none;
+      color: rgba(244,242,237,0.75);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+    }
+    .spotlight-close:hover { color: var(--cream); }
+
+    /* Clickable images */
+    img.case-image, .case-carousel-slide img { cursor: zoom-in; }
+
     /* CASE STUDY */
     .case-study {
       max-width: 860px;
@@ -363,6 +427,29 @@
       .toc-desc { display: none; }
       footer { padding: 24px 32px; }
     }
+    @media (max-width: 600px) {
+      nav { padding: 20px 20px; }
+      .nav-hamburger { display: flex; }
+      nav ul {
+        position: fixed;
+        inset: 0;
+        background: var(--cream);
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        z-index: 500;
+      }
+      nav ul.open { display: flex; }
+      nav ul li a { font-size: 24px; letter-spacing: 0.14em; }
+      nav ul li a::after { display: none; }
+      .nav-name { font-size: 13px; letter-spacing: 0.12em; }
+      .logo-mark { width: 32px; }
+      .case-study { padding: 100px 20px 60px; }
+      .case-carousel-btn { width: 36px; height: 36px; font-size: 16px; }
+      footer { padding: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -372,13 +459,22 @@
       <img src="assets/logo.png" class="logo-mark" alt="Sammie Spector" />
       <span class="nav-name">Sammie Spector</span>
     </a>
-    <ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="nav-menu">
       <li><a href="index.html#experience">Experience</a></li>
       <li><a href="index.html#community">Community</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
     </ul>
   </nav>
+
+  <!-- SPOTLIGHT OVERLAY -->
+  <div class="spotlight-overlay" id="spotlight-overlay" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="spotlight-close" id="spotlight-close" aria-label="Close preview">×</button>
+    <img class="spotlight-img" id="spotlight-img" src="" alt="" />
+  </div>
 
   <article class="case-study">
     <a href="portfolio.html" class="back-link">Back to portfolio</a>
@@ -584,6 +680,48 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('nav-hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Image spotlight
+    const spotOverlay = document.getElementById('spotlight-overlay');
+    const spotImg = document.getElementById('spotlight-img');
+    const spotClose = document.getElementById('spotlight-close');
+
+    function openSpotlight(src, alt) {
+      spotImg.src = src;
+      spotImg.alt = alt || '';
+      spotOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSpotlight() {
+      spotOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('img.case-image, .case-carousel-slide img').forEach(img => {
+      img.addEventListener('click', () => openSpotlight(img.src, img.alt));
+    });
+
+    spotOverlay.addEventListener('click', e => { if (e.target === spotOverlay) closeSpotlight(); });
+    spotClose.addEventListener('click', closeSpotlight);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSpotlight(); });
   </script>
 
 </body>

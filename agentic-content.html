@@ -126,8 +126,7 @@
     /* TABLE OF CONTENTS */
     .toc {
       margin-bottom: 72px;
-      padding-bottom: 72px;
-      border-bottom: 1px solid var(--cream-dark);
+      padding-bottom: 0;
     }
 
     .toc-label {
@@ -184,13 +183,8 @@
     /* EXPERIMENT SECTIONS */
     .experiment {
       margin-bottom: 80px;
-      padding-bottom: 80px;
-      border-bottom: 1px solid var(--cream-dark);
+      padding-bottom: 0;
       scroll-margin-top: 100px;
-    }
-
-    .experiment:last-of-type {
-      border-bottom: none;
     }
 
     .experiment-header {
@@ -518,10 +512,10 @@
         <p>I created a core working group to tackle this recurring issue: myself, a principal content designer on my team, the director of learning design, and our operations manager who coordinates communications for launch. I experimented with several models before settling on a GPT trained on Angi's brand voice and tone, UX microcopy best practices, and our comms templates. We, of course, had to call it AnGPT!</p>
         <p>The process now works to reduce manual effort and prioritize human touchpoints for reviews:</p>
         <ol style="list-style: none; margin: 16px 0;">
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
+          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
+          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
+          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
+          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
         </ol>
         <div style="display: flex; gap: 16px; margin: 40px 0;">
           <img class="case-image" src="assets/Agentic experiments/Operations1.png" alt="Sales and Care operations" style="width: 50%; margin: 0;" />

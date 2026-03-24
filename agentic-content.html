@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream: #F4F2ED;
@@ -73,70 +73,6 @@
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
 
-    /* HAMBURGER */
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 600;
-      position: relative;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--ink);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    /* SPOTLIGHT */
-    .spotlight-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(26, 26, 24, 0.9);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
-      cursor: zoom-out;
-    }
-    .spotlight-overlay.open { display: flex; }
-    .spotlight-img {
-      max-width: 92vw;
-      max-height: 88vh;
-      object-fit: contain;
-      box-shadow: 0 12px 60px rgba(0,0,0,0.5);
-      cursor: default;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .spotlight-close {
-      position: fixed;
-      top: 20px;
-      right: 28px;
-      background: none;
-      border: none;
-      color: rgba(244,242,237,0.75);
-      font-size: 32px;
-      line-height: 1;
-      cursor: pointer;
-      transition: color 0.2s;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-    }
-    .spotlight-close:hover { color: var(--cream); }
-
-    /* Clickable images */
-    img.case-image, .case-carousel-slide img { cursor: zoom-in; }
-
     /* CASE STUDY */
     .case-study {
       max-width: 860px;
@@ -176,78 +112,27 @@
     }
 
     .case-intro {
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 20px;
+      font-weight: 300;
       color: var(--ink-light);
       line-height: 1.6;
       max-width: 680px;
       margin-bottom: 64px;
-      padding-bottom: 0;
-    }
-
-    /* TABLE OF CONTENTS */
-    .toc {
-      margin-bottom: 72px;
-      padding-bottom: 0;
-    }
-
-    .toc-label {
-      font-size: 11px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
-    }
-
-    .toc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border-top: 1px solid var(--cream-dark);
-    }
-
-    .toc-item {
-      display: grid;
-      grid-template-columns: 32px 1fr auto;
-      align-items: baseline;
-      gap: 20px;
-      padding: 20px 0;
+      padding-bottom: 64px;
       border-bottom: 1px solid var(--cream-dark);
-      text-decoration: none;
-      color: var(--ink);
-      transition: color 0.3s;
     }
 
-    .toc-item:hover { color: var(--accent); }
-
-    .toc-num {
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      color: var(--accent-light);
-    }
-
-    .toc-title {
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-    }
-
-    .toc-desc {
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--ink-light);
-      text-align: right;
-      max-width: 260px;
-    }
 
     /* EXPERIMENT SECTIONS */
     .experiment {
       margin-bottom: 80px;
-      padding-bottom: 0;
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--cream-dark);
       scroll-margin-top: 100px;
+    }
+
+    .experiment:last-of-type {
+      border-bottom: none;
     }
 
     .experiment-header {
@@ -272,19 +157,16 @@
     .case-section { margin-bottom: 48px; }
 
     .case-section-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
+      font-size: 12px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 20px;
     }
 
     .case-section p {
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 300;
       line-height: 1.75;
       color: var(--ink);
       margin-bottom: 1.2em;
@@ -296,9 +178,8 @@
       margin: 16px 0;
     }
     .case-section ul li {
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 300;
       line-height: 1.75;
       color: var(--ink);
       padding: 10px 0 10px 20px;
@@ -338,80 +219,14 @@
     }
 
     .outcome-stat {
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 300;
       color: var(--ink);
       line-height: 1.2;
       padding: 32px 0;
       border-bottom: 1px solid var(--cream-dark);
     }
-    .outcome-stat em { font-style: normal; color: var(--accent); }
-
-    /* CAROUSEL */
-    .case-carousel { margin-top: 40px; margin-bottom: 40px; }
-    .case-carousel-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .case-carousel-inner {
-      position: relative;
-      max-width: 780px;
-      width: 100%;
-      overflow: hidden;
-    }
-    .case-carousel-track {
-      display: flex;
-      width: 300%;
-      transition: transform 0.4s ease;
-    }
-    .case-carousel-slide {
-      flex: 0 0 33.333%;
-      width: 33.333%;
-      min-width: 0;
-    }
-    .case-carousel-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-      vertical-align: top;
-      border: 1px solid var(--cream-dark);
-    }
-    .case-carousel-btn {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border: 1px solid var(--cream-dark);
-      background: var(--cream);
-      color: var(--accent);
-      font-size: 20px;
-      cursor: pointer;
-      transition: color 0.3s, border-color 0.3s, background 0.3s;
-    }
-    .case-carousel-btn:hover {
-      color: var(--ink);
-      border-color: var(--accent);
-      background: var(--accent-light);
-    }
-    .case-carousel-dots-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
-    .case-carousel-dots { display: flex; gap: 10px; align-items: center; }
-    .case-carousel-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: none;
-      background: var(--cream-dark);
-      cursor: pointer;
-      padding: 0;
-      transition: background 0.3s;
-    }
-    .case-carousel-dot.active { background: var(--accent); }
+    .outcome-stat em { font-style: italic; color: var(--accent); }
 
     footer {
       border-top: 1px solid var(--cream-dark);
@@ -423,26 +238,185 @@
     @media (max-width: 900px) {
       nav { padding: 24px 32px; }
       .case-study { padding: 120px 32px 80px; }
-      .toc-item { grid-template-columns: 28px 1fr; }
-      .toc-desc { display: none; }
       footer { padding: 24px 32px; }
     }
-    @media (max-width: 600px) {
-      nav { padding: 20px 20px; }
-      .nav-hamburger { display: flex; }
-      nav ul { display: none; }
-      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 40px; }
-      nav.menu-open { position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; z-index: 9000; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; padding: 0; }
-      nav.menu-open .nav-brand { display: none; }
-      nav.menu-open .nav-hamburger { position: absolute; top: 20px; right: 20px; }
-      nav ul li a { font-size: 24px; letter-spacing: 0.14em; }
-      nav ul li a::after { display: none; }
-      .nav-name { font-size: 13px; letter-spacing: 0.12em; }
-      .logo-mark { width: 32px; }
-      .case-study { padding: 130px 20px 60px; }
-      .case-carousel-btn { width: 36px; height: 36px; font-size: 16px; }
-      footer { padding: 20px; }
+    /* CAROUSEL */
+    .carousel-wrap {
+      margin-bottom: 72px;
+      padding-bottom: 72px;
+      border-bottom: 1px solid var(--cream-dark);
     }
+
+    .stage {
+      position: relative;
+      height: 340px;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      position: absolute;
+      width: 240px;
+      background: white;
+      border: 1px solid var(--accent-light);
+      border-radius: 16px;
+      padding: 32px 28px;
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+    }
+
+    .card.active {
+      transform: translateX(0) rotate(0deg) scale(1);
+      opacity: 1;
+      z-index: 3;
+      cursor: default;
+      box-shadow: 0 8px 32px rgba(27,47,110,0.1);
+    }
+    .card.prev {
+      transform: translateX(-220px) rotate(-6deg) scale(0.92);
+      opacity: 0.7;
+      z-index: 2;
+    }
+    .card.next {
+      transform: translateX(220px) rotate(6deg) scale(0.92);
+      opacity: 0.7;
+      z-index: 2;
+    }
+    .card.far-prev {
+      transform: translateX(-320px) rotate(-10deg) scale(0.84);
+      opacity: 0.3;
+      z-index: 1;
+    }
+    .card.far-next {
+      transform: translateX(320px) rotate(10deg) scale(0.84);
+      opacity: 0.3;
+      z-index: 1;
+    }
+    .card.hidden { opacity: 0; pointer-events: none; z-index: 0; }
+
+    .card-num {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .card-divider {
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 18px;
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-light);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin: 0 4px 6px 0;
+    }
+    .card-accent {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      font-size: 44px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream-dark);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .detail-panel {
+      border-top: 1px solid var(--cream-dark);
+      padding-top: 32px;
+      min-height: 140px;
+    }
+    .detail-tag {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .detail-title {
+      font-size: 26px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .detail-text {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+    .detail-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .stat-value {
+      font-size: 20px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-top: 4px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .ctrl-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--accent-light);
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--navy);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .ctrl-btn:hover { background: var(--cream-dark); border-color: var(--accent); }
+    .ctrl-dots { display: flex; gap: 8px; }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active { background: var(--accent); transform: scale(1.4); }
+
   </style>
 </head>
 <body>
@@ -452,22 +426,13 @@
       <img src="assets/logo.png" class="logo-mark" alt="Sammie Spector" />
       <span class="nav-name">Sammie Spector</span>
     </a>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul id="nav-menu">
+    <ul>
       <li><a href="index.html#experience">Experience</a></li>
       <li><a href="index.html#community">Community</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
     </ul>
   </nav>
-
-  <!-- SPOTLIGHT OVERLAY -->
-  <div class="spotlight-overlay" id="spotlight-overlay" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button class="spotlight-close" id="spotlight-close" aria-label="Close preview">×</button>
-    <img class="spotlight-img" id="spotlight-img" src="" alt="" />
-  </div>
 
   <article class="case-study">
     <a href="portfolio.html" class="back-link">Back to portfolio</a>
@@ -476,32 +441,54 @@
     <h1 class="case-title">Agentic Content Design Projects</h1>
     <p class="case-intro">In late 2025, Angi instituted an AI-first mandate across the company. Shortly after, a significant reduction-in-force left my team smaller, but the scope and volume of our work hadn't changed. Rather than stretching the team thin or accepting a drop in quality, I treated it as a design problem: how do we maintain output, protect craft, and give our content designers back their time for the work that actually needs a human? These are three ongoing experiments I'm running in using agents to answer that question. Localization automation has now launched, but the next two are work-in-progress, where I'm taking an iterative approach to improvement and adoption as time allows.</p>
 
-    <!-- TABLE OF CONTENTS -->
-    <div class="toc">
-      <p class="toc-label">Three Experiments</p>
-      <ul class="toc-list">
-        <li>
-          <a href="#localization" class="toc-item">
-            <span class="toc-num">01</span>
-            <span class="toc-title">Localization Automation</span>
-            <span class="toc-desc">Rebuilding a £120k/year process from the ground up</span>
-          </a>
-        </li>
-        <li>
-          <a href="#style-guide" class="toc-item">
-            <span class="toc-num">02</span>
-            <span class="toc-title">Content Design Influence over Prototypes</span>
-            <span class="toc-desc">Keeping quality high when CDs aren't in the room</span>
-          </a>
-        </li>
-        <li>
-          <a href="#sales-care" class="toc-item">
-            <span class="toc-num">03</span>
-            <span class="toc-title">Sales & Care Operations</span>
-            <span class="toc-desc">Scaling product knowledge across two large orgs</span>
-          </a>
-        </li>
-      </ul>
+    <!-- CAROUSEL -->
+    <div class="carousel-wrap">
+      <div class="stage" id="stage">
+        <div class="card" id="card-0" onclick="goTo(0)">
+          <p class="card-num">01</p>
+          <h3 class="card-title">Localization Automation</h3>
+          <div class="card-divider"></div>
+          <span class="card-tag">Agents</span>
+          <span class="card-tag">CrowdIn</span>
+          <span class="card-tag">Custom GPT</span>
+          <div class="card-accent">£</div>
+        </div>
+        <div class="card" id="card-1" onclick="goTo(1)">
+          <p class="card-num">02</p>
+          <h3 class="card-title">Content Design Influence over Prototypes</h3>
+          <div class="card-divider"></div>
+          <span class="card-tag">Cursor Skill</span>
+          <span class="card-tag">Style Guide</span>
+          <span class="card-tag">Governance</span>
+          <div class="card-accent">✦</div>
+        </div>
+        <div class="card" id="card-2" onclick="goTo(2)">
+          <p class="card-num">03</p>
+          <h3 class="card-title">Sales & Care Operations</h3>
+          <div class="card-divider"></div>
+          <span class="card-tag">AnGPT</span>
+          <span class="card-tag">Gemini Gem</span>
+          <span class="card-tag">Fact Sheets</span>
+          <div class="card-accent">⟡</div>
+        </div>
+      </div>
+
+      <div class="detail-panel" id="detail">
+        <p class="detail-tag" id="d-tag"></p>
+        <h2 class="detail-title" id="d-title"></h2>
+        <p class="detail-text" id="d-text"></p>
+        <div class="detail-stats" id="d-stats"></div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="ctrl-btn" onclick="prev()">←</button>
+        <button class="ctrl-btn" onclick="next()">→</button>
+        <div class="ctrl-dots">
+          <div class="dot active" id="dot-0" onclick="goTo(0)"></div>
+          <div class="dot" id="dot-1" onclick="goTo(1)"></div>
+          <div class="dot" id="dot-2" onclick="goTo(2)"></div>
+        </div>
+      </div>
     </div>
 
     <!-- EXPERIMENT 01 -->
@@ -521,30 +508,11 @@
         <p>Before our AI-first mandate, we had begun running machine translation experimentation and kept a detailed log of where the output broke down. This included where the review became most manual, where copy/pasting and reformatting ate up the most time, and where the gaps between translation and product best practice were widest.</p>
         <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
         <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
-        <div class="case-carousel" id="localization-carousel">
-          <div class="case-carousel-dots-wrap">
-            <div class="case-carousel-dots" id="loc-carousel-dots"></div>
-          </div>
-          <div class="case-carousel-row">
-            <button type="button" class="case-carousel-btn" id="loc-carousel-prev" aria-label="Previous image">←</button>
-            <div class="case-carousel-inner">
-              <div class="case-carousel-track">
-                <div class="case-carousel-slide">
-                  <img src="assets/Agentic experiments/Localization1.png" alt="Localization process" />
-                </div>
-                <div class="case-carousel-slide">
-                  <img src="assets/Agentic experiments/Localization2.png" alt="Localization agent" />
-                </div>
-                <div class="case-carousel-slide">
-                  <img src="assets/Agentic experiments/Localization3.png" alt="Localization review screens" />
-                </div>
-              </div>
-            </div>
-            <button type="button" class="case-carousel-btn" id="loc-carousel-next" aria-label="Next image">→</button>
-          </div>
-        </div>
         <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
-        <video class="case-image" src="assets/Agentic experiments/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
+        <img class="case-image" src="assets/Localization1.png" alt="Localization process" />
+        <img class="case-image" src="assets/Localization2.png" alt="Localization agent" />
+        <img class="case-image" src="assets/Localization3.png" alt="Localization review screens" />
+        <video class="case-image" src="assets/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
       </div>
 
       <div class="case-section">
@@ -570,17 +538,17 @@
         <p class="case-section-label">Approach</p>
         <p>I started by listening. My team was split between feeling overwhelmed and feeling guilty about it. Once again, I treated the constraint as a design problem and wanted to automate what I could to take off their plate. They couldn't be everywhere at once, and were starting to feel like they might get left behind. I realized this was less about reducing manual work, but more so not having the time nor agency to influence our product at scale.</p>
         <p>I took our existing style guide, Angi voice and tone documentation, UX writing best practice guides, and discipline resources and insights we'd shared across the past year, and turned them into a living style guide that lives inside Cursor—where our PMs and designers are already working. The key was making it active, not passive: rather than a doc no one outside content design would read, beyond making it into a prototype, I also built it as a Cursor skill that deploys whenever a designer is building new screens or flows.</p>
-        <img class="case-image" src="assets/Agentic experiments/StyleGuide1.png" alt="Style guide in Cursor" style="width: 66.666%; margin-left: auto; margin-right: auto;" />
-        <img class="case-image" src="assets/Agentic experiments/StyleGuide2.png" alt="Style guide governance" style="width: 66.666%; margin-left: auto; margin-right: auto;" />
         <p>The skill includes our full terminology guide, and governs automatically. For example, if a designer uses "client" in a prompt, Cursor automatically corrects it to "customer," our official term. Same for punctuation rules, capitalisation standards, and heading styles. It works exactly like a design system, just for language.</p>
         <p>I also connected the live style guide to the Cursor skill so that any amendments or additions automatically update the skill without manual maintenance required. Now I've been tinkering with building out a stronger governance layer: when new screens are added to our shared repo, an agent runs an automatic check and flags any net-new terminology or styling that doesn't exist or have an approved alternative in our system. Those flags come through a dedicated Slack channel, giving content designers a lightweight way to check in and course-correct without being embedded on every project.</p>
+        <img class="case-image" src="assets/StyleGuide1.png" alt="Style guide in Cursor" />
+        <img class="case-image" src="assets/StyleGuide2.png" alt="Style guide governance" />
       </div>
 
       <div class="case-section">
         <p class="case-section-label">Outcome</p>
-        <div class="outcome-stat">Content design standards now <em>ship with every prototype</em>, whether a CD is in the room or not.</div>
+        <div class="outcome-stat">Content design standards now <em>ship with every prototype</em>—whether a CD is in the room or not.</div>
         <div class="outcome-stat">Automated governance means <em>fewer ad-hoc reviews</em> and more intentional, high-value CD involvement.</div>
-        <div class="outcome-stat">The style guide is <em>self-maintaining</em>, updated once, propagated everywhere.</div>
+        <div class="outcome-stat">The style guide is <em>self-maintaining</em>—updated once, propagated everywhere.</div>
       </div>
     </section>
 
@@ -602,22 +570,20 @@
         <p>I created a core working group to tackle this recurring issue: myself, a principal content designer on my team, the director of learning design, and our operations manager who coordinates communications for launch. I experimented with several models before settling on a GPT trained on Angi's brand voice and tone, UX microcopy best practices, and our comms templates. We, of course, had to call it AnGPT!</p>
         <p>The process now works to reduce manual effort and prioritize human touchpoints for reviews:</p>
         <ol style="list-style: none; margin: 16px 0;">
-          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
-          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
-          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
-          <li style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
+          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
         </ol>
-        <div style="display: flex; gap: 16px; margin: 40px 0;">
-          <img class="case-image" src="assets/Agentic experiments/Operations1.png" alt="Sales and Care operations" style="width: 50%; margin: 0;" />
-          <img class="case-image" src="assets/Agentic experiments/Operations2.png" alt="AnGPT fact sheet process" style="width: 50%; margin: 0;" />
-        </div>
-        <img class="case-image" src="assets/Agentic experiments/Operations3.png" alt="Launch communications workflow" />
+        <img class="case-image" src="assets/Operations1.png" alt="Sales and Care operations" />
+        <img class="case-image" src="assets/Operations2.png" alt="AnGPT fact sheet process" />
+        <img class="case-image" src="assets/Operations3.png" alt="Launch communications workflow" />
       </div>
 
       <div class="case-section">
         <p class="case-section-label">Outcome</p>
         <div class="outcome-stat">Significant reduction in <em>manual hours</em> across content design, product management, and Sales and Care VPs and coordinators.</div>
-        <div class="outcome-stat">Tighter pre-launch alignment means <em>fewer hiccups at go-live</em>, and fewer reactive fixes after.</div>
+        <div class="outcome-stat">Tighter pre-launch alignment means <em>fewer hiccups at go-live</em>—and fewer reactive fixes after.</div>
       </div>
     </section>
 
@@ -628,95 +594,76 @@
   </footer>
 
   <script>
-    // Session guard — redirect to gate if not unlocked
-    if (sessionStorage.getItem('agentic-unlocked') !== 'true') {
-      window.location.replace('agentic.html');
-    }
-
-    (function() {
-      const carousel = document.getElementById('localization-carousel');
-      if (!carousel) return;
-      const track = carousel.querySelector('.case-carousel-track');
-      const slides = carousel.querySelectorAll('.case-carousel-slide');
-      const prevBtn = document.getElementById('loc-carousel-prev');
-      const nextBtn = document.getElementById('loc-carousel-next');
-      const dotsEl = document.getElementById('loc-carousel-dots');
-      const total = slides.length;
-      let index = 0;
-
-      function goTo(i) {
-        index = ((i % total) + total) % total;
-        track.style.transform = 'translateX(-' + (index * (100 / total)) + '%)';
-        dotsEl.querySelectorAll('.case-carousel-dot').forEach(function(dot, d) {
-          dot.classList.toggle('active', d === index);
-        });
-      }
-
-      for (var i = 0; i < total; i++) {
-        var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'case-carousel-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
-        (function(idx) {
-          dot.addEventListener('click', function() { goTo(idx); });
-        })(i);
-        dotsEl.appendChild(dot);
-      }
-
-      prevBtn.addEventListener('click', function() { goTo(index - 1); });
-      nextBtn.addEventListener('click', function() { goTo(index + 1); });
-
-      setInterval(function() { goTo(index + 1); }, 4500);
-    })();
-
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
+    const carouselData = [
+      {
+        tag: 'Experiment 01',
+        title: 'Localization Automation',
+        text: 'We were spending upwards of £120,000 annually on translation operations across 6 markets. I built a custom agent in Cursor paired with a GPT trained on our style guide and UI patterns—connecting the output back into CrowdIn to create a self-improving feedback loop.',
+        stats: [
+          { value: '£100k+', label: 'Saved annually' },
+          { value: '6', label: 'Markets covered' },
+          { value: '10+ hrs/wk', label: 'Manual work cut' },
+          { value: 'MVP Launched', label: 'Status' }
+        ]
+      },
+      {
+        tag: 'Experiment 02',
+        title: 'Content Design Influence over Prototypes',
+        text: 'As designers build directly in Cursor, CDs risk losing influence. I turned our style guide into a living Cursor skill that governs automatically—correcting terminology, enforcing punctuation rules, and flagging net-new patterns via Slack without anyone needing to ask.',
+        stats: [
+          { value: 'Run style', label: 'Command' },
+          { value: 'Connectors', label: 'Integration' },
+          { value: 'MVP Launched', label: 'Status' }
+        ]
+      },
+      {
+        tag: 'Experiment 03',
+        title: 'Sales & Care Operations',
+        text: 'Every product launch required my team to manually translate product knowledge for Sales and Care orgs. I built AnGPT—a GPT trained on our brand voice and comms templates—that converts a fact sheet into FAQs, scripts, Intercom memos, and release notes in one pass.',
+        stats: [
+          { value: 'Custom GPT', label: 'Tool' },
+          { value: 'Gemini Gems', label: 'Tool' },
+          { value: 'WIP', label: 'Status' }
+        ]
+      }
+    ];
 
-    // Hamburger menu
-    const hamburger = document.getElementById('nav-hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    hamburger.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      nav.classList.toggle('menu-open', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        hamburger.classList.remove('open');
-        nav.classList.remove('menu-open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
+    let current = 0;
+    const n = carouselData.length;
 
-    // Image spotlight
-    const spotOverlay = document.getElementById('spotlight-overlay');
-    const spotImg = document.getElementById('spotlight-img');
-    const spotClose = document.getElementById('spotlight-close');
-
-    function openSpotlight(src, alt) {
-      spotImg.src = src;
-      spotImg.alt = alt || '';
-      spotOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+    function getCardClass(i) {
+      const diff = ((i - current) % n + n) % n;
+      if (diff === 0) return 'card active';
+      if (diff === 1) return 'card next';
+      if (diff === n - 1) return 'card prev';
+      if (diff === 2) return 'card far-next';
+      if (diff === n - 2) return 'card far-prev';
+      return 'card hidden';
     }
-    function closeSpotlight() {
-      spotOverlay.classList.remove('open');
-      document.body.style.overflow = '';
+
+    function updateCarousel() {
+      for (let i = 0; i < n; i++) {
+        document.getElementById('card-' + i).className = getCardClass(i);
+        document.getElementById('dot-' + i).className = i === current ? 'dot active' : 'dot';
+      }
+      const d = carouselData[current];
+      document.getElementById('d-tag').textContent = d.tag;
+      document.getElementById('d-title').textContent = d.title;
+      document.getElementById('d-text').textContent = d.text;
+      document.getElementById('d-stats').innerHTML = d.stats.map(s =>
+        '<div><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>'
+      ).join('');
     }
 
-    document.querySelectorAll('img.case-image, .case-carousel-slide img').forEach(img => {
-      img.addEventListener('click', () => openSpotlight(img.src, img.alt));
-    });
+    function goTo(i) { current = i; updateCarousel(); }
+    function next() { current = (current + 1) % n; updateCarousel(); }
+    function prev() { current = (current - 1 + n) % n; updateCarousel(); }
 
-    spotOverlay.addEventListener('click', e => { if (e.target === spotOverlay) closeSpotlight(); });
-    spotClose.addEventListener('click', closeSpotlight);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSpotlight(); });
+    updateCarousel();
   </script>
 
 </body>

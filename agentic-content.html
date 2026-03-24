@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agentic Content Design—Sammie Spector</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="icon" type="image/png" href="assets/shared/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@400&display=swap" rel="stylesheet">
@@ -423,7 +423,7 @@
 
   <nav id="main-nav">
     <a href="index.html" class="nav-brand">
-      <img src="assets/logo.png" class="logo-mark" alt="Sammie Spector" />
+      <img src="assets/shared/logo.png" class="logo-mark" alt="Sammie Spector" />
       <span class="nav-name">Sammie Spector</span>
     </a>
     <ul id="nav-menu">
@@ -509,10 +509,10 @@
         <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
         <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
         <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
-        <img class="case-image" src="assets/Localization1.png" alt="Localization process" />
-        <img class="case-image" src="assets/Localization2.png" alt="Localization agent" />
-        <img class="case-image" src="assets/Localization3.png" alt="Localization review screens" />
-        <video class="case-image" src="assets/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
+        <img class="case-image" src="assets/agentic/Localization1.png" alt="Localization process" />
+        <img class="case-image" src="assets/agentic/Localization2.png" alt="Localization agent" />
+        <img class="case-image" src="assets/agentic/Localization3.png" alt="Localization review screens" />
+        <video class="case-image" src="assets/agentic/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
       </div>
 
       <div class="case-section">
@@ -540,8 +540,8 @@
         <p>I took our existing style guide, Angi voice and tone documentation, UX writing best practice guides, and discipline resources and insights we'd shared across the past year, and turned them into a living style guide that lives inside Cursor—where our PMs and designers are already working. The key was making it active, not passive: rather than a doc no one outside content design would read, beyond making it into a prototype, I also built it as a Cursor skill that deploys whenever a designer is building new screens or flows.</p>
         <p>The skill includes our full terminology guide, and governs automatically. For example, if a designer uses "client" in a prompt, Cursor automatically corrects it to "customer," our official term. Same for punctuation rules, capitalisation standards, and heading styles. It works exactly like a design system, just for language.</p>
         <p>I also connected the live style guide to the Cursor skill so that any amendments or additions automatically update the skill without manual maintenance required. Now I've been tinkering with building out a stronger governance layer: when new screens are added to our shared repo, an agent runs an automatic check and flags any net-new terminology or styling that doesn't exist or have an approved alternative in our system. Those flags come through a dedicated Slack channel, giving content designers a lightweight way to check in and course-correct without being embedded on every project.</p>
-        <img class="case-image" src="assets/StyleGuide1.png" alt="Style guide in Cursor" />
-        <img class="case-image" src="assets/StyleGuide2.png" alt="Style guide governance" />
+        <img class="case-image" src="assets/agentic/StyleGuide1.png" alt="Style guide in Cursor" />
+        <img class="case-image" src="assets/agentic/StyleGuide2.png" alt="Style guide governance" />
       </div>
 
       <div class="case-section">
@@ -575,9 +575,9 @@
           <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
           <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
         </ol>
-        <img class="case-image" src="assets/Operations1.png" alt="Sales and Care operations" />
-        <img class="case-image" src="assets/Operations2.png" alt="AnGPT fact sheet process" />
-        <img class="case-image" src="assets/Operations3.png" alt="Launch communications workflow" />
+        <img class="case-image" src="assets/agentic/Operations1.png" alt="Sales and Care operations" />
+        <img class="case-image" src="assets/agentic/Operations2.png" alt="AnGPT fact sheet process" />
+        <img class="case-image" src="assets/agentic/Operations3.png" alt="Launch communications workflow" />
       </div>
 
       <div class="case-section">

@@ -21,7 +21,7 @@
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 60px; background: var(--cream); border-bottom: 1px solid transparent; transition: border-color 0.4s ease, background 0.4s ease; }
     nav.scrolled { border-bottom-color: var(--cream-dark); background: rgba(244, 242, 237, 0.96); backdrop-filter: blur(8px); }
     .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; mix-blend-mode: multiply; }
     .nav-brand:hover .logo-mark { opacity: 1; }
     .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); transition: color 0.3s; }
     .nav-brand:hover .nav-name { color: var(--accent); }
@@ -80,7 +80,7 @@
 <body>
   <nav id="main-nav">
     <a href="index.html" class="nav-brand">
-      <img src="assets/shared/logo.svg" class="logo-mark" alt="Sammie Spector" />
+      <img src="assets/shared/logo.png" class="logo-mark" alt="Sammie Spector" />
       <span class="nav-name">Sammie Spector</span>
     </a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">

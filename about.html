@@ -49,7 +49,7 @@
       backdrop-filter: blur(8px);
     }
     .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; mix-blend-mode: multiply; }
     .nav-brand:hover .logo-mark { opacity: 1; }
     .nav-name {
       font-family: 'Cormorant Garamond', serif;
@@ -234,7 +234,7 @@
 
   <nav id="main-nav">
     <a href="index.html" class="nav-brand">
-      <img src="assets/shared/logo.svg" class="logo-mark" alt="Sammie Spector" />
+      <img src="assets/shared/logo.png" class="logo-mark" alt="Sammie Spector" />
       <span class="nav-name">Sammie Spector</span>
     </a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">

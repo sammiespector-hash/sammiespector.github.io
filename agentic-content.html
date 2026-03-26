@@ -72,6 +72,12 @@
     }
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
+    /* HAMBURGER */
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 600; position: relative; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     /* CASE STUDY */
     .case-study {
@@ -239,6 +245,21 @@
       nav { padding: 24px 32px; }
       .case-study { padding: 120px 32px 80px; }
       footer { padding: 24px 32px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 20px 20px; }
+      .nav-hamburger { display: flex; }
+      nav ul { display: none; }
+      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+      nav.menu-open { position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; z-index: 9000; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; padding: 0; }
+      nav.menu-open .nav-brand { display: none; }
+      nav.menu-open .nav-hamburger { position: absolute; top: 20px; right: 20px; }
+      nav ul li a { font-size: 24px; letter-spacing: 0.14em; }
+      nav ul li a::after { display: none; }
+      .nav-name { font-size: 13px; letter-spacing: 0.12em; }
+      .logo-mark { width: 32px; }
+      .case-study { padding: 130px 20px 60px; }
+      footer { padding: 20px; }
     }
     /* CAROUSEL */
     .carousel-wrap {
@@ -434,6 +455,9 @@
       <img src="assets/shared/logo.png" class="logo-mark" alt="Sammie Spector" />
       <span class="nav-name">Sammie Spector</span>
     </a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <ul id="nav-menu">
       <li><a href="index.html#experience">Experience</a></li>
       <li><a href="index.html#community">Community</a></li>
@@ -605,6 +629,24 @@
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    const hamburger = document.getElementById('nav-hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      nav.classList.toggle('menu-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        nav.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
     });
     const carouselData = [
       {

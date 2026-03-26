@@ -81,9 +81,9 @@
 
     /* CASE STUDY */
     .case-study {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 140px 60px 100px;
+      max-width: 1300px;
+      margin: 0;
+      padding: 140px 80px 100px 88px;
     }
 
     .back-link {
@@ -123,10 +123,20 @@
       font-weight: 400;
       color: var(--ink-light);
       line-height: 1.6;
-      max-width: 680px;
-      margin-bottom: 64px;
-      padding-bottom: 64px;
+      margin-bottom: 0;
+    }
+
+    /* HERO SPLIT */
+    .case-hero {
+      display: flex;
+      gap: 80px;
+      align-items: flex-start;
+      margin-bottom: 80px;
+      padding-bottom: 80px;
       border-bottom: 1px solid var(--cream-dark);
+    }
+    .case-hero-text {
+      flex: 0 0 40%;
     }
 
 
@@ -144,6 +154,26 @@
 
     .experiment-header {
       margin-bottom: 48px;
+    }
+
+    /* EXPERIMENT SPLIT */
+    .experiment-split {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+    .experiment-text {
+      flex: 0 0 52%;
+    }
+    .experiment-media {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 4px;
+    }
+    .experiment-media .case-image {
+      width: 100%;
     }
 
     .experiment-num {
@@ -263,12 +293,11 @@
       .logo-mark { width: 32px; }
       .case-study { padding: 130px 20px 60px; }
       footer { padding: 20px; }
+      .case-hero { flex-direction: column; gap: 40px; }
+      .experiment-split { flex-direction: column; }
     }
     /* CAROUSEL */
     .carousel-wrap {
-      margin-bottom: 72px;
-      padding-bottom: 72px;
-      border-bottom: 1px solid var(--cream-dark);
     }
 
     .stage {
@@ -470,14 +499,15 @@
   </nav>
 
   <article class="case-study">
-    <a href="portfolio.html" class="back-link">Back to portfolio</a>
-
-    <p class="case-tag">Case Study—Angi</p>
-    <h1 class="case-title">Agentic Content Design Projects</h1>
-    <p class="case-intro">In late 2025, Angi instituted an AI-first mandate across the company. Shortly after, a significant reduction-in-force left my team smaller, but the scope and volume of our work hadn't changed. Rather than stretching the team thin or accepting a drop in quality, I treated it as a design problem: how do we maintain output, protect craft, and give our content designers back their time for the work that actually needs a human? These are three ongoing experiments I'm running in using agents to answer that question. Localization automation has now launched, but the next two are work-in-progress, where I'm taking an iterative approach to improvement and adoption as time allows.</p>
-
-    <!-- CAROUSEL -->
-    <div class="carousel-wrap">
+    <div class="case-hero">
+      <div class="case-hero-text">
+        <a href="portfolio.html" class="back-link">Back to portfolio</a>
+        <p class="case-tag">Case Study—Angi</p>
+        <h1 class="case-title">Agentic Content Design Projects</h1>
+        <p class="case-intro">In late 2025, Angi instituted an AI-first mandate across the company. Shortly after, a significant reduction-in-force left my team smaller, but the scope and volume of our work hadn't changed. Rather than stretching the team thin or accepting a drop in quality, I treated it as a design problem: how do we maintain output, protect craft, and give our content designers back their time for the work that actually needs a human? These are three ongoing experiments I'm running in using agents to answer that question. Localization automation has now launched, but the next two are work-in-progress, where I'm taking an iterative approach to improvement and adoption as time allows.</p>
+      </div>
+      <!-- CAROUSEL -->
+      <div class="carousel-wrap">
       <div class="stage" id="stage">
         <div class="card" id="card-0" onclick="goTo(0)">
           <p class="card-num">01</p>
@@ -524,6 +554,7 @@
           <div class="dot" id="dot-2" onclick="goTo(2)"></div>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- EXPERIMENT 01 -->
@@ -533,27 +564,33 @@
         <h2 class="experiment-title">Localization Automation</h2>
       </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Challenge</p>
-        <p>Across the European branch of our business, we spent upwards of £120,000 annually on translation operations across 6 markets. The process was slow: our localization manager facilitated availability and deadlines with freelance translators, briefed them individually, worked within their schedules, and chased down reviews. The translators themselves often lacked the product context needed to translate effectively for a mobile marketplace, such as the nuance of microcopy, the logic of UI states, the specificity of our terminology. We were paying a premium for output that didn't really meet our product standards.</p>
-      </div>
+      <div class="experiment-split">
+        <div class="experiment-text">
+          <div class="case-section">
+            <p class="case-section-label">Challenge</p>
+            <p>Across the European branch of our business, we spent upwards of £120,000 annually on translation operations across 6 markets. The process was slow: our localization manager facilitated availability and deadlines with freelance translators, briefed them individually, worked within their schedules, and chased down reviews. The translators themselves often lacked the product context needed to translate effectively for a mobile marketplace, such as the nuance of microcopy, the logic of UI states, the specificity of our terminology. We were paying a premium for output that didn't really meet our product standards.</p>
+          </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Approach</p>
-        <p>Before our AI-first mandate, we had begun running machine translation experimentation and kept a detailed log of where the output broke down. This included where the review became most manual, where copy/pasting and reformatting ate up the most time, and where the gaps between translation and product best practice were widest.</p>
-        <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
-        <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
-        <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
-        <img class="case-image" src="assets/agentic/Localization1.png" alt="Localization process" />
-        <img class="case-image" src="assets/agentic/Localization2.png" alt="Localization agent" />
-        <img class="case-image" src="assets/agentic/Localization3.png" alt="Localization review screens" />
-        <video class="case-image" src="assets/agentic/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
-      </div>
+          <div class="case-section">
+            <p class="case-section-label">Approach</p>
+            <p>Before our AI-first mandate, we had begun running machine translation experimentation and kept a detailed log of where the output broke down. This included where the review became most manual, where copy/pasting and reformatting ate up the most time, and where the gaps between translation and product best practice were widest.</p>
+            <p>Machine learning alone didn't produce great output. We experimented across tools and landed on a custom GPT trained on our translation guidelines, style guide, and UI patterns across all 6 markets—this outperformed other models meaningfully for our use case.</p>
+            <p>After the AI mandate, we ramped up our testing and launched a pilot. Machine translation work was getting smoother but an unintentional consequence was a handful of new, manual work. To combat this, I built a custom agent in Cursor to handle the manual coordination and transformation work, and created screenshots that internal reviewers could work directly from, so they still had a visual to reference rather than a spreadsheet of text strings.</p>
+            <p>The final piece was connecting the output back into CrowdIn, our TMS (translation memory system), and building a feedback loop so that approved translations trained the GPT over time. The full pipeline: strings in, agent handles transformation and formatting, reviewers see a clean visual output, edits feed back into the system.</p>
+          </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Outcome</p>
-        <div class="outcome-stat">Saved over <em>£100,000</em> in freelance bench hours annually.</div>
-        <div class="outcome-stat">Freed our localization manager from <em>manual coordination work</em> to focus on more strategic, complex projects.</div>
+          <div class="case-section">
+            <p class="case-section-label">Outcome</p>
+            <div class="outcome-stat">Saved over <em>£100,000</em> in freelance bench hours annually.</div>
+            <div class="outcome-stat">Freed our localization manager from <em>manual coordination work</em> to focus on more strategic, complex projects.</div>
+          </div>
+        </div>
+        <div class="experiment-media">
+          <img class="case-image" src="assets/agentic/Localization1.png" alt="Localization process" />
+          <img class="case-image" src="assets/agentic/Localization2.png" alt="Localization agent" />
+          <img class="case-image" src="assets/agentic/Localization3.png" alt="Localization review screens" />
+          <video class="case-image" src="assets/agentic/Localization4.mov" autoplay loop muted playsinline style="border: 1px solid var(--cream-dark);"></video>
+        </div>
       </div>
     </section>
 
@@ -564,26 +601,32 @@
         <h2 class="experiment-title">Content Design Influence over Prototypes</h2>
       </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Challenge</p>
-        <p>As agentic design becomes the norm, designers and PMs are increasingly building directly in prototype tools. At Angi, we're using Cursor, and we're getting close to shipping small experiments straight from there. The practical consequence is that content designers are less likely to be looped in, a recurring theme for the discipline no matter the tool. My team is already stretched across numerous projects and can't take on superlative reviews for work they aren't embedded on. But we also can't afford to lose quality either, and we're too stubborn to drop anything.</p>
-      </div>
+      <div class="experiment-split">
+        <div class="experiment-text">
+          <div class="case-section">
+            <p class="case-section-label">Challenge</p>
+            <p>As agentic design becomes the norm, designers and PMs are increasingly building directly in prototype tools. At Angi, we're using Cursor, and we're getting close to shipping small experiments straight from there. The practical consequence is that content designers are less likely to be looped in, a recurring theme for the discipline no matter the tool. My team is already stretched across numerous projects and can't take on superlative reviews for work they aren't embedded on. But we also can't afford to lose quality either, and we're too stubborn to drop anything.</p>
+          </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Approach</p>
-        <p>I started by listening. My team was split between feeling overwhelmed and feeling guilty about it. Once again, I treated the constraint as a design problem and wanted to automate what I could to take off their plate. They couldn't be everywhere at once, and were starting to feel like they might get left behind. I realized this was less about reducing manual work, but more so not having the time nor agency to influence our product at scale.</p>
-        <p>I took our existing style guide, Angi voice and tone documentation, UX writing best practice guides, and discipline resources and insights we'd shared across the past year, and turned them into a living style guide that lives inside Cursor—where our PMs and designers are already working. The key was making it active, not passive: rather than a doc no one outside content design would read, beyond making it into a prototype, I also built it as a Cursor skill that deploys whenever a designer is building new screens or flows.</p>
-        <p>The skill includes our full terminology guide, and governs automatically. For example, if a designer uses "client" in a prompt, Cursor automatically corrects it to "customer," our official term. Same for punctuation rules, capitalisation standards, and heading styles. It works exactly like a design system, just for language.</p>
-        <p>I also connected the live style guide to the Cursor skill so that any amendments or additions automatically update the skill without manual maintenance required. Now I've been tinkering with building out a stronger governance layer: when new screens are added to our shared repo, an agent runs an automatic check and flags any net-new terminology or styling that doesn't exist or have an approved alternative in our system. Those flags come through a dedicated Slack channel, giving content designers a lightweight way to check in and course-correct without being embedded on every project.</p>
-        <img class="case-image" src="assets/agentic/StyleGuide1.png" alt="Style guide in Cursor" />
-        <img class="case-image" src="assets/agentic/StyleGuide2.png" alt="Style guide governance" />
-      </div>
+          <div class="case-section">
+            <p class="case-section-label">Approach</p>
+            <p>I started by listening. My team was split between feeling overwhelmed and feeling guilty about it. Once again, I treated the constraint as a design problem and wanted to automate what I could to take off their plate. They couldn't be everywhere at once, and were starting to feel like they might get left behind. I realized this was less about reducing manual work, but more so not having the time nor agency to influence our product at scale.</p>
+            <p>I took our existing style guide, Angi voice and tone documentation, UX writing best practice guides, and discipline resources and insights we'd shared across the past year, and turned them into a living style guide that lives inside Cursor—where our PMs and designers are already working. The key was making it active, not passive: rather than a doc no one outside content design would read, beyond making it into a prototype, I also built it as a Cursor skill that deploys whenever a designer is building new screens or flows.</p>
+            <p>The skill includes our full terminology guide, and governs automatically. For example, if a designer uses "client" in a prompt, Cursor automatically corrects it to "customer," our official term. Same for punctuation rules, capitalisation standards, and heading styles. It works exactly like a design system, just for language.</p>
+            <p>I also connected the live style guide to the Cursor skill so that any amendments or additions automatically update the skill without manual maintenance required. Now I've been tinkering with building out a stronger governance layer: when new screens are added to our shared repo, an agent runs an automatic check and flags any net-new terminology or styling that doesn't exist or have an approved alternative in our system. Those flags come through a dedicated Slack channel, giving content designers a lightweight way to check in and course-correct without being embedded on every project.</p>
+          </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Outcome</p>
-        <div class="outcome-stat">Content design standards now <em>ship with every prototype</em>—whether a CD is in the room or not.</div>
-        <div class="outcome-stat">Automated governance means <em>fewer ad-hoc reviews</em> and more intentional, high-value CD involvement.</div>
-        <div class="outcome-stat">The style guide is <em>self-maintaining</em>—updated once, propagated everywhere.</div>
+          <div class="case-section">
+            <p class="case-section-label">Outcome</p>
+            <div class="outcome-stat">Content design standards now <em>ship with every prototype</em>—whether a CD is in the room or not.</div>
+            <div class="outcome-stat">Automated governance means <em>fewer ad-hoc reviews</em> and more intentional, high-value CD involvement.</div>
+            <div class="outcome-stat">The style guide is <em>self-maintaining</em>—updated once, propagated everywhere.</div>
+          </div>
+        </div>
+        <div class="experiment-media">
+          <img class="case-image" src="assets/agentic/StyleGuide1.png" alt="Style guide in Cursor" />
+          <img class="case-image" src="assets/agentic/StyleGuide2.png" alt="Style guide governance" />
+        </div>
       </div>
     </section>
 
@@ -594,31 +637,37 @@
         <h2 class="experiment-title">Sales & Care Operations</h2>
       </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Challenge</p>
-        <p>My team owns the voice of Angi's product beyond the app, which includes landing pages, transactional emails, product marketing, and most critically, the materials that enable our Sales and Care organizations. That means all Help Center wayfinding and content, troubleshooting guides, and the scripts and briefings that help reps on a traditional sales floor drive feature adoption and reinforce our subscription value propositions over the phone.</p>
-        <p>For every product release, upgrade, or policy change, my team is responsible for translating product knowledge into something Sales and Care can actually use. It requires heavy time outside the core product squad—a lot of manual writing, a lot of info-gathering, and a lot of last-minute fire drills before launch.</p>
-      </div>
+      <div class="experiment-split">
+        <div class="experiment-text">
+          <div class="case-section">
+            <p class="case-section-label">Challenge</p>
+            <p>My team owns the voice of Angi's product beyond the app, which includes landing pages, transactional emails, product marketing, and most critically, the materials that enable our Sales and Care organizations. That means all Help Center wayfinding and content, troubleshooting guides, and the scripts and briefings that help reps on a traditional sales floor drive feature adoption and reinforce our subscription value propositions over the phone.</p>
+            <p>For every product release, upgrade, or policy change, my team is responsible for translating product knowledge into something Sales and Care can actually use. It requires heavy time outside the core product squad—a lot of manual writing, a lot of info-gathering, and a lot of last-minute fire drills before launch.</p>
+          </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Approach</p>
-        <p>I created a core working group to tackle this recurring issue: myself, a principal content designer on my team, the director of learning design, and our operations manager who coordinates communications for launch. I experimented with several models before settling on a GPT trained on Angi's brand voice and tone, UX microcopy best practices, and our comms templates. We, of course, had to call it AnGPT!</p>
-        <p>The process now works to reduce manual effort and prioritize human touchpoints for reviews:</p>
-        <ol style="list-style: none; margin: 16px 0;">
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
-          <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
-        </ol>
-        <img class="case-image" src="assets/agentic/Operations1.png" alt="Sales and Care operations" />
-        <img class="case-image" src="assets/agentic/Operations2.png" alt="AnGPT fact sheet process" />
-        <img class="case-image" src="assets/agentic/Operations3.png" alt="Launch communications workflow" />
-      </div>
+          <div class="case-section">
+            <p class="case-section-label">Approach</p>
+            <p>I created a core working group to tackle this recurring issue: myself, a principal content designer on my team, the director of learning design, and our operations manager who coordinates communications for launch. I experimented with several models before settling on a GPT trained on Angi's brand voice and tone, UX microcopy best practices, and our comms templates. We, of course, had to call it AnGPT!</p>
+            <p>The process now works to reduce manual effort and prioritize human touchpoints for reviews:</p>
+            <ol style="list-style: none; margin: 16px 0;">
+              <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">1.</span>When a product launch approaches, we use the initial product brief and near-final designs to create a "fact sheet"—a playbook for next-in-line teams.</li>
+              <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">2.</span>Core members of Sales and Care review the fact sheet and raise flags before anything is locked. This catches errors, off-brand language, and logistical conflicts early (two launches on the same day, launching on a Monday when Care call volume peaks, etc.).</li>
+              <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">3.</span>That approved fact sheet then goes into a Gemini Gem also trained on our core content templates, and generates an FAQ, troubleshooting guide, scripts, Intercom memo, and release notes in one pass.</li>
+              <li style="font-size: 18px; font-weight: 300; line-height: 1.75; padding: 10px 0 10px 20px; border-bottom: 1px solid var(--cream-dark); position: relative;"><span style="position: absolute; left: 0; color: var(--accent);">4.</span>Human review is always the final step. With less manual work on our plate, content designers and our Sales and Care managers have clearer heads to review critical or sensitive materials.</li>
+            </ol>
+          </div>
 
-      <div class="case-section">
-        <p class="case-section-label">Outcome</p>
-        <div class="outcome-stat">Significant reduction in <em>manual hours</em> across content design, product management, and Sales and Care VPs and coordinators.</div>
-        <div class="outcome-stat">Tighter pre-launch alignment means <em>fewer hiccups at go-live</em>—and fewer reactive fixes after.</div>
+          <div class="case-section">
+            <p class="case-section-label">Outcome</p>
+            <div class="outcome-stat">Significant reduction in <em>manual hours</em> across content design, product management, and Sales and Care VPs and coordinators.</div>
+            <div class="outcome-stat">Tighter pre-launch alignment means <em>fewer hiccups at go-live</em>—and fewer reactive fixes after.</div>
+          </div>
+        </div>
+        <div class="experiment-media">
+          <img class="case-image" src="assets/agentic/Operations1.png" alt="Sales and Care operations" />
+          <img class="case-image" src="assets/agentic/Operations2.png" alt="AnGPT fact sheet process" />
+          <img class="case-image" src="assets/agentic/Operations3.png" alt="Launch communications workflow" />
+        </div>
       </div>
     </section>
 

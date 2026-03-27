@@ -397,7 +397,21 @@
         <p class="case-intro">Across Condé Nast brands — including Vogue, Bon Appétit, The New Yorker, and more — accounts are the foundation for building relationships with readers. They lead to paid subscriptions, memberships, and return engagement. My team redesigned the end-to-end sign-in flow to encourage more users to create accounts and increase validated sign-ins.</p>
       </div>
       <div class="case-hero-image">
-        <img class="hero-img" src="assets/global-accounts/before-the-redesign.png" alt="Global Accounts — before the redesign" />
+        <div class="case-carousel" id="global-accounts-carousel">
+          <div class="case-carousel-row">
+            <button type="button" class="case-carousel-btn" id="carousel-prev" aria-label="Previous image">←</button>
+            <div class="case-carousel-inner">
+              <div class="case-carousel-track">
+                <div class="case-carousel-slide"><img src="assets/global-accounts/Carousel1.png" alt="Global accounts" /></div>
+                <div class="case-carousel-slide"><img src="assets/global-accounts/Carousel2.png" alt="Global accounts" /></div>
+                <div class="case-carousel-slide"><img src="assets/global-accounts/Carousel3.png" alt="Global accounts" /></div>
+                <div class="case-carousel-slide"><img src="assets/global-accounts/Carousel4.png" alt="Global accounts" /></div>
+                <div class="case-carousel-slide"><img src="assets/global-accounts/Carousel5.png" alt="Global accounts" /></div>
+              </div>
+            </div>
+            <button type="button" class="case-carousel-btn" id="carousel-next" aria-label="Next image">→</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -432,11 +446,19 @@
 
     <div class="case-section">
       <p class="case-section-label">Design Rationale</p>
-      <p>For the registration gate, we updated confusing barrier logic and fixed language inconsistencies between "subscribe" and "register" — completing a full text audit to ensure consistency across the experience.</p>
-      <img class="case-image" src="assets/global-accounts/registration-gate-design.png" alt="Registration gate design" />
-      <p>For the sign-in journey, we deprecated passwords in favour of SSO (Google, Apple) as the fastest path. We crafted a new flexible styling format that incorporated unique brand identities — imagery, fonts, and colours — so users never felt like they were leaving the site they were trying to access.</p>
-      <p>To scale for new markets, we worked with Legal to add international marketing permissions and legal disclaimer needs.</p>
-      <img class="case-image" src="assets/global-accounts/sign-in-journey-design.png" alt="Sign-in journey design" />
+      <div class="outcome-with-image">
+        <div class="outcome-stats">
+          <p>For the registration gate, we updated confusing barrier logic and fixed language inconsistencies between "subscribe" and "register" — completing a full text audit to ensure consistency across the experience.</p>
+        </div>
+        <img class="outcome-image" src="assets/global-accounts/registration-gate-design.png" alt="Registration gate design" />
+      </div>
+      <div class="outcome-with-image" style="margin-top: 32px;">
+        <div class="outcome-stats">
+          <p>For the sign-in journey, we deprecated passwords in favour of SSO (Google, Apple) as the fastest path. We crafted a new flexible styling format that incorporated unique brand identities — imagery, fonts, and colours — so users never felt like they were leaving the site they were trying to access.</p>
+          <p>To scale for new markets, we worked with Legal to add international marketing permissions and legal disclaimer needs.</p>
+        </div>
+        <img class="outcome-image" src="assets/global-accounts/sign-in-journey-design.png" alt="Sign-in journey design" />
+      </div>
     </div>
 
     <div class="case-section">
@@ -450,35 +472,6 @@
           <div class="outcome-stat">As of 2024, <em>6.3M registered users</em> across Condé Nast brands follow the same legal and brand templates we crafted in 2021.</div>
         </div>
         <img class="outcome-image" src="assets/global-accounts/brand-identity-in-sign-in-flow.png" alt="Brand identity in sign-in flow" />
-      </div>
-    </div>
-
-    <div class="case-carousel" id="global-accounts-carousel">
-      <div class="case-carousel-row">
-        <button type="button" class="case-carousel-btn" id="carousel-prev" aria-label="Previous image">←</button>
-        <div class="case-carousel-inner">
-          <div class="case-carousel-track">
-            <div class="case-carousel-slide">
-              <img src="assets/global-accounts/Carousel1.png" alt="Global accounts" />
-            </div>
-            <div class="case-carousel-slide">
-              <img src="assets/global-accounts/Carousel2.png" alt="Global accounts" />
-            </div>
-            <div class="case-carousel-slide">
-              <img src="assets/global-accounts/Carousel3.png" alt="Global accounts" />
-            </div>
-            <div class="case-carousel-slide">
-              <img src="assets/global-accounts/Carousel4.png" alt="Global accounts" />
-            </div>
-            <div class="case-carousel-slide">
-              <img src="assets/global-accounts/Carousel5.png" alt="Global accounts" />
-            </div>
-          </div>
-        </div>
-        <button type="button" class="case-carousel-btn" id="carousel-next" aria-label="Next image">→</button>
-      </div>
-      <div class="case-carousel-dots-wrap">
-        <div class="case-carousel-dots" id="carousel-dots"></div>
       </div>
     </div>
 

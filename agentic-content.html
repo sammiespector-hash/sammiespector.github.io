@@ -81,9 +81,8 @@
 
     /* CASE STUDY */
     .case-study {
-      max-width: 1300px;
       margin: 0;
-      padding: 140px 80px 100px 88px;
+      padding: 140px 70px 100px 70px;
     }
 
     .back-link {
@@ -126,17 +125,28 @@
       margin-bottom: 0;
     }
 
-    /* HERO SPLIT */
-    .case-hero {
-      display: flex;
-      gap: 60px;
-      align-items: flex-start;
+    /* HERO SECTION WRAPPER */
+    .case-hero-section {
       margin-bottom: 80px;
       padding-bottom: 80px;
       border-bottom: 1px solid var(--cream-dark);
     }
+
+    /* HERO GRID */
+    .case-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
     .case-hero-text {
-      flex: 0 0 420px;
+      padding-right: 50px;
+    }
+    .case-hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
 
 
@@ -277,6 +287,8 @@
     @media (max-width: 900px) {
       nav { padding: 24px 32px; }
       .case-study { padding: 120px 32px 80px; }
+      .case-hero { grid-template-columns: 1fr; gap: 40px; }
+      .stage { margin-left: 0; width: 100%; max-width: 100%; }
       footer { padding: 24px 32px; }
     }
     @media (max-width: 600px) {
@@ -293,18 +305,17 @@
       .logo-mark { width: 32px; }
       .case-study { padding: 130px 20px 60px; }
       footer { padding: 20px; }
-      .case-hero { flex-direction: column; gap: 40px; }
+      .case-hero { grid-template-columns: 1fr; gap: 32px; }
+      .stage { margin-left: 0; width: 100%; }
       .experiment-split { flex-direction: column; }
     }
     /* CAROUSEL */
-    .carousel-wrap {
-    }
-
     .stage {
       position: relative;
       height: 340px;
-      margin-bottom: 48px;
-      margin-left: 120px;
+      width: 700px;
+      max-width: 100%;
+      margin-left: auto;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -500,61 +511,67 @@
   </nav>
 
   <article class="case-study">
-    <div class="case-hero">
-      <div class="case-hero-text">
-        <a href="portfolio.html" class="back-link">Back to portfolio</a>
-        <p class="case-tag">Case Study—Angi</p>
-        <h1 class="case-title">Agentic Content Design Projects</h1>
-        <p class="case-intro">In late 2025, Angi instituted an AI-first mandate across the company. Shortly after, a significant reduction-in-force left my team smaller, but the scope and volume of our work hadn't changed. Rather than stretching the team thin or accepting a drop in quality, I treated it as a design problem: how do we maintain output, protect craft, and give our content designers back their time for the work that actually needs a human? These are three ongoing experiments I'm running in using agents to answer that question. Localization automation has now launched, but the next two are work-in-progress, where I'm taking an iterative approach to improvement and adoption as time allows.</p>
-      </div>
-      <!-- CAROUSEL -->
-      <div class="carousel-wrap">
-      <div class="stage" id="stage">
-        <div class="card" id="card-0" onclick="goTo(0)">
-          <p class="card-num">01</p>
-          <h3 class="card-title">Localization Automation</h3>
-          <div class="card-divider"></div>
-          <span class="card-tag">Agents</span>
-          <span class="card-tag">CrowdIn</span>
-          <span class="card-tag">Custom GPT</span>
-          <div class="card-accent">£</div>
-        </div>
-        <div class="card" id="card-1" onclick="goTo(1)">
-          <p class="card-num">02</p>
-          <h3 class="card-title">Content Design Influence over Prototypes</h3>
-          <div class="card-divider"></div>
-          <span class="card-tag">Cursor Skill</span>
-          <span class="card-tag">Style Guide</span>
-          <span class="card-tag">Governance</span>
-          <div class="card-accent">✦</div>
-        </div>
-        <div class="card" id="card-2" onclick="goTo(2)">
-          <p class="card-num">03</p>
-          <h3 class="card-title">Sales & Care Operations</h3>
-          <div class="card-divider"></div>
-          <span class="card-tag">AnGPT</span>
-          <span class="card-tag">Gemini Gem</span>
-          <span class="card-tag">Fact Sheets</span>
-          <div class="card-accent">⟡</div>
-        </div>
-      </div>
+    <a href="portfolio.html" class="back-link">Back to portfolio</a>
 
-      <div class="detail-panel" id="detail">
-        <p class="detail-tag" id="d-tag"></p>
-        <h2 class="detail-title" id="d-title"></h2>
-        <p class="detail-text" id="d-text"></p>
-        <div class="detail-stats" id="d-stats"></div>
-      </div>
-
-      <div class="carousel-controls">
-        <button class="ctrl-btn" onclick="prev()">←</button>
-        <button class="ctrl-btn" onclick="next()">→</button>
-        <div class="ctrl-dots">
-          <div class="dot active" id="dot-0" onclick="goTo(0)"></div>
-          <div class="dot" id="dot-1" onclick="goTo(1)"></div>
-          <div class="dot" id="dot-2" onclick="goTo(2)"></div>
+    <div class="case-hero-section">
+      <!-- HERO GRID: left = text, right = cards -->
+      <div class="case-hero">
+        <div class="case-hero-text">
+          <p class="case-tag">Case Study—Angi</p>
+          <h1 class="case-title">Agentic Content Design Projects</h1>
+          <p class="case-intro">In late 2025, Angi instituted an AI-first mandate across the company. Shortly after, a significant reduction-in-force left my team smaller, but the scope and volume of our work hadn't changed. Rather than stretching the team thin or accepting a drop in quality, I treated it as a design problem: how do we maintain output, protect craft, and give our content designers back their time for the work that actually needs a human? These are three ongoing experiments I'm running in using agents to answer that question. Localization automation has now launched, but the next two are work-in-progress, where I'm taking an iterative approach to improvement and adoption as time allows.</p>
         </div>
-      </div>
+
+        <!-- RIGHT COLUMN: carousel stage + detail panel -->
+        <div class="case-hero-right">
+          <div class="stage" id="stage">
+            <div class="card" id="card-0" onclick="goTo(0)">
+              <p class="card-num">01</p>
+              <h3 class="card-title">Localization Automation</h3>
+              <div class="card-divider"></div>
+              <span class="card-tag">Agents</span>
+              <span class="card-tag">CrowdIn</span>
+              <span class="card-tag">Custom GPT</span>
+              <div class="card-accent">£</div>
+            </div>
+            <div class="card" id="card-1" onclick="goTo(1)">
+              <p class="card-num">02</p>
+              <h3 class="card-title">Content Design Influence over Prototypes</h3>
+              <div class="card-divider"></div>
+              <span class="card-tag">Cursor Skill</span>
+              <span class="card-tag">Style Guide</span>
+              <span class="card-tag">Governance</span>
+              <div class="card-accent">✦</div>
+            </div>
+            <div class="card" id="card-2" onclick="goTo(2)">
+              <p class="card-num">03</p>
+              <h3 class="card-title">Sales & Care Operations</h3>
+              <div class="card-divider"></div>
+              <span class="card-tag">AnGPT</span>
+              <span class="card-tag">Gemini Gem</span>
+              <span class="card-tag">Fact Sheets</span>
+              <div class="card-accent">⟡</div>
+            </div>
+          </div>
+
+          <!-- DETAIL PANEL: inside right column, below cards -->
+          <div class="detail-panel" id="detail">
+            <p class="detail-tag" id="d-tag"></p>
+            <h2 class="detail-title" id="d-title"></h2>
+            <p class="detail-text" id="d-text"></p>
+            <div class="detail-stats" id="d-stats"></div>
+          </div>
+          <!-- CONTROLS: inside right column -->
+          <div class="carousel-controls">
+            <button class="ctrl-btn" onclick="prev()">←</button>
+            <button class="ctrl-btn" onclick="next()">→</button>
+            <div class="ctrl-dots">
+              <div class="dot active" id="dot-0" onclick="goTo(0)"></div>
+              <div class="dot" id="dot-1" onclick="goTo(1)"></div>
+              <div class="dot" id="dot-2" onclick="goTo(2)"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

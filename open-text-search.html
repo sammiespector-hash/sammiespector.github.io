@@ -72,10 +72,21 @@
     nav ul li a:hover::after { width: 100%; }
 
     .case-study {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 140px 60px 100px;
+      padding: 140px 70px 100px;
     }
+
+    .case-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .case-hero-text { padding-right: 50px; }
+    .hero-img { width: 100%; height: auto; border: 1px solid var(--cream-dark); }
+    .case-body { max-width: 680px; }
 
     .back-link {
       display: inline-flex;
@@ -115,9 +126,6 @@
       color: var(--ink-light);
       line-height: 1.6;
       max-width: 680px;
-      margin-bottom: 64px;
-      padding-bottom: 64px;
-      border-bottom: 1px solid var(--cream-dark);
     }
 
     .case-meta {
@@ -265,6 +273,8 @@
     @media (max-width: 900px) {
       nav { padding: 24px 32px; }
       .case-study { padding: 120px 32px 80px; }
+      .case-hero { grid-template-columns: 1fr; }
+      .case-hero-text { padding-right: 0; }
       .case-meta { flex-wrap: wrap; gap: 24px; }
       .image-grid { grid-template-columns: 1fr; }
       footer { padding: 24px 32px; }
@@ -321,9 +331,18 @@
   <article class="case-study">
     <a href="portfolio.html" class="back-link">Back to portfolio</a>
 
-    <p class="case-tag">Case Study — Vogue / Condé Nast</p>
-    <h1 class="case-title">Vogue Open Text Search</h1>
-    <p class="case-intro">A technically-minded project that demonstrates the contributions of Content Design when there isn't much text on the screen. I owned the content design contributions for this project, as well as its handover to marketing.</p>
+    <div class="case-hero">
+      <div class="case-hero-text">
+        <p class="case-tag">Case Study — Vogue / Condé Nast</p>
+        <h1 class="case-title">Vogue Open Text Search</h1>
+        <p class="case-intro">A technically-minded project that demonstrates the contributions of Content Design when there isn't much text on the screen. I owned the content design contributions for this project, as well as its handover to marketing.</p>
+      </div>
+      <div class="case-hero-image">
+        <img class="hero-img" src="assets/open-text-search/image-search-challenge.svg" alt="Open Text Search — the challenge" />
+      </div>
+    </div>
+
+    <div class="case-body">
 
     <div class="case-meta">
       <div class="case-meta-item">
@@ -340,8 +359,6 @@
       <p class="case-section-label">Background</p>
       <p>Vogue owns 1.2 million images from runway shows — a library spanning across the globe and the history of fashion. The everyday Vogue reader didn't have easy access to this vast archive. Plus, fashion designers and students needed better tools in order to see our IP as a valuable resource.</p>
       <p>Enter a collaboration with our Machine Learning team.</p>
-
-      <img class="case-image-medium" src="assets/open-text-search/image-search-challenge.svg" alt="The challenge — limited filters" />
     </div>
 
     <div class="case-section">
@@ -421,6 +438,7 @@
 
     </div>
 
+    </div><!-- /.case-body -->
   </article>
 
   <footer>

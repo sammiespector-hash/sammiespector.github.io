@@ -76,10 +76,21 @@
 
     /* CASE STUDY */
     .case-study {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 140px 60px 100px;
+      padding: 140px 70px 100px;
     }
+
+    .case-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .case-hero-text { padding-right: 50px; }
+    .hero-img { width: 100%; height: auto; border: 1px solid var(--cream-dark); }
+    .case-body { max-width: 680px; }
 
     .back-link {
       display: inline-flex;
@@ -119,9 +130,6 @@
       color: var(--ink-light);
       line-height: 1.6;
       max-width: 680px;
-      margin-bottom: 64px;
-      padding-bottom: 64px;
-      border-bottom: 1px solid var(--cream-dark);
     }
 
     .case-section {
@@ -318,6 +326,8 @@
     @media (max-width: 900px) {
       nav { padding: 24px 32px; }
       .case-study { padding: 120px 32px 80px; }
+      .case-hero { grid-template-columns: 1fr; }
+      .case-hero-text { padding-right: 0; }
       footer { padding: 24px 32px; }
     }
     @media (max-width: 700px) {
@@ -380,9 +390,18 @@
   <article class="case-study">
     <a href="portfolio.html" class="back-link">Back to portfolio</a>
 
-    <p class="case-tag">Case Study — Condé Nast</p>
-    <h1 class="case-title">Global Accounts</h1>
-    <p class="case-intro">Across Condé Nast brands — including Vogue, Bon Appétit, The New Yorker, and more — accounts are the foundation for building relationships with readers. They lead to paid subscriptions, memberships, and return engagement. My team redesigned the end-to-end sign-in flow to encourage more users to create accounts and increase validated sign-ins.</p>
+    <div class="case-hero">
+      <div class="case-hero-text">
+        <p class="case-tag">Case Study — Condé Nast</p>
+        <h1 class="case-title">Global Accounts</h1>
+        <p class="case-intro">Across Condé Nast brands — including Vogue, Bon Appétit, The New Yorker, and more — accounts are the foundation for building relationships with readers. They lead to paid subscriptions, memberships, and return engagement. My team redesigned the end-to-end sign-in flow to encourage more users to create accounts and increase validated sign-ins.</p>
+      </div>
+      <div class="case-hero-image">
+        <img class="hero-img" src="assets/global-accounts/before-the-redesign.png" alt="Global Accounts — before the redesign" />
+      </div>
+    </div>
+
+    <div class="case-body">
 
     <div class="case-section">
       <p class="case-section-label">Challenge</p>
@@ -462,6 +481,8 @@
         <div class="case-carousel-dots" id="carousel-dots"></div>
       </div>
     </div>
+
+    </div><!-- /.case-body -->
   </article>
 
   <footer>

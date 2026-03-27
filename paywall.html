@@ -30,13 +30,17 @@
     nav ul li a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.35s ease; }
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
-    .case-study { max-width: 860px; margin: 0 auto; padding: 140px 60px 100px; }
+    .case-study { padding: 140px 70px 100px; }
+    .case-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-hero-text { padding-right: 50px; }
+    .hero-img { width: 100%; height: auto; border: 1px solid var(--cream-dark); }
+    .case-body { max-width: 680px; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: var(--ink-light); margin-bottom: 48px; transition: color 0.3s; }
     .back-link:hover { color: var(--accent); }
     .back-link::before { content: '←'; font-size: 16px; }
     .case-tag { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
     .case-title { font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; }
-    .case-intro { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-light); line-height: 1.6; max-width: 680px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-intro { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-light); line-height: 1.6; max-width: 680px; }
     .case-section { margin-bottom: 56px; }
     .case-section-label { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
     .case-section p { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; color: var(--ink); margin-bottom: 1.2em; }
@@ -48,7 +52,7 @@
     .outcome-image { float: none; max-width: 100%; margin: 32px 0 0 0; }
     footer { border-top: 1px solid var(--cream-dark); padding: 32px 60px; margin-top: 80px; }
     footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
-    @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } footer { padding: 24px 32px; } }
+    @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } .case-hero { grid-template-columns: 1fr; } .case-hero-text { padding-right: 0; } footer { padding: 24px 32px; } }
     @media (max-width: 700px) { .case-image { float: none; max-width: 100%; margin: 24px 0; } .outcome-image { max-width: 100%; margin-top: 24px; } .outcome-stat { font-size: 19px; padding: 20px 0; } }
     /* HAMBURGER */
     .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 600; position: relative; }
@@ -99,9 +103,19 @@
 
   <article class="case-study">
     <a href="portfolio.html" class="back-link">Back to portfolio</a>
-    <p class="case-tag">Case Study — Vogue / Condé Nast</p>
-    <h1 class="case-title">Implementing a Digital Paywall on Vogue.com</h1>
-    <p class="case-intro">The Vogue design team was tasked with crafting the first-ever Vogue digital paywall, after a strategic business decision to shift to a subscription model for digital content. Design had the specific responsibility of balancing this business need with a user-centric approach — because implementing a paywall means automatically frustrating the user.</p>
+
+    <div class="case-hero">
+      <div class="case-hero-text">
+        <p class="case-tag">Case Study — Vogue / Condé Nast</p>
+        <h1 class="case-title">Implementing a Digital Paywall on Vogue.com</h1>
+        <p class="case-intro">The Vogue design team was tasked with crafting the first-ever Vogue digital paywall, after a strategic business decision to shift to a subscription model for digital content. Design had the specific responsibility of balancing this business need with a user-centric approach — because implementing a paywall means automatically frustrating the user.</p>
+      </div>
+      <div class="case-hero-image">
+        <img class="hero-img" src="assets/paywall/paywall-design.png" alt="Paywall design" />
+      </div>
+    </div>
+
+    <div class="case-body">
 
     <div class="case-section">
       <p class="case-section-label">Challenge</p>
@@ -113,7 +127,6 @@
       <p class="case-section-label">Approach</p>
       <p>For such a strategic business proposition, we looked to the numbers. By analysing data on which audience segments (e.g. coming in from search vs. social) registered for a free account on which types of content (e.g. Culture vs. Runway site sections), we built a data-informed strategy.</p>
       <p>Because this was such a drastic change for readers, we implemented a phased approach: warning gates on 1–3 articles before landing on a fully gated article. We crafted straightforward, clear messaging — in lieu of marketing language — to delicately balance a moment when consistent readers would be faced with paying to continue their readership.</p>
-      <img class="case-image outcome-image" src="assets/paywall/paywall-design.png" alt="Paywall design" />
       <p>We crafted a handful of panel tests and accompanying flows to help us better understand and optimise conversion.</p>
     </div>
 
@@ -124,6 +137,8 @@
       <div class="outcome-stat">The following year, British Vogue became the first Condé Nast brand with an international paywall, following Vogue.com's template and scaling for GDPR, international, and localisation needs.</div>
       <img class="case-image outcome-image" src="assets/paywall/paywall-outcomes.png" alt="Paywall outcomes" />
     </div>
+
+    </div><!-- /.case-body -->
   </article>
 
   <footer><p>© 2025 Sammie Spector</p></footer>

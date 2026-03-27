@@ -30,13 +30,17 @@
     nav ul li a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.35s ease; }
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
-    .case-study { max-width: 860px; margin: 0 auto; padding: 140px 60px 100px; }
+    .case-study { padding: 140px 70px 100px; }
+    .case-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-hero-text { padding-right: 50px; }
+    .hero-img { width: 100%; height: auto; border: 1px solid var(--cream-dark); }
+    .case-body { max-width: 680px; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: var(--ink-light); margin-bottom: 48px; transition: color 0.3s; }
     .back-link:hover { color: var(--accent); }
     .back-link::before { content: '←'; font-size: 16px; }
     .case-tag { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
     .case-title { font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; }
-    .case-intro { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-light); line-height: 1.6; max-width: 680px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--cream-dark); }
+    .case-intro { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-light); line-height: 1.6; max-width: 680px; }
     .case-section { margin-bottom: 56px; }
     .case-section-label { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
     .case-section p { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.75; color: var(--ink); margin-bottom: 1.2em; }
@@ -53,7 +57,7 @@
     .outcome-images-row .outcome-image { flex: 1; max-width: 45%; margin: 0; }
     footer { border-top: 1px solid var(--cream-dark); padding: 32px 60px; margin-top: 80px; }
     footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
-    @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } footer { padding: 24px 32px; } }
+    @media (max-width: 900px) { nav { padding: 24px 32px; } .case-study { padding: 120px 32px 80px; } .case-hero { grid-template-columns: 1fr; } .case-hero-text { padding-right: 0; } footer { padding: 24px 32px; } }
     @media (max-width: 700px) { .case-image { float: none; max-width: 100%; margin: 24px 0; } .outcome-image { max-width: 100%; margin-top: 24px; } .outcome-images-row { flex-direction: column; } .outcome-images-row .outcome-image { max-width: 100%; } .outcome-stat { font-size: 19px; padding: 20px 0; } }
     /* HAMBURGER */
     .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 600; position: relative; }
@@ -104,9 +108,19 @@
 
   <article class="case-study">
     <a href="portfolio.html" class="back-link">Back to portfolio</a>
-    <p class="case-tag">Case Study — Vogue</p>
-    <h1 class="case-title">The Met Gala Voting Experience</h1>
-    <p class="case-intro">We needed to design a new feature for the 2022 Met Gala that would compel readers to register for free accounts and engage on our pages for longer. Vogue's Met Gala red carpet gallery sees almost 2 million visitors in the first 3 days it's live — if just 1% of visitors registered, our known user base would skyrocket.</p>
+
+    <div class="case-hero">
+      <div class="case-hero-text">
+        <p class="case-tag">Case Study — Vogue</p>
+        <h1 class="case-title">The Met Gala Voting Experience</h1>
+        <p class="case-intro">We needed to design a new feature for the 2022 Met Gala that would compel readers to register for free accounts and engage on our pages for longer. Vogue's Met Gala red carpet gallery sees almost 2 million visitors in the first 3 days it's live — if just 1% of visitors registered, our known user base would skyrocket.</p>
+      </div>
+      <div class="case-hero-image">
+        <img class="hero-img" src="assets/voting/met-gala-voting-feature.png" alt="Met Gala voting feature" />
+      </div>
+    </div>
+
+    <div class="case-body">
 
     <div class="case-section">
       <p class="case-section-label">Challenge</p>
@@ -121,7 +135,6 @@
         <li>For users who decided not to continue, their reading experience was not blocked — avoiding the risk of frustration and page abandonment.</li>
         <li>We needed language that created a compelling game but didn't feel off-brand for Vogue. After workshopping with Editorial, we proposed "Is this look on theme?" — positive, yet still compelling an opinion, focused on fashion rather than personal judgement.</li>
       </ul>
-      <img class="case-image outcome-image" src="assets/voting/met-gala-voting-feature.png" alt="Met Gala voting feature" />
       <p>An overlay appeared after a user cast their vote, prompting registration to continue engaging with the feature.</p>
     </div>
 
@@ -135,6 +148,8 @@
         <img class="case-image outcome-image" src="assets/voting/registration-overlay.png" alt="Registration overlay" />
       </div>
     </div>
+
+    </div><!-- /.case-body -->
   </article>
 
   <footer><p>© 2025 Sammie Spector</p></footer>

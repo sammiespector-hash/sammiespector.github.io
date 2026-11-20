@@ -8,352 +8,311 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/shared/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=Geist:wght@500&display=swap" rel="stylesheet">
   <style>
+    /* Colour tokens are set from assets/ocean/ocean.js; these are the no-JS defaults. */
     :root {
-      --cream: #F4F2ED;
-      --cream-dark: #EAE7E0;
-      --ink: #1A1A18;
-      --ink-light: #4A4A46;
-      --navy: #1B2F6E;
-      --accent: #B386EF;
-      --accent-light: #D9C2F5;
+      --ink-on-dark: #F4F2ED; --ink-soft-on-dark: #CDD3E6;
+      --ink-on-light: #14161C; --ink-soft-on-light: #1F2430;
+      --accent-on-dark: #DFCCFB; --accent-on-light: #4E2391;
+      --font: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+      --pad-x: 60px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
+    html { background: #0f121f; }
     body {
-      background-color: var(--cream);
-      color: var(--ink);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 300;
-      line-height: 1.7;
+      background: #0f121f;
+      color: var(--ink-on-dark);
+      font-family: var(--font);
+      font-weight: 400;
+      line-height: 1.65;
       overflow-x: hidden;
     }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
 
-    /* NAV */
+    /* ---------- ink per section (set from the depth keyframes in ocean.js) ---------- */
+    [data-ink="light"] { --ink: var(--ink-on-dark); --ink-soft: var(--ink-soft-on-dark); --accent: var(--accent-on-dark); --rule: rgba(244, 242, 237, 0.22); }
+    [data-ink="dark"]  { --ink: var(--ink-on-light); --ink-soft: var(--ink-soft-on-light); --accent: var(--accent-on-light); --rule: rgba(20, 22, 28, 0.2); }
+    .ocean-band, .ocean-nav { color: var(--ink); transition: color 0.5s ease; }
+
+    /* ---------- NAV ---------- */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 60px;
-      background: var(--cream);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.4s ease, background 0.4s ease;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 28px var(--pad-x);
+      transition: color 0.5s ease, opacity 0.8s ease, visibility 0.8s;
     }
-    nav.scrolled {
-      border-bottom-color: var(--cream-dark);
-      background: rgba(244, 242, 237, 0.96);
-      backdrop-filter: blur(8px);
-    }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-    }
-    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; mix-blend-mode: multiply; }
+    .ocean-motion:not(.intro-done) nav { opacity: 0; visibility: hidden; }
+    .ocean-static nav { position: absolute; }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    /* two transparent versions of the mark: navy outline on light water, cream outline on dark water */
+    .logo-mark { width: 36px; height: auto; opacity: 0.95; transition: opacity 0.3s; }
+    nav[data-ink="light"] .logo-mark--on-light,
+    nav[data-ink="dark"] .logo-mark--on-dark { display: none; }
     .nav-brand:hover .logo-mark { opacity: 1; }
     .nav-name {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink);
-      transition: color 0.3s;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); transition: color 0.3s; white-space: nowrap;
     }
     .nav-brand:hover .nav-name { color: var(--accent); }
-    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
     nav ul li a {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ink-light);
-      position: relative;
-      transition: color 0.3s ease;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; color: var(--ink-soft); position: relative; transition: color 0.3s ease;
     }
     nav ul li a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0;
-      width: 0; height: 1px;
-      background: var(--accent);
-      transition: width 0.35s ease;
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--accent); transition: width 0.35s ease;
     }
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
 
-    /* HERO */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 140px 60px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .hero-label {
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.2s forwards;
-    }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(28px, 3.5vw, 42px);
-      font-weight: 300;
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-      max-width: 960px;
-      opacity: 0;
-      animation: fadeUp 0.9s ease 0.4s forwards;
-    }
-    .hero h1 .accent { color: var(--accent); font-style: normal; }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-    .hero-sub {
-      margin-top: 32px;
-      font-size: 19px;
-      font-weight: 300;
-      color: var(--ink-light);
-      max-width: 560px;
-      line-height: 1.6;
-      opacity: 0;
-      animation: fadeUp 0.9s ease 0.6s forwards;
-    }
-
-    /* DIVIDER */
-    .section-divider {
-      width: 1px; height: 48px;
-      background: var(--cream-dark);
-      margin: 0 auto;
-    }
-
-    /* SECTION BASE */
-    section {
-      padding: 60px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-      scroll-margin-top: 90px;
-    }
-    .section-tag {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    /* EXPERIENCE */
-    .experience-intro {
-      font-size: 17px;
-      font-weight: 300;
-      color: var(--ink);
-      line-height: 1.65;
-      max-width: 800px;
-      margin-bottom: 20px;
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .experience-intro.visible { opacity: 1; transform: translateY(0); }
-    .experience-list {
-      margin-top: 20px;
-      border-top: 1px solid var(--cream-dark);
-    }
-    .experience-item {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      align-items: baseline;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--cream-dark);
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .experience-item.visible { opacity: 1; transform: translateY(0); }
-    .exp-role {
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--ink);
-      justify-self: start;
-    }
-    .exp-company {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-align: center;
-      justify-self: center;
-      align-self: center;
-    }
-    .exp-company-logo {
-      max-height: 36px;
-      width: auto;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto;
-    }
-    .exp-company-logo--checkout { max-height: 60px; }
-    .exp-company-logo--angi { max-height: 42px; }
-    .exp-company-logo--vogue { max-height: 30px; }
-    .exp-company-logo--morningstar { max-height: 40px; }
-    .exp-date {
-      font-size: 16px;
-      color: var(--ink-light);
-      font-style: italic;
-      justify-self: end;
-      text-align: right;
-    }
-
-    /* INDUSTRY */
-    .industry-list {
-      margin-top: 20px;
-      border-top: 1px solid var(--cream-dark);
-    }
-    .industry-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--cream-dark);
-      text-decoration: none;
-      color: var(--ink);
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .industry-item.visible { opacity: 1; transform: translateY(0); }
-    .industry-title { font-size: 22px; font-weight: 400; transition: color 0.3s; }
-    .industry-type {
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      transition: color 0.3s;
-      flex-shrink: 0;
-      margin-left: 32px;
-    }
-    .industry-item:hover .industry-title { color: var(--accent); }
-    .industry-item:hover .industry-type { color: var(--accent-light); }
-
-    #say-hello .industry-list { border-top: none; }
-    #say-hello .industry-item { border-bottom: none; padding: 8px 0; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--cream-dark);
-      padding: 32px 60px;
-    }
-    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
-
-    /* HAMBURGER */
     .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 600;
-      position: relative;
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; z-index: 600; position: relative;
     }
-    .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--ink);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: transform 0.3s ease, opacity 0.3s ease; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ---------- background layers (motion mode only) ---------- */
+    .ocean-canvas, .ocean-fallback, .ocean-name { display: none; }
+    .ocean-motion .ocean-canvas,
+    .ocean-motion .ocean-fallback { display: block; position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
+    .ocean-motion .ocean-fallback { background: #04083f; transition: opacity 0.9s ease; }
+    .ocean-motion .ocean-canvas {
+      opacity: 0; transition: opacity 0.9s ease;
+      /* render smaller, display full-size (see sizeCanvas in ocean.js);
+         !important because the library writes inline width/height on the canvas */
+      width: calc(100vw * var(--render-scale, 1)) !important; height: calc(100vh * var(--render-scale, 1)) !important;
+      right: auto; bottom: auto; transform-origin: 0 0; transform: scale(calc(1 / var(--render-scale, 1)));
+    }
+    .gpu-ready .ocean-canvas { opacity: 1; }
+    .gpu-ready .ocean-fallback { opacity: 0; }
+    /* the name before the shader is ready, and in the CSS fallback */
+    .ocean-motion .ocean-name {
+      display: block; position: fixed; z-index: 1; left: 50%; top: 83vh;
+      transform: translate3d(-50%, 0, 0); translate: 0 -50%;
+      font-family: 'Geist', 'Helvetica Neue', Arial, sans-serif; font-weight: 500;
+      font-size: 22.48vh; letter-spacing: -0.045em; line-height: 1; white-space: nowrap;
+      color: #ececec; pointer-events: none; user-select: none;
+    }
+    .gpu-ready .ocean-name { opacity: 0 !important; transition: opacity 0.6s ease; }
+
+    /* ---------- the track: later sections sit ABOVE earlier ones; scrolling moves it down ---------- */
+    .ocean-track { position: relative; z-index: 2; display: flex; flex-direction: column; }
+    .ocean-spacer { display: none; }
+    .ocean-motion .ocean-viewport {
+      position: fixed; inset: 0; z-index: 2;
+      overflow: hidden; overflow: clip; /* clip: the browser can't scroll it to reach focused links */
+      /* content fades out under the nav instead of colliding with it */
+      -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 64px, #000 128px);
+              mask-image: linear-gradient(180deg, transparent 0, transparent 64px, #000 128px);
+    }
+    .ocean-motion .ocean-track {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      flex-direction: column-reverse;
+      will-change: transform;
+    }
+    .ocean-motion .ocean-spacer { display: block; }
+
+    /* ---------- sections ---------- */
+    .ocean-band { padding: 16vh var(--pad-x); }
+    .band-inner { width: 100%; max-width: 1080px; margin: 0 auto; }
+    .section-tag {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
     }
 
-    /* RESPONSIVE — Tablet */
+    /* 1. Name */
+    .band-hero { min-height: 100vh; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8vh; }
+    .hero-name {
+      font-family: 'Geist', 'Helvetica Neue', Arial, sans-serif; font-weight: 500;
+      font-size: clamp(48px, 11vw, 180px); letter-spacing: -0.045em; line-height: 1;
+    }
+    /* in motion mode the visible name is drawn by the shader */
+    .ocean-motion .hero-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* 2. Headline + intro */
+    .hero h1 {
+      font-size: clamp(28px, 3.2vw, 38px); font-weight: 400; line-height: 1.3; letter-spacing: -0.01em; max-width: 960px;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    /* Checkout.com's brand blue (#186AFF, inline) is 2.6:1 on the deep water; a lighter tint of it passes AA */
+    [data-ink="light"] .hero h1 span[style] { color: #6FA3FF !important; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub { margin-top: 28px; font-size: 17px; color: var(--ink-soft); max-width: 560px; line-height: 1.6; }
+
+    /* 3. Experience */
+    .experience-intro { font-size: 16px; font-weight: 400; color: var(--ink); line-height: 1.65; max-width: 800px; margin-bottom: 20px; }
+    .experience-list { margin-top: 20px; border-top: 1px solid var(--rule); }
+    .exp-block { display: grid; grid-template-columns: 150px 1fr; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+    .exp-anchor {
+      display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 10px;
+      padding-right: 28px; border-right: 0.5px solid var(--rule);
+    }
+    .exp-anchor-logo { max-height: 32px; max-width: 110px; width: auto; object-fit: contain; display: block; }
+    /* logos are dark artwork: on dark water show them as light silhouettes */
+    [data-ink="light"] .exp-anchor-logo { filter: brightness(0) invert(1); opacity: 0.92; }
+    .exp-anchor-logo--checkout { max-height: 52px; max-width: 110px; }
+    .exp-anchor-logo--angi { max-height: 30px; }
+    .exp-anchor-logo--vogue { max-height: 22px; max-width: 80px; }
+    .exp-anchor-logo--morningstar { max-height: 34px; }
+    .exp-anchor-duration { font-size: 12px; color: var(--ink-soft); font-style: italic; letter-spacing: 0.04em; }
+    .exp-roles { display: flex; flex-direction: column; justify-content: center; padding-left: 28px; }
+    .exp-role-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; }
+    .exp-role-title { font-size: 19px; font-weight: 400; color: var(--ink); }
+    .exp-role-date { font-size: 14px; color: var(--ink-soft); font-style: italic; flex-shrink: 0; margin-left: 24px; }
+
+    /* 4. Case studies: small floating cards, three across */
+    .work-grid { --gap: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); margin-top: 24px; }
+    .work-card {
+      --bob: 5px;
+      position: relative; display: flex; flex-direction: column; gap: 7px;
+      padding: 16px 18px 18px; border-radius: 14px; text-decoration: none; color: var(--ink);
+      /* deep-water glass: a darker fill keeps the small text ≥ 4.5:1 even where a light ray passes behind */
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 45%), rgba(6, 14, 60, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 44px -20px rgba(0, 6, 40, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    }
+    .work-card:hover, .work-card:focus-visible {
+      border-color: rgba(223, 204, 251, 0.55);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 45%), rgba(6, 14, 60, 0.38);
+      box-shadow: 0 22px 52px -20px rgba(0, 6, 40, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+    .work-card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .work-number { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; color: var(--accent); }
+    .work-company { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+    .work-title { font-size: 17px; font-weight: 500; line-height: 1.25; letter-spacing: -0.005em; transition: color 0.3s; }
+    .work-card:hover .work-title, .work-card:focus-visible .work-title { color: var(--accent); }
+    .work-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+    .work-category { margin-top: auto; padding-top: 4px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+    /* the float: each card bobs on its own rhythm (motion mode only) */
+    @keyframes bob { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, calc(var(--bob) * -1), 0); } }
+    .ocean-motion .work-card { animation: bob 7s ease-in-out infinite; }
+    .ocean-motion .work-card:nth-child(2) { animation-duration: 8.2s; animation-delay: -2.1s; }
+    .ocean-motion .work-card:nth-child(3) { animation-duration: 6.6s; animation-delay: -4.3s; }
+    .ocean-motion .work-card:nth-child(4) { animation-duration: 7.7s; animation-delay: -1.2s; }
+    .ocean-motion .work-card:nth-child(5) { animation-duration: 8.8s; animation-delay: -3.4s; }
+    .ocean-motion .work-card:hover { animation-play-state: paused; }
+
+    /* 5. Community: two tight columns */
+    .band-community { padding-top: 12vh; padding-bottom: 12vh; }
+    .industry-list { margin-top: 24px; border-top: 1px solid var(--rule); }
+    #community .industry-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; }
+    .industry-item {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 16px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink);
+    }
+    .industry-title { font-size: 18px; font-weight: 400; line-height: 1.35; transition: color 0.3s; }
+    .industry-type { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); transition: color 0.3s; }
+    .industry-item:hover .industry-title, .industry-item:focus-visible .industry-title { color: var(--accent); }
+
+    /* 6. Say hello (surface) */
+    .band-contact { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    #say-hello .industry-list { border-top: none; display: flex; flex-direction: column; gap: 14px; }
+    /* rubric style: the small "Email ↗" / "Profile ↗" label sits above the address it labels */
+    #say-hello .industry-item { flex-direction: column-reverse; align-items: flex-start; gap: 2px; padding: 0; border-bottom: none; }
+    #say-hello .industry-title { font-size: 22px; }
+    /* footer: top left of the surface section, quieter grey (still ≥ 4.5:1 on the surface water) */
+    footer { margin-bottom: 8vh; }
+    footer p { font-size: 12px; color: #4A5163; letter-spacing: 0.06em; }
+    .band-contact .band-inner { display: flex; flex-direction: column; }
+    .band-contact footer { order: -1; }   /* top-down page: footer first, at the top left */
+
+    /* ---------- MIRRORED READING ORDER (motion mode) ----------
+       Content arrives from the top as you scroll, so every section, list and grid is stacked
+       bottom-up: the first thing in the source sits lowest and is the first to arrive, and you
+       read upward as you rise. The DOM keeps normal reading order (screen readers, Tab), and the
+       reduced-motion / no-JS page stays a normal top-down page. */
+    .ocean-motion .band-inner { display: flex; flex-direction: column-reverse; gap: 22px; }
+    .ocean-motion .band-inner > * { margin-top: 0; margin-bottom: 0; }
+    .ocean-motion .band-contact .band-inner { gap: 22px; }
+    .ocean-motion .band-contact footer { order: 0; margin-bottom: 6vh; }
+    /* experience table: Checkout.com (first) at the bottom, rules above each row */
+    .ocean-motion .experience-list { display: flex; flex-direction: column-reverse; border-top: none; border-bottom: 1px solid var(--rule); }
+    .ocean-motion .exp-block { border-bottom: none; border-top: 1px solid var(--rule); }
+    .ocean-motion .exp-roles { flex-direction: column-reverse; }
+    /* cards: 01 02 03 on the bottom row, 04 05 above */
+    .ocean-motion .work-grid { display: flex; flex-wrap: wrap-reverse; }
+    .ocean-motion .work-card { width: calc((100% - 2 * var(--gap)) / 3); }
+    /* community: first pair on the bottom row */
+    .ocean-motion #community .industry-list {
+      display: flex; flex-wrap: wrap-reverse; column-gap: 56px;
+      border-top: none; border-bottom: 1px solid var(--rule);
+    }
+    .ocean-motion #community .industry-item { width: calc(50% - 28px); border-bottom: none; border-top: 1px solid var(--rule); }
+    /* the top row (the last two items) doesn't need a rule above it */
+    .ocean-motion #community .industry-item:nth-last-child(-n+2) { border-top: none; }
+    .ocean-motion #say-hello .industry-list { flex-direction: column-reverse; }
+
+    /* ---------- RESPONSIVE — Tablet ---------- */
     @media (max-width: 900px) {
-      nav { padding: 24px 32px; }
-      nav ul { gap: 28px; }
-      nav ul li a { font-size: 14px; letter-spacing: 0.08em; }
-      section { padding: 48px 32px; scroll-margin-top: 80px; }
-      .hero { padding: 120px 32px 80px; }
-      .hero h1 { font-size: clamp(26px, 4vw, 38px); }
-      .hero-sub { font-size: 18px; margin-top: 24px; }
-      .section-tag { font-size: 16px; }
-      .experience-intro { font-size: 16px; }
-      .experience-item { grid-template-columns: 1fr; gap: 4px 0; padding: 24px 0; align-items: center; }
-      .exp-role, .exp-company, .exp-date { justify-self: start; }
-      .exp-role { font-size: 20px; }
-      .exp-company { font-size: 18px; }
-      .exp-company-logo { max-height: 32px; }
-      .exp-company-logo--angi { max-height: 38px; }
-      .exp-company-logo--vogue { max-height: 26px; }
-      .exp-company-logo--morningstar { max-height: 36px; }
-      .exp-date { text-align: left; font-size: 15px; }
-      .industry-item { padding: 14px 0; }
-      .industry-title { font-size: 20px; }
-      .industry-type { font-size: 12px; margin-left: 24px; }
-      footer { padding: 24px 32px; }
+      :root { --pad-x: 32px; }
+      nav ul { gap: 24px; }
+      nav ul li a { font-size: 12px; letter-spacing: 0.08em; }
+      .exp-block { grid-template-columns: 140px 1fr; }
+      .exp-anchor { padding-right: 20px; gap: 6px; }
+      .exp-roles { padding-left: 20px; }
+      .exp-role-title { font-size: 18px; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .ocean-motion .work-card { width: calc((100% - var(--gap)) / 2); }
     }
 
-    /* RESPONSIVE — Mobile */
+    /* ---------- RESPONSIVE — Mobile ---------- */
     @media (max-width: 600px) {
-      nav { padding: 20px 20px; }
+      :root { --pad-x: 20px; }
+      nav { padding: 20px var(--pad-x); }
       .nav-hamburger { display: flex; }
       nav ul { display: none; }
-      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 40px; }
-      nav.menu-open { position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; z-index: 9000; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; padding: 0; }
+      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 36px; }
+      nav.menu-open {
+        position: fixed; inset: 0; height: 100dvh; z-index: 9000;
+        background: #0b1030; flex-direction: column; justify-content: center; align-items: center; padding: 0;
+        --ink: var(--ink-on-dark); --ink-soft: var(--ink-soft-on-dark); --accent: var(--accent-on-dark);
+      }
       nav.menu-open .nav-brand { display: none; }
       nav.menu-open .nav-hamburger { position: absolute; top: 20px; right: 20px; }
-      nav ul li a { font-size: 24px; letter-spacing: 0.14em; }
+      nav ul li a { font-size: 20px; letter-spacing: 0.14em; }
       nav ul li a::after { display: none; }
-      .nav-name { font-size: 13px; letter-spacing: 0.12em; }
+      .nav-name { font-size: 12px; letter-spacing: 0.12em; }
       .logo-mark { width: 32px; }
-      section { padding: 36px 20px; scroll-margin-top: 72px; }
-      .hero { padding: 100px 20px 60px; }
-      .hero h1 { font-size: clamp(22px, 5.5vw, 28px); line-height: 1.35; }
-      .hero-sub { font-size: 17px; margin-top: 20px; max-width: 100%; }
-      .section-divider { height: 32px; }
-      .section-tag { font-size: 15px; letter-spacing: 0.18em; margin-bottom: 16px; }
+      nav.menu-open .logo-mark--on-light { display: none; }
+      .ocean-band { padding: 13vh var(--pad-x); }
+      .hero h1 { font-size: clamp(22px, 6vw, 28px); line-height: 1.35; }
+      .hero-sub { font-size: 16px; margin-top: 20px; }
       .experience-intro { font-size: 15px; }
-      .experience-item { padding: 20px 0; }
-      .exp-role { font-size: 18px; }
-      .exp-company { font-size: 16px; }
-      .exp-company-logo { max-height: 28px; }
-      .exp-company-logo--angi { max-height: 32px; }
-      .exp-company-logo--vogue { max-height: 24px; }
-      .exp-company-logo--morningstar { max-height: 30px; }
-      .industry-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        padding: 16px 0;
+      .exp-block { grid-template-columns: 1fr; padding: 18px 0; }
+      .exp-anchor {
+        flex-direction: row; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 10px 16px;
+        padding-right: 0; border-right: none; border-bottom: 0.5px solid var(--rule); padding-bottom: 12px; margin-bottom: 10px;
       }
-      .industry-title { font-size: 18px; }
-      .industry-type { margin-left: 0; font-size: 11px; letter-spacing: 0.08em; }
-      #say-hello .industry-item { padding: 12px 0; }
-      footer { padding: 20px; }
-      footer p { font-size: 12px; }
+      .exp-anchor-logo { max-height: 28px; }
+      .exp-anchor-logo--checkout { max-height: 38px; }
+      .exp-anchor-logo--vogue { max-height: 20px; }
+      .exp-anchor-logo--morningstar { max-height: 28px; }
+      .exp-roles { padding-left: 0; }
+      .exp-role-title { font-size: 16px; }
+      .exp-role-date { font-size: 13px; }
+      .work-grid { grid-template-columns: 1fr; --gap: 12px; }
+      .ocean-motion .work-card { width: 100%; }
+      .work-card { --bob: 3px; }
+      #community .industry-list { grid-template-columns: 1fr; }
+      .ocean-motion #community .industry-item { width: 100%; }
+      /* one column: only the very top item drops its rule */
+      .ocean-motion #community .industry-item:nth-last-child(2) { border-top: 1px solid var(--rule); }
+      .industry-item { padding: 12px 0; }
+      .industry-title { font-size: 17px; }
+      #say-hello .industry-title { font-size: 19px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .work-card { animation: none !important; }
     }
   </style>
   <!-- Google Analytics -->
@@ -368,9 +327,10 @@
 <body>
 
   <!-- NAV -->
-  <nav id="main-nav">
+  <nav id="main-nav" class="ocean-nav" data-ink="light">
     <a href="/" class="nav-brand">
-      <img class="logo-mark" src="assets/shared/logo.png" alt="Sammie Spector" width="40" height="40" />
+      <img class="logo-mark logo-mark--on-light" src="assets/shared/logo-mark.png" alt="Sammie Spector" width="40" height="59" />
+      <img class="logo-mark logo-mark--on-dark" src="assets/shared/logo-mark-light.png" alt="" aria-hidden="true" width="40" height="59" />
       <span class="nav-name">Sammie Spector</span>
     </a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
@@ -384,129 +344,209 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Sammie currently leads Content Design at <span style="color: #186AFF;">Checkout.com</span>. Previous hats include leading UX Content Design teams at <span class="accent">Angi</span> and <span class="accent">Cond&eacute; Nast</span>, and a UX Design team at <em>Vogue</em>.</h1>
-    <p class="hero-sub">
-      She directs content design practices that shape how products speak, while building the craft, the culture, and the systems underneath.
-    </p>
+  <!-- OCEAN BACKGROUND (one canvas for the whole page) -->
+  <canvas class="ocean-canvas" aria-hidden="true"></canvas>
+  <div class="ocean-fallback" aria-hidden="true"></div>
+  <div class="ocean-name" aria-hidden="true">sammie spector</div>
+
+  <div class="ocean-viewport">
+    <main class="ocean-track">
+
+      <!-- 1. NAME (deepest) -->
+      <section class="ocean-band band-hero" data-ink="light" aria-label="Sammie Spector">
+        <p class="hero-name">Sammie Spector</p>
+      </section>
+
+      <!-- 2. HEADLINE + INTRO -->
+      <section class="ocean-band band-intro" data-ink="light">
+        <div class="band-inner hero">
+          <h1>Sammie currently leads Content Design at <span style="color: #186AFF;">Checkout.com</span>. Previous hats include leading UX Content Design teams at <span class="accent">Angi</span> and <span class="accent">Cond&eacute; Nast</span>, and a UX Design team at <em>Vogue</em>.</h1>
+          <p class="hero-sub">
+            She directs design practices that shape how products speak, while building the craft, the culture, and the systems underneath.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. EXPERIENCE -->
+      <section class="ocean-band band-experience" id="experience" data-ink="light">
+        <div class="band-inner">
+          <p class="section-tag">Experience</p>
+          <h3 class="experience-intro">My UX career grew hand-in-hand with the industry; I was the very first content design intern at Intuit in Silicon Valley. From there, I worked in FinTech at Intuit and Morningstar, Inc. then jumped to Publishing and Interactive Media. Now, I'm working on digital marketplaces for the broadest range of users yet, homeowners and tradespeople across the globe.</h3>
+          <div class="experience-list">
+
+            <div class="exp-block">
+              <div class="exp-anchor">
+                <img src="assets/shared/Logo-Checkout.com.png" alt="Checkout.com" class="exp-anchor-logo exp-anchor-logo--checkout" />
+              </div>
+              <div class="exp-roles">
+                <div class="exp-role-row">
+                  <span class="exp-role-title">Senior Manager, Content Design</span>
+                  <span class="exp-role-date">Present</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-block">
+              <div class="exp-anchor">
+                <img src="assets/shared/Logo-Angi.svg" alt="Angi" class="exp-anchor-logo exp-anchor-logo--angi" />
+              </div>
+              <div class="exp-roles">
+                <div class="exp-role-row">
+                  <span class="exp-role-title">Head of Content Design</span>
+                  <span class="exp-role-date">2025 – 2026</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-block">
+              <div class="exp-anchor">
+                <img src="assets/shared/Logo-Condé Nast.svg" alt="Condé Nast" class="exp-anchor-logo" />
+                <img src="assets/shared/Logo-Vogue.svg" alt="Vogue" class="exp-anchor-logo exp-anchor-logo--vogue" />
+              </div>
+              <div class="exp-roles">
+                <div class="exp-role-row">
+                  <span class="exp-role-title">Head of Content Design</span>
+                  <span class="exp-role-date">2023 – 2025</span>
+                </div>
+                <div class="exp-role-row">
+                  <span class="exp-role-title">Product Design Lead, <em>Vogue</em></span>
+                  <span class="exp-role-date">2021 – 2023</span>
+                </div>
+                <div class="exp-role-row">
+                  <span class="exp-role-title">Senior Content Designer</span>
+                  <span class="exp-role-date">2019 – 2021</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-block">
+              <div class="exp-anchor">
+                <img src="assets/shared/Logo-Morningstar.svg" alt="Morningstar" class="exp-anchor-logo exp-anchor-logo--morningstar" />
+              </div>
+              <div class="exp-roles">
+                <div class="exp-role-row">
+                  <span class="exp-role-title">Content Strategist</span>
+                  <span class="exp-role-date">2017 – 2019</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CASE STUDIES (copy and links from portfolio.html) -->
+      <section class="ocean-band band-work" id="case-studies" data-ink="light">
+        <div class="band-inner">
+          <p class="section-tag">Selected Work</p>
+          <div class="work-grid">
+
+            <a href="agentic.html" class="work-card">
+              <span class="work-card-top"><span class="work-number">01</span><span class="work-company">Angi</span></span>
+              <h2 class="work-title">Agentic Content Design Projects</h2>
+              <p class="work-desc">I've experimented with agents to tackle some of content design's most stubborn problems: style guide governance, content system scaling, and localization efficiency. Versed in Claude Code and Cursor, I use these tools to supercharge my team and push the craft forward.</p>
+              <span class="work-category">Team Leadership & Agentic Design</span>
+            </a>
+
+            <a href="global-accounts.html" class="work-card">
+              <span class="work-card-top"><span class="work-number">02</span><span class="work-company">Condé Nast</span></span>
+              <h2 class="work-title">Global Accounts</h2>
+              <p class="work-desc">I redesigned the end-to-end sign-in flow across 10+ Condé Nast brands and 6 markets. This resulted in a 500% increase in signed-in users and 6.3M new registered users across the globe.</p>
+              <span class="work-category">Content Systems & Flexible Components</span>
+            </a>
+
+            <a href="open-text-search.html" class="work-card">
+              <span class="work-card-top"><span class="work-number">03</span><span class="work-company">Vogue</span></span>
+              <h2 class="work-title">Vogue Open Text Search</h2>
+              <p class="work-desc">I led content design for Vogue's AI-powered image search — a technically-minded project that proves content design matters even when there's barely any text on the screen. The feature alone drove 17% of monthly paywall conversions and 70% of all app sessions.</p>
+              <span class="work-category">AI & Content Systems</span>
+            </a>
+
+            <a href="paywall.html" class="work-card">
+              <span class="work-card-top"><span class="work-number">04</span><span class="work-company">Vogue</span></span>
+              <h2 class="work-title">Paywall Design</h2>
+              <p class="work-desc">I crafted Vogue's first-ever digital paywall experience. I empathized with charging people money, so I had to balance a disruptive experience with the overarching business model. This new gated experience drove 61% of total site subscriptions.</p>
+              <span class="work-category">Strategy & Conversion</span>
+            </a>
+
+            <a href="voting.html" class="work-card">
+              <span class="work-card-top"><span class="work-number">05</span><span class="work-company">Vogue</span></span>
+              <h2 class="work-title">Met Gala Voting Experience</h2>
+              <p class="work-desc">I designed an interactive voting feature for the Met Gala red carpet. It was my first foray into game theory. Funny enough, it was also my last. It generated 2.9M votes and 27k registrations, which was 83% above our goal, without frustrating non-participating (no fun) readers.</p>
+              <span class="work-category">UX & Engagement</span>
+            </a>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. COMMUNITY -->
+      <section class="ocean-band band-community" id="community" data-ink="dark">
+        <div class="band-inner">
+          <p class="section-tag">Community</p>
+          <div class="industry-list">
+
+            <a href="https://uxcontent.com/workshop-intro-to-figma-for-content-designers/" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">Intro to Figma for Content Designers</span>
+              <span class="industry-type">Workshop — UXCC</span>
+            </a>
+
+            <a href="https://uxcontent.com/content-design-portfolio-review/" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">Portfolios for Content Designers</span>
+              <span class="industry-type">Workshop — UXCC</span>
+            </a>
+
+            <a href="https://www.writersofsiliconvalley.com/episodes/english-majors-content-design" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">From English Major to Content Design Lead</span>
+              <span class="industry-type">Podcast — Writers of Silicon Valley</span>
+            </a>
+
+            <a href="https://workingincontent.co/m/growing/program/content-leader-as-change-agent/" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">Growing in Content</span>
+              <span class="industry-type">Panel Moderator</span>
+            </a>
+
+            <a href="https://uxcontent.com/why-ux-writers-should-learn-figma/" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">Why UX Writers Should Learn Figma</span>
+              <span class="industry-type">Article — UXCC</span>
+            </a>
+
+            <a href="https://uxcontent.com/compassion-ux-hospital-case-study/" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">Compassion in UX: A Hospital Case Study</span>
+              <span class="industry-type">Article — UXCC</span>
+            </a>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. SAY HELLO (the surface) -->
+      <section class="ocean-band band-contact" id="say-hello" data-ink="dark">
+        <div class="band-inner">
+          <p class="section-tag">Say Hello</p>
+          <div class="industry-list">
+            <a href="mailto:hello@sammiespector.com" class="industry-item">
+              <span class="industry-title">hello@sammiespector.com</span>
+              <span class="industry-type">Email ↗</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sammiespector" class="industry-item" target="_blank" rel="noopener">
+              <span class="industry-title">LinkedIn</span>
+              <span class="industry-type">Profile ↗</span>
+            </a>
+          </div>
+          <footer>
+            <p>© 2026 Sammie Spector</p>
+          </footer>
+        </div>
+      </section>
+
+    </main>
   </div>
-
-  <div class="section-divider"></div>
-
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <p class="section-tag">Experience</p>
-    <h3 class="experience-intro">My UX career grew hand-in-hand with the industry; I was the very first content design intern at Intuit in Silicon Valley. From there, I worked in FinTech at Intuit and Morningstar, Inc. then jumped to Publishing and Interactive Media. Now, I'm working on digital marketplaces for the broadest range of users yet, homeowners and tradespeople across the globe.</h3>
-    <div class="experience-list">
-
-      <div class="experience-item">
-        <p class="exp-role">Senior Manager, Content Design</p>
-        <div class="exp-company"><img src="assets/shared/Logo-Checkout.com.png" alt="Checkout.com" class="exp-company-logo exp-company-logo--checkout" /></div>
-        <p class="exp-date">Present</p>
-      </div>
-
-      <div class="experience-item">
-        <p class="exp-role">Head of Content Design</p>
-        <div class="exp-company"><img src="assets/shared/Logo-Angi.svg" alt="Angi" class="exp-company-logo exp-company-logo--angi" /></div>
-        <p class="exp-date">2025 – 2026</p>
-      </div>
-
-      <div class="experience-item">
-        <p class="exp-role">Head of Content Design</p>
-        <div class="exp-company"><img src="assets/shared/Logo-Condé Nast.svg" alt="Condé Nast" class="exp-company-logo" /></div>
-        <p class="exp-date">2023 – 2025</p>
-      </div>
-
-      <div class="experience-item">
-        <p class="exp-role">Product Design Lead</p>
-        <div class="exp-company"><img src="assets/shared/Logo-Vogue.svg" alt="Vogue" class="exp-company-logo exp-company-logo--vogue" /></div>
-        <p class="exp-date">2021 – 2023</p>
-      </div>
-
-      <div class="experience-item">
-        <p class="exp-role">Senior Content Designer</p>
-        <div class="exp-company"><img src="assets/shared/Logo-Condé Nast.svg" alt="Condé Nast" class="exp-company-logo" /></div>
-        <p class="exp-date">2019 – 2021</p>
-      </div>
-
-      <div class="experience-item">
-        <p class="exp-role">Content Strategist</p>
-        <div class="exp-company"><img src="assets/shared/Logo-Morningstar.svg" alt="Morningstar" class="exp-company-logo exp-company-logo--morningstar" /></div>
-        <p class="exp-date">2017 – 2019</p>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- COMMUNITY -->
-  <section id="community">
-    <p class="section-tag">Community</p>
-    <div class="industry-list">
-
-      <a href="https://uxcontent.com/workshop-intro-to-figma-for-content-designers/" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">Intro to Figma for Content Designers</span>
-        <span class="industry-type">Workshop — UXCC</span>
-      </a>
-
-      <a href="https://uxcontent.com/content-design-portfolio-review/" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">Portfolios for Content Designers</span>
-        <span class="industry-type">Workshop — UXCC</span>
-      </a>
-
-      <a href="https://www.writersofsiliconvalley.com/episodes/english-majors-content-design" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">From English Major to Content Design Lead</span>
-        <span class="industry-type">Podcast — Writers of Silicon Valley</span>
-      </a>
-
-      <a href="https://workingincontent.co/m/growing/program/content-leader-as-change-agent/" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">Growing in Content</span>
-        <span class="industry-type">Panel Moderator</span>
-      </a>
-
-      <a href="https://uxcontent.com/why-ux-writers-should-learn-figma/" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">Why UX Writers Should Learn Figma</span>
-        <span class="industry-type">Article — UXCC</span>
-      </a>
-
-      <a href="https://uxcontent.com/compassion-ux-hospital-case-study/" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">Compassion in UX: A Hospital Case Study</span>
-        <span class="industry-type">Article — UXCC</span>
-      </a>
-
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- SAY HELLO -->
-  <section id="say-hello">
-    <p class="section-tag">Say Hello</p>
-    <div class="industry-list">
-      <a href="mailto:hello@sammiespector.com" class="industry-item">
-        <span class="industry-title">hello@sammiespector.com</span>
-        <span class="industry-type">Email ↗</span>
-      </a>
-      <a href="https://www.linkedin.com/in/sammiespector" class="industry-item" target="_blank" rel="noopener">
-        <span class="industry-title">LinkedIn</span>
-        <span class="industry-type">Profile ↗</span>
-      </a>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 Sammie Spector</p>
-  </footer>
+  <div class="ocean-spacer" aria-hidden="true"></div>
 
   <script>
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
     // Hamburger menu
+    const nav = document.getElementById('main-nav');
     const hamburger = document.getElementById('nav-hamburger');
     const navMenu = document.getElementById('nav-menu');
     hamburger.addEventListener('click', () => {
@@ -525,33 +565,8 @@
         document.body.style.overflow = '';
       });
     });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, entry.target.dataset.delay || 0);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    const experienceIntro = document.querySelector('.experience-intro');
-    if (experienceIntro) {
-      experienceIntro.dataset.delay = 0;
-      observer.observe(experienceIntro);
-    }
-    document.querySelectorAll('.experience-item').forEach((el, i) => {
-      el.dataset.delay = (i + 1) * 80;
-      observer.observe(el);
-    });
-
-    document.querySelectorAll('.industry-item').forEach((el, i) => {
-      el.dataset.delay = i * 60;
-      observer.observe(el);
-    });
   </script>
+  <script type="module" src="assets/ocean/ocean.js"></script>
 
 </body>
 </html>

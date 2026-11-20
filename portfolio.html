@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ocean="descend" data-ink="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,27 +8,32 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/shared/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
+    /* Colour tokens are set from assets/ocean/ocean.js; these are the no-JS defaults. */
     :root {
-      --cream: #F4F2ED;
-      --cream-dark: #EAE7E0;
-      --ink: #1A1A18;
-      --ink-light: #4A4A46;
-      --navy: #1B2F6E;
-      --accent: #B386EF;
-      --accent-light: #D9C2F5;
+      --ink-on-dark: #F4F2ED; --ink-soft-on-dark: #CDD3E6;
+      --ink-on-light: #14161C; --ink-soft-on-light: #1F2430;
+      --accent-on-dark: #DFCCFB; --accent-on-light: #4E2391;
+      --font: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
     }
+    [data-ink="light"] { --ink: var(--ink-on-dark); --ink-soft: var(--ink-soft-on-dark); --accent: var(--accent-on-dark); --rule: rgba(244, 242, 237, 0.22); }
+    [data-ink="dark"]  { --ink: var(--ink-on-light); --ink-soft: var(--ink-soft-on-light); --accent: var(--accent-on-light); --rule: rgba(20, 22, 28, 0.2); }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    /* descending page: bright surface at the top, the deep floor at the bottom (no-JS / reduced motion) */
+    html { background: #0f121f; }
     body {
-      background-color: var(--cream);
+      background: linear-gradient(180deg, #9fd6f3 0%, #5aa6dc 22%, #1d438c 45%, #0f187a 68%, #04083f 100%);
       color: var(--ink);
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      line-height: 1.7;
+      font-family: var(--font);
+      font-weight: 400;
+      line-height: 1.65;
       overflow-x: hidden;
+      transition: color 0.5s ease;
     }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
 
     /* NAV */
     nav {
@@ -38,32 +43,35 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 28px 60px;
-      background: var(--cream);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.4s ease, background 0.4s ease;
+      padding: 28px 60px 40px;
+      color: var(--ink);
+      transition: color 0.5s ease;
     }
-    nav.scrolled {
-      border-bottom-color: var(--cream-dark);
-      background: rgba(244, 242, 237, 0.96);
-      backdrop-filter: blur(8px);
+    /* frosted water behind the nav, fading out downward, so text scrolls under it cleanly at any depth */
+    nav::before {
+      content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+              mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
     }
+    .ocean-static nav { position: absolute; }
+    .ocean-static nav::before, nav.menu-open::before { display: none; }
     .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-mark { width: 36px; height: auto; opacity: 0.92; transition: opacity 0.3s; mix-blend-mode: multiply; }
+    .logo-mark { width: 36px; height: auto; opacity: 0.95; transition: opacity 0.3s; }
+    nav[data-ink="light"] .logo-mark--on-light,
+    nav[data-ink="dark"] .logo-mark--on-dark { display: none; }
     .nav-brand:hover .logo-mark { opacity: 1; }
     .nav-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px; font-weight: 400;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--ink); transition: color 0.3s;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); transition: color 0.3s; white-space: nowrap;
     }
     .nav-brand:hover .nav-name { color: var(--accent); }
-    nav ul { list-style: none; display: flex; gap: 48px; }
+    nav ul { list-style: none; display: flex; gap: 40px; }
     nav ul li a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px; font-weight: 400;
+      font-size: 13px; font-weight: 500;
       letter-spacing: 0.12em; text-transform: uppercase;
-      text-decoration: none; color: var(--ink-light);
+      text-decoration: none; color: var(--ink-soft);
       position: relative; transition: color 0.3s ease;
     }
     nav ul li a::after {
@@ -74,17 +82,31 @@
     nav ul li a:hover { color: var(--accent); }
     nav ul li a:hover::after { width: 100%; }
 
+    /* OCEAN BACKGROUND (one canvas for the whole page) */
+    .ocean-canvas, .ocean-fallback { display: none; }
+    .ocean-motion .ocean-canvas,
+    .ocean-motion .ocean-fallback { display: block; position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; }
+    .ocean-motion .ocean-fallback { background: #a6dcf6; transition: opacity 0.9s ease; }
+    .ocean-motion .ocean-canvas {
+      opacity: 0; transition: opacity 0.9s ease;
+      width: calc(100vw * var(--render-scale, 1)) !important; height: calc(100vh * var(--render-scale, 1)) !important;
+      right: auto; bottom: auto; transform-origin: 0 0; transform: scale(calc(1 / var(--render-scale, 1)));
+    }
+    .gpu-ready .ocean-canvas { opacity: 1; }
+    .gpu-ready .ocean-fallback { opacity: 0; }
+    .ocean-motion body { background: transparent; }
+
     /* PAGE */
     .page-content {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 140px 60px 100px;
+      padding: 215px 60px 100px;   /* label starts where the case-study pages' labels do */
     }
+    .page-header { padding-bottom: 56px; }
 
     .page-tag {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 13px;
+      font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
@@ -92,26 +114,24 @@
     }
 
     .page-title {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 300;
-      line-height: 1.1;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 400;
+      line-height: 1.15;
       letter-spacing: -0.02em;
-      margin-bottom: 24px;
-      max-width: 700px;
+      margin-bottom: 18px;
+      max-width: 640px;
     }
 
     .page-intro {
-      font-size: 19px;
-      font-weight: 300;
-      color: var(--ink-light);
+      font-size: 15px;
+      color: var(--ink-soft);
       line-height: 1.6;
-      max-width: 800px;
-      margin-bottom: 72px;
+      max-width: 640px;
     }
 
-    /* WORK LIST */
+    /* WORK LIST — each item is a step deeper */
     .work-list {
-      border-top: 1px solid var(--cream-dark);
+      border-top: 1px solid var(--rule);
     }
 
     .work-item {
@@ -119,62 +139,66 @@
       grid-template-columns: 1fr auto;
       gap: 24px;
       align-items: center;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--cream-dark);
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
       text-decoration: none;
       color: var(--ink);
       opacity: 0;
       transform: translateY(16px);
       animation: fadeUpWork 0.5s ease forwards;
       position: relative;
+      transition: border-color 0.5s ease;
     }
 
-    .work-item:nth-child(1) { animation-delay: 1.2s; }
-    .work-item:nth-child(2) { animation-delay: 1.5s; }
-    .work-item:nth-child(3) { animation-delay: 1.8s; }
-    .work-item:nth-child(4) { animation-delay: 2.1s; }
-    .work-item:nth-child(5) { animation-delay: 2.4s; }
+    .work-item:nth-child(1) { animation-delay: 0.6s; }
+    .work-item:nth-child(2) { animation-delay: 0.75s; }
+    .work-item:nth-child(3) { animation-delay: 0.9s; }
+    .work-item:nth-child(4) { animation-delay: 1.05s; }
+    .work-item:nth-child(5) { animation-delay: 1.2s; }
 
     .work-item::after {
       content: '→';
       position: absolute;
       right: 0;
-      font-size: 20px;
+      font-size: 16px;
       color: var(--accent);
       opacity: 0;
       transform: translateX(-8px);
       transition: opacity 0.3s, transform 0.3s;
     }
 
-    .work-item:hover::after {
+    .work-item:hover::after,
+    .work-item:focus-visible::after {
       opacity: 1;
       transform: translateX(0);
     }
 
-    .work-item-left { display: flex; flex-direction: column; gap: 10px; }
+    .work-item-left { display: flex; flex-direction: column; gap: 6px; }
 
     .work-number {
       font-size: 12px;
+      font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent-light);
+      color: var(--accent);
     }
 
     .work-title {
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: 400;
+      font-size: clamp(18px, 1.7vw, 22px);
+      font-weight: 500;
       line-height: 1.2;
+      letter-spacing: -0.01em;
       transition: color 0.3s;
     }
 
-    .work-item:hover .work-title { color: var(--accent); }
+    .work-item:hover .work-title,
+    .work-item:focus-visible .work-title { color: var(--accent); }
 
     .work-desc {
-      font-size: 17px;
-      font-weight: 300;
-      color: var(--ink-light);
-      line-height: 1.5;
-      max-width: 600px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 560px;
       margin-top: 4px;
       transition: color 0.3s;
     }
@@ -189,25 +213,30 @@
     }
 
     .work-company {
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
     }
 
     .work-category {
-      font-size: 13px;
+      font-size: 12px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ink-light);
+      color: var(--ink-soft);
     }
 
-    /* FOOTER */
+    /* FOOTER — at the sea floor */
     footer {
-      border-top: 1px solid var(--cream-dark);
-      padding: 32px 60px;
+      padding: 120px 60px 32px;
     }
-    footer p { font-size: 13px; color: var(--ink-light); letter-spacing: 0.06em; }
+    footer p { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.06em; }
+
+    /* reduced motion / no JS: each section carries its own depth's gradient and ink */
+    .ocean-static .ocean-band { color: var(--ink); }
+    /* stretch each section's colour to the full width of the page */
+    .ocean-static .ocean-band { border-image: conic-gradient(var(--band-bg, transparent) 0 0) fill 0 / / 0 100vmax; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -227,13 +256,19 @@
     .page-title { animation-delay: 0.25s; }
     .page-intro { animation-delay: 0.4s; }
 
+    @media (prefers-reduced-motion: reduce) {
+      .page-tag, .page-title, .page-intro, .work-item { animation: none; opacity: 1; transform: none; }
+    }
+
     @media (max-width: 900px) {
-      nav { padding: 24px 32px; }
-      .page-content { padding: 120px 32px 80px; }
+      nav { padding: 24px 32px 36px; }
+      nav ul { gap: 24px; }
+      nav ul li a { font-size: 12px; letter-spacing: 0.08em; }
+      .page-content { padding: 180px 32px 80px; }
       .work-item { grid-template-columns: 1fr; }
       .work-item-right { align-items: flex-start; padding-right: 0; margin-top: 8px; }
       .work-item::after { display: none; }
-      footer { padding: 24px 32px; }
+      footer { padding: 96px 32px 24px; }
     }
     /* HAMBURGER */
     .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 600; position: relative; }
@@ -242,19 +277,23 @@
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
     @media (max-width: 600px) {
-      nav { padding: 20px 20px; }
+      nav { padding: 20px 20px 32px; }
       .nav-hamburger { display: flex; }
       nav ul { display: none; }
-      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 40px; }
-      nav.menu-open { position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; z-index: 9000; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; padding: 0; }
+      nav ul.open { display: flex; flex-direction: column; align-items: center; gap: 36px; }
+      nav.menu-open {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; z-index: 9000;
+        background: #0b1030; flex-direction: column; justify-content: center; align-items: center; padding: 0;
+        --ink: var(--ink-on-dark); --ink-soft: var(--ink-soft-on-dark); --accent: var(--accent-on-dark);
+      }
       nav.menu-open .nav-brand { display: none; }
       nav.menu-open .nav-hamburger { position: absolute; top: 20px; right: 20px; }
-      nav ul li a { font-size: 24px; letter-spacing: 0.14em; }
+      nav ul li a { font-size: 20px; letter-spacing: 0.14em; }
       nav ul li a::after { display: none; }
-      .nav-name { font-size: 13px; letter-spacing: 0.12em; }
+      .nav-name { font-size: 12px; letter-spacing: 0.12em; }
       .logo-mark { width: 32px; }
-      .page-content { padding: 130px 20px 60px; }
-      footer { padding: 20px; }
+      .page-content { padding: 140px 20px 60px; }
+      footer { padding: 72px 20px 20px; }
     }
   </style>
   <!-- Google Analytics -->
@@ -268,9 +307,10 @@
 </head>
 <body>
 
-  <nav id="main-nav">
+  <nav id="main-nav" class="ocean-nav" data-ink="dark">
     <a href="index.html" class="nav-brand">
-      <img src="assets/shared/logo.png" class="logo-mark" alt="Sammie Spector" />
+      <img src="assets/shared/logo-mark.png" class="logo-mark logo-mark--on-light" alt="Sammie Spector" width="40" height="59" />
+      <img src="assets/shared/logo-mark-light.png" class="logo-mark logo-mark--on-dark" alt="" aria-hidden="true" width="40" height="59" />
       <span class="nav-name">Sammie Spector</span>
     </a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
@@ -284,14 +324,20 @@
     </ul>
   </nav>
 
+  <!-- OCEAN BACKGROUND: starts at the surface and descends as you scroll -->
+  <canvas class="ocean-canvas" aria-hidden="true"></canvas>
+  <div class="ocean-fallback" aria-hidden="true"></div>
+
   <main class="page-content">
-    <p class="page-tag">Selected Work</p>
-    <h1 class="page-title">Leadership through craft, systems, and strategy.</h1>
-    <p class="page-intro">A selection of projects spanning from subscription design to interactive games, each rooted in a clear business challenge and user-centric approach.</p>
+    <div class="page-header ocean-band" data-depth="5">
+      <p class="page-tag">Selected Work</p>
+      <h1 class="page-title">Leadership through craft, systems, and strategy.</h1>
+      <p class="page-intro">A selection of projects spanning from subscription design to interactive games, each rooted in a clear business challenge and user-centric approach.</p>
+    </div>
 
     <div class="work-list">
 
-      <a href="agentic.html" class="work-item">
+      <a href="agentic.html" class="work-item ocean-band" data-depth="4">
         <div class="work-item-left">
           <span class="work-number">01</span>
           <h2 class="work-title">Agentic Content Design Projects</h2>
@@ -303,7 +349,7 @@
         </div>
       </a>
 
-      <a href="global-accounts.html" class="work-item">
+      <a href="global-accounts.html" class="work-item ocean-band" data-depth="3">
         <div class="work-item-left">
           <span class="work-number">02</span>
           <h2 class="work-title">Global Accounts</h2>
@@ -315,7 +361,7 @@
         </div>
       </a>
 
-      <a href="open-text-search.html" class="work-item">
+      <a href="open-text-search.html" class="work-item ocean-band" data-depth="2">
         <div class="work-item-left">
           <span class="work-number">03</span>
           <h2 class="work-title">Vogue Open Text Search</h2>
@@ -327,7 +373,7 @@
         </div>
       </a>
 
-      <a href="paywall.html" class="work-item">
+      <a href="paywall.html" class="work-item ocean-band" data-depth="1">
         <div class="work-item-left">
           <span class="work-number">04</span>
           <h2 class="work-title">Paywall Design</h2>
@@ -339,7 +385,7 @@
         </div>
       </a>
 
-      <a href="voting.html" class="work-item">
+      <a href="voting.html" class="work-item ocean-band" data-depth="0">
         <div class="work-item-left">
           <span class="work-number">05</span>
           <h2 class="work-title">Met Gala Voting Experience</h2>
@@ -354,15 +400,12 @@
     </div>
   </main>
 
-  <footer>
+  <footer class="ocean-band" data-depth="0">
     <p>© 2026 Sammie Spector</p>
   </footer>
 
   <script>
     const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
     const hamburger = document.getElementById('nav-hamburger');
     const navMenu = document.getElementById('nav-menu');
     hamburger.addEventListener('click', () => {
@@ -382,6 +425,7 @@
       });
     });
   </script>
+  <script type="module" src="assets/ocean/ocean.js"></script>
 
 </body>
 </html>

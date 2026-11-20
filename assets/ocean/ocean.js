@@ -4,6 +4,11 @@
    scroll. Content moves DOWN as you scroll down (visual only; DOM order and
    native scrolling are untouched).
 
+   Modes (set on <html data-ocean="…">):
+     rise (default, homepage)  content moves down as you scroll; sections read bottom-up
+     descend (inner pages)     normal scrolling, from the bright surface down into the depths;
+                               give each .ocean-band a data-depth (5 = surface … 0 = floor)
+
    Debug query params:
      ?motion=reduce        force the reduced-motion page
      ?gpu=off              force the CSS-gradient fallback
@@ -62,6 +67,10 @@ const MIN_DPR = 0.5;              // floor for the automatic quality step-down
 const SLOW_FRAME_MS = 24;         // if the median frame is slower than this for ~2s, render smaller
 const MOBILE_BREAKPOINT = 700;    // px
 const TOUCH_RIPPLES = 'tap';      // touch devices: 'tap' (ripple where you tap), 'off', or 'drag'
+
+// Descend pages: the whole page switches ink as the water passes this depth (± hysteresis)
+const INK_SWITCH_DEPTH = 3.5;
+const INK_SWITCH_HYSTERESIS = 0.15;
 
 // Text colours (WCAG AA verified against the rendered water)
 const INK_LIGHT = '#F4F2ED';      // on dark water
@@ -139,6 +148,11 @@ const fallbackBg = document.querySelector('.ocean-fallback');
 const domName = document.querySelector('.ocean-name');
 const nav = document.querySelector('.ocean-nav');
 
+const DESCEND = root.dataset.ocean === 'descend';
+// Each section's depth: its data-depth, or (homepage) its position, 0 = floor … 5 = surface
+const bandDepth = bands.map((b, i) => clamp(b.dataset.depth !== undefined ? parseFloat(b.dataset.depth) : i, 0, LAST));
+const inkFor = d => DEPTHS[Math.round(clamp(d, 0, LAST))].ink;
+
 // Colour tokens → CSS (single source of truth is this file)
 const tokens = {
   '--ink-on-dark': INK_LIGHT, '--ink-soft-on-dark': INK_LIGHT_SOFT,
@@ -147,7 +161,7 @@ const tokens = {
   '--accent-on-light': ACCENT_ON_LIGHT,
 };
 for (const [k, v] of Object.entries(tokens)) root.style.setProperty(k, v);
-bands.forEach((band, i) => { band.dataset.ink = DEPTHS[Math.min(i, LAST)].ink; });
+bands.forEach((band, i) => { band.dataset.ink = inkFor(bandDepth[i]); });
 
 // Re-evaluate the whole page if the motion preference changes
 reduceQuery.addEventListener?.('change', () => location.reload());
@@ -160,10 +174,16 @@ else initMotion();
 function initStatic() {
   root.classList.add('ocean-static');
   bands.forEach((band, i) => {
-    // each section stays within its own depth's colours (so its text colour always passes),
-    // and each depth is lighter than the one above it on the page
-    const w = DEPTHS[Math.min(i, LAST)].water;
-    band.style.background = `linear-gradient(180deg, ${mixHex(w[0], w[1], 0.5)} 0%, ${mixHex(w[1], w[2], 0.5)} 100%)`;
+    // each section stays within its own depth's colours (so its text colour always passes)
+    const w = DEPTHS[Math.round(bandDepth[i])].water;
+    if (DESCEND) {
+      // inner pages: one solid colour per section, extended full-width by the page CSS (--band-bg)
+      const c = mixHex(w[1], w[2], 0.5);
+      band.style.background = c;
+      band.style.setProperty('--band-bg', c);
+    } else {
+      band.style.background = `linear-gradient(180deg, ${mixHex(w[0], w[1], 0.5)} 0%, ${mixHex(w[1], w[2], 0.5)} 100%)`;
+    }
   });
 }
 
@@ -171,7 +191,13 @@ function initStatic() {
 
 function initMotion() {
   root.classList.add('ocean-motion');
-  history.scrollRestoration = 'manual';
+  if (DESCEND) {
+    root.classList.add('ocean-descend');
+    // several sections share the screen at once here, so the ink follows the water page-wide
+    bands.forEach(b => delete b.dataset.ink);
+  } else {
+    history.scrollRestoration = 'manual';
+  }
 
   const depthsLab = DEPTHS.map(d => ({
     water: d.water.map(hexToOklab), speed: d.speed,
@@ -191,7 +217,9 @@ function initMotion() {
   let navInk = '';
   let causticsOn = false;
   let rippleBoost = 0;       // touch: 1 right after a tap, decays to 0
-  let navShown = params.get('intro') === 'skip' || FROZEN_DEPTH !== null || !!location.hash;
+  let curDepth = null;       // eased depth, drives the page-wide ink on descend pages
+  let pageInk = '';
+  let navShown = DESCEND || params.get('intro') === 'skip' || FROZEN_DEPTH !== null || !!location.hash;
   if (navShown) root.classList.add('intro-done');
 
   /* -- layout ------------------------------------------------------------- */
@@ -201,6 +229,20 @@ function initMotion() {
 
   function layout() {
     vh = innerHeight;
+    if (DESCEND) {
+      navH = nav ? nav.offsetHeight : 0;
+      const docH = document.documentElement.scrollHeight;
+      maxScroll = Math.max(0, docH - vh);
+      let prev = -Infinity;
+      centres = bands.map(b => {
+        const r = b.getBoundingClientRect();
+        let c = clamp(r.top + window.scrollY + r.height / 2, vh / 2, docH - vh / 2);
+        c = Math.max(c, prev + 1); prev = c;
+        return c;
+      });
+      sizeCanvas();
+      return;
+    }
     trackH = track.offsetHeight;
     spacer.style.height = trackH + 'px';
     maxScroll = Math.max(0, trackH - vh);
@@ -231,15 +273,15 @@ function initMotion() {
   function depthAt(s) {
     if (FROZEN_DEPTH !== null) return FROZEN_DEPTH;
     const c = s + vh / 2;
-    if (c <= centres[0]) return 0;
+    if (c <= centres[0]) return bandDepth[0];
     for (let i = 0; i < centres.length - 1; i++) {
       if (c < centres[i + 1]) {
         const u = (c - centres[i]) / (centres[i + 1] - centres[i]);
         const h = BAND_HOLD / 2;
-        return i + smoothstep(h, 1 - h, u);
+        return lerp(bandDepth[i], bandDepth[i + 1], smoothstep(h, 1 - h, u));
       }
     }
-    return Math.min(centres.length - 1, LAST);
+    return bandDepth[bandDepth.length - 1];
   }
 
   function sampleDepth(d) {
@@ -310,7 +352,7 @@ function initMotion() {
       }
       if (USE_GLINTS) send('glints', { intensity: r2(GLINTS.intensity * current.glints) });
       send('light', { exposure: r3(current.exposure) });
-      send('name', { center: { x: 0.5, y: r3(name.y) }, fontSize: name.size });
+      if (!DESCEND) send('name', { center: { x: 0.5, y: r3(name.y) }, fontSize: name.size });
       send('ripples', { intensity: r2(rippleIntensity()) });
     }
     if (gpuState !== 'ready') {
@@ -324,9 +366,18 @@ function initMotion() {
         domName.style.fontSize = r2(name.size * vh) + 'px';
       }
     }
-    // nav text follows the section under the viewport centre
-    const ink = DEPTHS[Math.round(depthAt(s))].ink;
-    if (nav && ink !== navInk) { nav.dataset.ink = ink; navInk = ink; }
+    if (DESCEND) {
+      // page-wide ink follows the eased water, with hysteresis so it doesn't flicker at the switch
+      const dark = pageInk === 'dark' ? curDepth > INK_SWITCH_DEPTH - INK_SWITCH_HYSTERESIS
+        : pageInk === 'light' ? curDepth > INK_SWITCH_DEPTH + INK_SWITCH_HYSTERESIS
+        : curDepth >= INK_SWITCH_DEPTH;
+      const ink = dark ? 'dark' : 'light';
+      if (ink !== pageInk) { pageInk = ink; root.dataset.ink = ink; if (nav) nav.dataset.ink = ink; }
+    } else {
+      // nav text follows the section under the viewport centre
+      const ink = DEPTHS[Math.round(depthAt(s))].ink;
+      if (nav && ink !== navInk) { nav.dataset.ink = ink; navInk = ink; }
+    }
   }
 
   /* -- main loop ------------------------------------------------------------ */
@@ -338,15 +389,17 @@ function initMotion() {
 
     const s = window.scrollY;
     if (!navShown && s > NAV_REVEAL_PX) showNav();
-    if (s !== lastScroll) {
+    if (!DESCEND && s !== lastScroll) {
       track.style.transform = `translate3d(0, ${s}px, 0)`;
       lastScroll = s;
     }
     if (rippleBoost > 0) rippleBoost = Math.max(0, rippleBoost - rawMs / TAP_RIPPLE_MS);
 
-    const target = sampleDepth(depthAt(s));
-    if (!current) current = structuredClone(target);
-    else easeState(current, target, 1 - Math.exp(-dt / EASE_TAU));
+    const k = 1 - Math.exp(-dt / EASE_TAU);
+    const d = depthAt(s);
+    const target = sampleDepth(d);
+    if (!current) { current = structuredClone(target); curDepth = d; }
+    else { easeState(current, target, k); curDepth += (d - curDepth) * k; }
     render(s, t);
 
     raf = requestAnimationFrame(frame);
@@ -402,8 +455,8 @@ function initMotion() {
     const s = clamp(Math.round(fromBottom - (vh - viewportY)), 0, maxScroll);
     window.scrollTo({ top: s, behavior: 'instant' });
   }
-  addEventListener('keydown', () => { if (!navShown) showNav(); });
-  document.addEventListener('focusin', e => {
+  if (!DESCEND) addEventListener('keydown', () => { if (!navShown) showNav(); });
+  if (!DESCEND) document.addEventListener('focusin', e => {
     if (!track.contains(e.target)) return;
     if (!navShown) showNav();
     const r = e.target.getBoundingClientRect();
@@ -423,7 +476,7 @@ function initMotion() {
     else scrollToTrackPoint(trackPoint(r.bottom), vh - 32);
     return true;
   }
-  document.addEventListener('click', e => {
+  if (!DESCEND) document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]');
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
     if (goToHash(a.getAttribute('href'))) {
@@ -431,7 +484,7 @@ function initMotion() {
       history.pushState(null, '', a.getAttribute('href'));
     }
   });
-  addEventListener('popstate', () => { pendingHash = ''; goToHash(location.hash); });
+  if (!DESCEND) addEventListener('popstate', () => { pendingHash = ''; goToHash(location.hash); });
 
   /* -- pause when hidden ------------------------------------------------------ */
   document.addEventListener('visibilitychange', () => {
@@ -452,7 +505,7 @@ function initMotion() {
     resizeQueued = true;
     requestAnimationFrame(() => { resizeQueued = false; layout(); });
   });
-  new ResizeObserver(() => layout()).observe(track);
+  new ResizeObserver(() => layout()).observe(track || document.body);
 
   /* -- shader ------------------------------------------------------------------ */
   // The library sizes the canvas itself at devicePixelRatio (capped at 1.5 on phones, 2 elsewhere).
@@ -512,7 +565,7 @@ function initMotion() {
       ...(STYLE === 'fine' ? [fine] : []),
       { type: 'Exposure', id: 'light', props: { exposure: d0.exposure } },
       ...(STYLE === 'grain' ? [grain] : []),   // grain after the light, before the name, so the name stays clean
-      { type: 'Text', id: 'name', props: { ...NAME_BASE, fontSize: name.size, center: { x: 0.5, y: name.y } } },
+      ...(DESCEND ? [] : [{ type: 'Text', id: 'name', props: { ...NAME_BASE, fontSize: name.size, center: { x: 0.5, y: name.y } } }]),
       { type: 'CursorRipples', id: 'ripples', props: { ...RIPPLES_BASE, intensity: IS_TOUCH && TOUCH_RIPPLES !== 'drag' ? 0 : d0.ripples } },
     ];
   }
@@ -537,7 +590,7 @@ function initMotion() {
           gpuState = 'ready';
           lastSent = {};
           root.classList.add('gpu-ready');
-          setTimeout(sweepName, NAME_RIPPLE_DELAY_MS);
+          if (!DESCEND) setTimeout(sweepName, NAME_RIPPLE_DELAY_MS);
         },
         onError: reason => {
           if (TERMINAL.has(reason) || shader?.getFailureReason()) useFallback(reason);
@@ -550,7 +603,7 @@ function initMotion() {
   }
 
   /* -- go --------------------------------------------------------------------- */
-  let pendingHash = location.hash && location.hash.length > 1 ? location.hash : '';
+  let pendingHash = !DESCEND && location.hash && location.hash.length > 1 ? location.hash : '';
   const dropPending = () => { pendingHash = ''; };
   ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(t => addEventListener(t, dropPending, { passive: true, once: true }));
   layout();
